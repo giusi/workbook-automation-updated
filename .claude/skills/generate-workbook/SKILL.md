@@ -74,17 +74,24 @@ there is no Python/API step left in this workflow (see step 5).
    - Compute the Italian edition label (e.g. `2026-07` → "Luglio 2026").
 
 3. **Draft the content** to the exact schema below. Match lengths (the layout is
-   fixed; text must fill the boxes without overflowing).
+   fixed; text must fill the boxes without overflowing) — see
+   `references/field_assembly.md` for the exact character budgets per field.
 
-4. **Write** the JSON to `out/workbook-<YYYY-MM>.json` (create `out/` if needed).
+4. **Assemble the 34 Canva field values** from the drafted JSON, following the
+   assembly rules in `references/field_assembly.md` (direct copies for most
+   fields; the exercises/completamenti/esercizio_finale blocks need their fixed
+   scaffolding — numbering, dotted answer lines, connective phrases — added on
+   top of your drafted text). Optionally save the JSON to
+   `out/workbook-<YYYY-MM>.json` for your own reference during the run.
 
-5. **Fill Canva via MCP.** There is no Python/API step anymore — fill the brand
-   template directly using the connected Canva MCP tools. Follow
+5. **Fill Canva via MCP.** There's no Python/API step — fill the brand template
+   directly using the connected Canva MCP tools. Follow
    `references/canva_mcp_fill.md` for the exact procedure (locating the template,
    mapping fields to elements, the known gotchas, and the stable edit-URL format).
-   In short: create a design from brand template `EAHNaGY-7DM`, map the 34 fields
-   to their `dataFieldLabel`-tagged text elements page by page, replace their text,
-   verify via thumbnails, rename the design to `WB HDH <Label>`, and commit.
+   In short: create a design from brand template `EAHNaGY-7DM`, map the 34
+   assembled field values to their `dataFieldLabel`-tagged text elements page by
+   page, replace their text, verify via thumbnails, rename the design to
+   `WB HDH <Label>`, and commit.
 
 6. **Report** the Canva edit URL (`https://www.canva.com/design/<design_id>/edit`),
    so Giusi can finalize it. Don't send an approval email unless explicitly asked —
@@ -129,20 +136,19 @@ Rules — getting them wrong makes the boxes overflow or leaves fields unmapped:
   NOT add answer lines — the template adds them.
 - Tone: warm, direct, feminine, encouraging — never generic. Each section a
   distinct theme that builds on the previous.
-- Character budgets per body field (see `app/pipelines/workbook/generate.py`,
-  `FIELD_BUDGETS`) still apply even though the Python fill script is retired —
-  check lengths yourself before filling Canva (`workbook_to_canva_fields` /
-  `check_budgets` are still valid to run standalone for this, see
-  `references/canva_mcp_fill.md`).
+- Character budgets per body field, and how the drafted JSON turns into the 34
+  literal Canva field values (fixed scaffolding for exercises/completamenti/
+  esercizio_finale) — see `references/field_assembly.md`.
 
 ## Notes
 
-- Canva access is via the connected **Canva MCP integration** — no local OAuth
-  setup needed. `scripts/fill_canva.py` / `scripts/canva_auth.py` /
-  `app/integrations/canva_client.py` (the old Connect-API-autofill path) are
-  retired and should not be run — they depend on `.env` secrets that generally
-  won't be provisioned, and the design is now filled via `references/canva_mcp_fill.md`
-  instead.
+- This is a pure Claude Code + MCP workflow — no local server, database, or API
+  keys. Canva access is via the connected **Canva MCP integration**; theme and
+  brand-voice sources come via the **Google Drive MCP integration**. There is no
+  Python pipeline anymore (it was removed — the old FastAPI/Celery/Postgres/
+  SendGrid/Anthropic-API/Canva-OAuth stack is gone from the repo; see git
+  history before this skill's Canva-MCP rewrite if you ever need to reference
+  the old implementation).
 - Known template gap: the brand template (`EAHNaGY-7DM`) has no `cover_title`
   data field anywhere — `cover_title` in the JSON schema currently has nowhere to
   go in Canva. Mention this in your final report rather than silently dropping

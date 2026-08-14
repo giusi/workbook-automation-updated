@@ -1,35 +1,19 @@
 # Filling the HDH workbook Canva template via MCP
 
-Procedure for step 5 of `SKILL.md`. Replaces the old `scripts/fill_canva.py` /
-Canva Connect Autofill API path — that script is retired, don't run it. This
-uses the connected Canva MCP integration (`mcp__Canva__*` tools) instead, which
-doesn't need any local OAuth/`.env` setup.
+Procedure for step 5 of `SKILL.md`. There is no Python pipeline in this repo
+anymore (removed — see `SKILL.md`'s Notes section) — this uses the connected
+Canva MCP integration (`mcp__Canva__*` tools) only, no OAuth/`.env`/local
+service of any kind.
 
 ## 1. Get the 34 field values
 
-Compute them the same way the old pipeline did — the mapping logic in
-`app/pipelines/workbook/generate.py` (`WorkbookContent`, `workbook_to_canva_fields`,
-`check_budgets`) is still correct and still useful, just not wired to a live
-Anthropic call anymore. Easiest path: write your drafted JSON to
-`out/workbook-<YYYY-MM>.json` (already step 4), then run this standalone
-(installing `pydantic`, `pydantic-settings`, `httpx`, and `--no-deps sendgrid
-python-http-client` via pip first if the environment doesn't have them — avoid a
-full `pip install -e .`, which can conflict with a system-managed `cryptography`
-package):
-
-```
-CANVA_TEMPLATE_ID=dummy python3 -c "
-import json, sys
-sys.path.insert(0, '.')
-from app.pipelines.workbook.generate import WorkbookContent, workbook_to_canva_fields, check_budgets
-content = WorkbookContent(**json.load(open('out/workbook-<YYYY-MM>.json')))
-fields = workbook_to_canva_fields(content)
-violations = check_budgets(fields)
-for f, l, lo, hi in violations:
-    print(f'VIOLATION {f}: {l} chars (want {lo}-{hi})')
-json.dump(fields, open('out/canva-fields-<YYYY-MM>.json', 'w'), ensure_ascii=False, indent=2)
-"
-```
+Assemble them per `references/field_assembly.md` — direct copies for most
+fields, fixed scaffolding (numbering, dotted answer lines, connective phrases)
+added on top of your drafted text for `sezN_esercizi`, `esercizio_finale`, and
+`completamenti`. This is plain text work, no code required. Keep the 34 values
+in memory (or jot them to `out/workbook-<YYYY-MM>.json` if that helps you track
+state across a long session) — you'll use them directly in the `replace_text`
+operations in step 5 below.
 
 `CANVA_TEMPLATE_ID=dummy` only satisfies `app.config.settings` at import time —
 nothing here actually calls Canva's REST API. Fix any budget violations by

@@ -1,15 +1,3 @@
-.env
-secrets/*
-!secrets/README.md
 .DS_Store
-__pycache__/
-*.pyc
-*.pyo
-.pytest_cache/
-.ruff_cache/
-dist/
-*.egg-info/
-.venv/
-uv.lock
 out/
 logs/
