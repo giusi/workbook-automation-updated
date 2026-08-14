@@ -13,11 +13,9 @@ added on top of your drafted text for `sezN_esercizi`, `esercizio_finale`, and
 `completamenti`. This is plain text work, no code required. Keep the 34 values
 in memory (or jot them to `out/workbook-<YYYY-MM>.json` if that helps you track
 state across a long session) — you'll use them directly in the `replace_text`
-operations in step 5 below.
-
-`CANVA_TEMPLATE_ID=dummy` only satisfies `app.config.settings` at import time —
-nothing here actually calls Canva's REST API. Fix any budget violations by
-revising the JSON and re-running, then proceed with the resulting field dict.
+operations in step 5 below. Check each body field against its budget in
+`field_assembly.md` before filling; revise and re-check rather than shipping an
+out-of-range field.
 
 ## 2. Locate the template
 
@@ -107,6 +105,17 @@ locator id shown in brackets in the `read-design` output, e.g.
   `fontWeight: bold` from the previous edition's multi-run rich text (which had a
   bold opening line). Check thumbnails for stray bold/italic runs and normalize
   with `format_text` if the new text shouldn't have them.
+- **Font family isn't settable via the API.** `format_text` can set size,
+  weight, style, color, alignment, etc., but not the font family — if a text
+  element is rendering in the wrong typeface, that has to be fixed by hand in
+  Canva's editor, not through MCP. Size/weight/style are fine to fix
+  programmatically (as in the autoshrink and stray-bold cases above).
+- **Resized/repositioned boxes only help if they still span the intended text
+  area.** This doesn't come up in routine fills (`replace_text` doesn't move or
+  resize boxes), but if you ever restructure the template — add a section,
+  split a box — a box that's the wrong size will visibly under-fill or overflow
+  even with correctly length-budgeted text. Worth remembering if the template
+  layout ever changes.
 
 ## 7. Finish
 
