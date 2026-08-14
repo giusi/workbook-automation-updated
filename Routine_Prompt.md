@@ -12,14 +12,6 @@ claude.ai/code/routines.
 - **Schedule:** pick any preset, then `/schedule update` to cron
   `0 12 20 * *` (noon on the 20th, local time).
 
-This repo has no Python pipeline anymore — everything below runs through the
-`generate-workbook` Claude Code skill using the Canva and Google Drive MCP
-connectors only. Deliberately kept short and delegating to `SKILL.md`, rather
-than re-deriving the procedure here, so this prompt can't drift out of sync
-with the skill the way an earlier version of this file did (it named a
-Python module and Canva MCP tool calls that no longer exist, and got the
-`cover_title`/`cover_subtitle` situation backwards).
-
 ---
 
 Generate and render this month's "Happy Daily Home" (HDH) monthly workbook for
