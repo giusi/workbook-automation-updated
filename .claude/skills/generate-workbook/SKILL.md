@@ -26,13 +26,28 @@ runs on the Claude subscription). The Canva/email plumbing stays in Python.
    label (e.g. `2026-07` → "Luglio 2026"). If no entry exists, STOP and report.
 
 2. **Absorb the brand voice — this is what makes the output sound like Giusi.**
-   Before drafting, gather reference material from BOTH:
-   - **Local:** read every file in `brand_voice/` (tone guide, past workbooks,
-     transcripts, sample captions).
-   - **Connectors (if available):** pull recent, relevant material via MCP —
-     podcast transcripts (Libsyn), social captions, and any Drive/Brain notes on
-     the month's theme. If a connector isn't available in this run, skip it and
-     rely on the local `brand_voice/` folder; do not fail.
+   The primary source is the pair of live Google Docs listed in
+   `brand_voice/sources.md`; local files in `brand_voice/` are the always-available
+   supplement and fallback.
+   - **Fetch the Docs (primary):** for each URL in `brand_voice/sources.md`, use
+     the Google Drive connector to get its title (`get_file_metadata`) and body
+     (`read_file_content` / `download_file_content`). Write each as a markdown
+     snapshot to `brand_voice/google_docs/<slugified-title>.md`, overwriting any
+     previous snapshot, with a header noting the source URL and fetch time (UTC).
+     These snapshots are generated files — don't hand-edit them.
+   - **Fallback:** if the Drive connector isn't available, or a fetch fails, skip
+     that doc, note it in your final report, and use whatever snapshot already
+     exists in `brand_voice/google_docs/` from the last successful run instead.
+     Never fail the whole run over a fetch failure.
+   - **Local supplement:** also read every other file in `brand_voice/` (tone
+     guide, past workbooks, transcripts, sample captions) for extra texture.
+   - **Other connectors (if available):** pull recent, relevant material via MCP —
+     podcast transcripts (Libsyn), social captions. Skip if unavailable.
+   - **Snapshot commit:** after writing snapshots, if `git status --porcelain
+     brand_voice/google_docs/` shows changes, commit them on their own (`git add
+     brand_voice/google_docs/ && git commit -m "chore: refresh brand voice
+     snapshot for <month>"`) — keep this separate from the workbook-content
+     commit/PR so the voice-source history stays easy to audit.
    Extract: her recurring phrases, sentence rhythm, warmth, directness, the topics
    she returns to, and what she avoids. Mirror that voice — do not write generic
    "AI wellness" prose.
