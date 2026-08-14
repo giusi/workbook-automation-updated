@@ -6,29 +6,29 @@ description: Generate the monthly HDH workbook in Giusi Valentini's voice and re
 # Generate the monthly HDH workbook
 
 You generate the content for Giusi Valentini's monthly "Happy Daily Home" (HDH)
-workbook — in Italian, in her voice — then hand it to a deterministic script that
-fills the Canva brand template and emails the edit link.
+workbook — in Italian, in her voice — then fill the Canva brand template
+directly via the connected Canva MCP integration.
 
 You are the **content generator** (this replaces the old Anthropic-API call, so it
-runs on the Claude subscription). The Canva/email plumbing stays in Python.
+runs on the Claude subscription). Canva filling is also done by you, via MCP —
+there is no Python/API step left in this workflow (see step 5).
 
 ## Inputs
 
 - Optional month argument like `--month 2026-07`. If absent, use the current month.
-- The theme comes from `content_plan.toml` (keys are `YYYY-MM`). **Never invent a
-  theme** — if there's no entry for the target month, stop and tell the user to add
-  one (and, if email is set up, note that `run_monthly.py` would send a heads-up).
+- The theme comes from `content_plan.toml` (keys are `YYYY-MM`), cross-checked
+  against the "Temi mensili" list in the onboarding Google Doc (see step 1).
+  **Never invent a theme** — if neither source has an entry for the target month,
+  stop and tell the user to add one (and, if email is set up, note that
+  `run_monthly.py` would send a heads-up).
 
 ## Steps
 
-1. **Resolve the edition.** Determine the target `YYYY-MM` and read its entry from
-   `content_plan.toml` (fields: `tema`, `obiettivi`). Compute the Italian edition
-   label (e.g. `2026-07` → "Luglio 2026"). If no entry exists, STOP and report.
-
-2. **Absorb the brand voice — this is what makes the output sound like Giusi.**
+1. **Absorb the brand voice — this is what makes the output sound like Giusi.**
    The primary source is the pair of live Google Docs listed in
    `brand_voice/sources.md`; local files in `brand_voice/` are the always-available
-   supplement and fallback.
+   supplement and fallback. Do this first, since step 2 (resolving the edition)
+   needs the second Doc's content.
    - **Fetch the Docs (primary):** for each URL in `brand_voice/sources.md`, use
      the Google Drive connector to get its title (`get_file_metadata`) and body
      (`read_file_content` / `download_file_content`). Write each as a markdown
@@ -52,18 +52,43 @@ runs on the Claude subscription). The Canva/email plumbing stays in Python.
    she returns to, and what she avoids. Mirror that voice — do not write generic
    "AI wellness" prose.
 
+2. **Resolve the edition.** Determine the target `YYYY-MM`.
+   - Read the entry from `content_plan.toml` (fields: `tema`, `obiettivi`) — this
+     remains the source for the full creative brief, since it carries a real thesis
+     and stated objectives, not just a label.
+   - **Cross-check against the Google Doc.** The snapshot you just wrote for the
+     second Doc ("CLAUDE Skill - Onboarding_Giusis Business") contains a "Temi
+     mensili 2026" line (short `Mese = Tema` labels, e.g. "Agosto = Digital
+     Detox"). Find the target month's label there.
+     - If `content_plan.toml` has an entry and the Doc's label for that month is a
+       recognizably different concept (not just a wording variance) — STOP and
+       report the conflict instead of silently picking one. Show both versions and
+       ask which is authoritative before generating anything.
+     - If `content_plan.toml` has no entry for the month but the Doc does, you may
+       proceed using the Doc's short label as `tema` (with `obiettivi` left to your
+       best judgement from context) — but flag in your final report that only a
+       terse label was available, not a full brief, so Giusi can review more
+       closely than usual.
+     - If neither source has an entry, STOP and report (existing "never invent a
+       theme" rule).
+   - Compute the Italian edition label (e.g. `2026-07` → "Luglio 2026").
+
 3. **Draft the content** to the exact schema below. Match lengths (the layout is
    fixed; text must fill the boxes without overflowing).
 
 4. **Write** the JSON to `out/workbook-<YYYY-MM>.json` (create `out/` if needed).
 
-5. **Fill Canva + notify** by running:
-   ```
-   python scripts/fill_canva.py --content out/workbook-<YYYY-MM>.json --mese "<Label>" --tema "<tema>"
-   ```
-   (Use the project's venv Python if present: `.venv/bin/python`.)
+5. **Fill Canva via MCP.** There is no Python/API step anymore — fill the brand
+   template directly using the connected Canva MCP tools. Follow
+   `references/canva_mcp_fill.md` for the exact procedure (locating the template,
+   mapping fields to elements, the known gotchas, and the stable edit-URL format).
+   In short: create a design from brand template `EAHNaGY-7DM`, map the 34 fields
+   to their `dataFieldLabel`-tagged text elements page by page, replace their text,
+   verify via thumbnails, rename the design to `WB HDH <Label>`, and commit.
 
-6. **Report** the Canva edit URL the script prints, so Giusi can finalize it.
+6. **Report** the Canva edit URL (`https://www.canva.com/design/<design_id>/edit`),
+   so Giusi can finalize it. Don't send an approval email unless explicitly asked —
+   notification is no longer automatic now that the Python fill script is retired.
 
 ## Content schema (34 fields — must match exactly)
 
@@ -96,7 +121,7 @@ Return/write JSON with this shape:
 }
 ```
 
-Rules (the Python side validates these — getting them wrong makes the fill fail):
+Rules — getting them wrong makes the boxes overflow or leaves fields unmapped:
 - EXACTLY 4 sezioni; each with EXACTLY 2 `corpo` columns and EXACTLY 4 `esercizi`.
 - EXACTLY 2 paragraphs in `lettera_corpo` and in `integrazione_corpo`.
 - EXACTLY 2 `esercizio_finale_completamenti`; EXACTLY 3 `completamenti`.
@@ -104,10 +129,21 @@ Rules (the Python side validates these — getting them wrong makes the fill fai
   NOT add answer lines — the template adds them.
 - Tone: warm, direct, feminine, encouraging — never generic. Each section a
   distinct theme that builds on the previous.
+- Character budgets per body field (see `app/pipelines/workbook/generate.py`,
+  `FIELD_BUDGETS`) still apply even though the Python fill script is retired —
+  check lengths yourself before filling Canva (`workbook_to_canva_fields` /
+  `check_budgets` are still valid to run standalone for this, see
+  `references/canva_mcp_fill.md`).
 
 ## Notes
 
-- The Canva credentials and OAuth must already be set up (`scripts/canva_auth.py`
-  run once). This skill only generates content and invokes the fill script.
-- If `fill_canva.py` reports a schema validation error, fix the JSON to match the
-  rules above and re-run it — don't regenerate from scratch.
+- Canva access is via the connected **Canva MCP integration** — no local OAuth
+  setup needed. `scripts/fill_canva.py` / `scripts/canva_auth.py` /
+  `app/integrations/canva_client.py` (the old Connect-API-autofill path) are
+  retired and should not be run — they depend on `.env` secrets that generally
+  won't be provisioned, and the design is now filled via `references/canva_mcp_fill.md`
+  instead.
+- Known template gap: the brand template (`EAHNaGY-7DM`) has no `cover_title`
+  data field anywhere — `cover_title` in the JSON schema currently has nowhere to
+  go in Canva. Mention this in your final report rather than silently dropping
+  it; if it matters, ask Giusi to tag a cover-title text element in Canva.

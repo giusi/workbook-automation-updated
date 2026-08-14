@@ -1,6 +1,14 @@
 """
 Monthly cron entrypoint: generate this month's workbook and email Giusi the link.
 
+RETIRED path, superseded by the generate-workbook Claude Code skill: content
+generation now runs on the Claude subscription instead of a direct Anthropic API
+call, and Canva filling now goes through the Canva MCP integration instead of
+this script's Canva Connect Autofill API call (see
+.claude/skills/generate-workbook/references/canva_mcp_fill.md). Left in place
+for a standalone cron/API-key setup that still wants this flow — not invoked by
+the skill.
+
 Flow (no DB / Redis / Celery / approval web service):
   1. Look up the current month's theme in content_plan.toml
   2. Claude generates the workbook content
