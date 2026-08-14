@@ -9,6 +9,16 @@
 #   tema       — the core theme of the month
 #   obiettivi  — what participants should experience / take away
 # The edition label shown on the cover is derived automatically (e.g. "Luglio 2026").
+#
+# Cross-check source: the "CLAUDE Skill - Onboarding_Giusis Business" Google Doc
+# (see brand_voice/sources.md, second URL) also carries a "Temi mensili 2026" line
+# with short theme labels per month. The generate-workbook skill checks this file
+# against that line on every run and stops if they clearly disagree, instead of
+# silently picking one — see SKILL.md step 1. As of 2026-08-14 the Doc's list
+# ("Luglio = Presenza | Agosto = Digital Detox | Settembre = Organizza |
+# Ottobre = Visione | Novembre = Cicli e perdita") does not match the entries
+# below — this needs reconciling with Giusi (either this file or the Doc is
+# stale).
 
 ["2026-07"]
 tema = "la femminilità e la sensualità come forza vitale"
