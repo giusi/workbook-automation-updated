@@ -116,13 +116,17 @@ Note the literal connective text — `"Completa senza pensarci troppo:"` and
 `"Porta con te questo:"` — is fixed template language, not something to
 paraphrase; reproduce it verbatim, only the content around it changes.
 
-## Background photos (not currently wired up)
+## Background photos
 
 The template has three image autofill fields (`sfondo_cover`, `sfondo_pagina2`,
-`sfondo_impressum`) for a monthly-rotating background photo from a curated Canva
-folder. The old pipeline had this logic (`backgrounds.py`, deterministic photo
-choice per edition) but it was never actually configured (no folder ID was ever
-set), so in practice these three fields have always kept the template's default
-image — nothing is lost by dropping this code. If you want monthly photo
-rotation, it needs to be re-implemented (or just changed by hand in Canva each
-month); it isn't currently part of the fill procedure.
+`sfondo_impressum`) for a monthly-rotating background photo. The old Python
+pipeline had this logic (`backgrounds.py`, deterministic photo choice per
+edition) but it was never actually configured (no folder ID was ever set), so
+in practice these three fields always kept the template's default image.
+
+That's fixed now: a curated Canva folder of Giusi's photos exists
+("For Claude", see `references/media_library.md`), and filling these three
+fields is part of the routine procedure — see `canva_mcp_fill.md` step 6.
+These are images, not text, so they're picked and placed directly via Canva
+MCP (`update_fill`) — they're not part of the 34-field JSON content schema
+above and need no drafting.

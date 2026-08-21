@@ -24,9 +24,9 @@ Confirm with `mcp__Canva__get-brand-template-dataset` if you want to re-verify
 field names — the live dataset has **48 fields**, not 34: extra numbered variants
 per section (`sez2_testo_3`, `sez2_testo_4`, `sez1_esercizi_1`, `sez1_esercizi_2`,
 etc.) and 3 background image fields (`sfondo_cover`, `sfondo_pagina2`,
-`sfondo_impressum`) exist in the template but are **not** part of the current
-34-field content schema. Leave them untouched — this is a pre-existing template/
-pipeline mismatch, not something to "fix" by inventing content for them.
+`sfondo_impressum`). The image fields are **not** part of the 34-field text
+content schema (don't invent text for them) but **are** filled with a photo —
+see step 6 below and `references/media_library.md` for where the photos live.
 
 ## 3. Create a design instance
 
@@ -54,8 +54,8 @@ against the field dict from step 1. Page layout (as of the last fill):
 
 | Page | Fields |
 |---|---|
-| 1 | `cover_subtitle` (no `cover_title` field exists anywhere — see gotcha below) |
-| 2 | `mantra_testo`, `intenzione_testo` |
+| 1 | `cover_subtitle`, `sfondo_cover` (image) (no `cover_title` field exists anywhere — see gotcha below) |
+| 2 | `mantra_testo`, `intenzione_testo`, `sfondo_pagina2` (image) |
 | 3 | `lettera_testo_1`, `lettera_testo_2` |
 | 4 (TOC) | `toc_1`–`toc_4` — **see disambiguation gotcha below** |
 | 5 | `sez1_titolo`, `sez1_citazione`, `sez1_testo_1`, `sez1_testo_2` |
@@ -68,9 +68,15 @@ against the field dict from step 1. Page layout (as of the last fill):
 | 12 | `sez4_esercizi` |
 | 13 | `integrazione_testo_1`, `integrazione_testo_2`, `esercizio_finale` |
 | 14 | `completamenti` |
-| 15 | impressum/colophon — no data fields |
+| 15 | impressum/colophon — `sfondo_impressum` (image) |
 
 Re-verify this layout rather than trusting it blindly — the template can change.
+The three image fields (`sfondo_cover` on page 1, `sfondo_pagina2` on page 2,
+`sfondo_impressum` on page 15, as of the last fill) show up as **image**
+elements carrying the same `dataFieldLabel` annotation as text fields — spot
+them in the `read-design` output by `type: "image"` rather than `type: "text"`.
+Note their `locator_id`s alongside the text fields' while you're reading each
+page; you'll need them in step 6.
 
 ## 5. Apply edits
 
@@ -80,7 +86,38 @@ for every field on that page, `finalize: "keep_open"`. `element_id` is the
 locator id shown in brackets in the `read-design` output, e.g.
 `PBhq7xcTvPR0HS9f-LBFYH72pn9PnlXsf` for `[PBhq7xcTvPR0HS9f-LBFYH72pn9PnlXsf]`.
 
-## 6. Known gotchas (hit these on the first fill — check for them every time)
+## 6. Select and place the background photos
+
+Do this after step 5's text edits (same open transaction is fine).
+
+1. **Pick photos.** Follow `references/media_library.md` to choose a subfolder
+   matching the month's `tema`, then `mcp__Canva__list-folder-items` that
+   subfolder and pick one photo per background field (reusing one photo across
+   all three is fine, or pick 2-3 for variety — see that doc). Note each
+   photo's asset id (`MA...`).
+2. **Place each photo** with one `edit-design` operation per field:
+   ```
+   operations: [{
+     type: "update_fill",
+     element_id: <locator_id of the sfondo_* image element>,
+     asset_type: "image",
+     asset_id: <chosen photo's asset id>,
+     alt_text: "<short description, e.g. 'Giusi Valentini, ritratto professionale'>"
+   }]
+   ```
+   Target the same `page_index` the element lives on (per the table above) —
+   `sfondo_cover` on page 1's call, `sfondo_pagina2` on page 2's, `sfondo_impressum`
+   on page 15's (its own call, since page 15 otherwise has no text edits).
+3. **Verify via thumbnail** like any other page edit — pull the page thumbnail
+   and check the photo landed, isn't stretched/cropped oddly, and reads well
+   under the existing text overlay (title/impressum text sits on top of these
+   backgrounds, so a very busy or high-contrast photo can hurt legibility;
+   prefer photos with a calmer background area behind where the text sits).
+4. If a chosen photo doesn't read well once placed, just pick a different one
+   from the same subfolder and redo the `update_fill` — it's a cheap operation
+   inside the still-open transaction, nothing is committed yet.
+
+## 7. Known gotchas (hit these on the first fill — check for them every time)
 
 - **`toc_1`..`toc_4` are reused on non-target elements.** On the TOC page, some
   elements tagged `toc_1` etc. hold the actual section subtitle (replace these),
@@ -117,7 +154,7 @@ locator id shown in brackets in the `read-design` output, e.g.
   even with correctly length-budgeted text. Worth remembering if the template
   layout ever changes.
 
-## 7. Finish
+## 8. Finish
 
 1. Rename the design: one `edit-design` operation with `type: "update_title"`,
    `title: "WB HDH <Label>"` (e.g. "WB HDH Agosto 2026").
