@@ -124,9 +124,11 @@ pipeline had this logic (`backgrounds.py`, deterministic photo choice per
 edition) but it was never actually configured (no folder ID was ever set), so
 in practice these three fields always kept the template's default image.
 
-That's fixed now: a curated Canva folder of Giusi's photos exists
-("For Claude", see `references/media_library.md`), and filling these three
-fields is part of the routine procedure — see `canva_mcp_fill.md` step 6.
+That's fixed now for two of the three: a curated Canva folder of Giusi's
+photos exists ("For Claude", see `references/media_library.md`), and filling
+`sfondo_cover` and `sfondo_impressum` is part of the routine procedure — see
+`canva_mcp_fill.md` step 6. `sfondo_pagina2` is deliberately left alone
+(keeps the template's default image) — only cover and impressum get a photo.
 These are images, not text, so they're picked and placed directly via Canva
 MCP (`update_fill`) — they're not part of the 34-field JSON content schema
 above and need no drafting.

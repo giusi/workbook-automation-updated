@@ -92,8 +92,9 @@ there is no Python/API step left in this workflow (see step 5).
    from brand template `EAHNaGY-7DM`, map the 34 assembled field values to
    their `dataFieldLabel`-tagged text elements page by page, replace their
    text, pick a themed photo from the curated library (`references/media_library.md`)
-   for the three `sfondo_*` background-image fields, verify via thumbnails,
-   rename the design to `WB HDH <Label>`, and commit.
+   for the `sfondo_cover` and `sfondo_impressum` background-image fields (the
+   third such field, `sfondo_pagina2`, is left unfilled), verify via
+   thumbnails, rename the design to `WB HDH <Label>`, and commit.
 
 6. **Report** the Canva edit URL (`https://www.canva.com/design/<design_id>/edit`),
    so Giusi can finalize it. Don't send an approval email unless explicitly asked —
@@ -155,7 +156,9 @@ Rules — getting them wrong makes the boxes overflow or leaves fields unmapped:
   data field anywhere — `cover_title` in the JSON schema currently has nowhere to
   go in Canva. Mention this in your final report rather than silently dropping
   it; if it matters, ask Giusi to tag a cover-title text element in Canva.
-- Background photos: the template's three `sfondo_*` image fields are filled
-  from a curated Canva folder of Giusi's photos, not generated or drafted —
-  see `references/media_library.md` for where they live and how to pick one,
-  and `references/canva_mcp_fill.md` step 6 for the placement mechanics.
+- Background photos: the template's `sfondo_cover` and `sfondo_impressum`
+  image fields are filled from a curated Canva folder of Giusi's photos, not
+  generated or drafted — see `references/media_library.md` for where they
+  live and how to pick one, and `references/canva_mcp_fill.md` step 6 for the
+  placement mechanics. The third image field, `sfondo_pagina2`, is left
+  unfilled on purpose.

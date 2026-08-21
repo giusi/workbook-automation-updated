@@ -24,9 +24,10 @@ Confirm with `mcp__Canva__get-brand-template-dataset` if you want to re-verify
 field names — the live dataset has **48 fields**, not 34: extra numbered variants
 per section (`sez2_testo_3`, `sez2_testo_4`, `sez1_esercizi_1`, `sez1_esercizi_2`,
 etc.) and 3 background image fields (`sfondo_cover`, `sfondo_pagina2`,
-`sfondo_impressum`). The image fields are **not** part of the 34-field text
-content schema (don't invent text for them) but **are** filled with a photo —
+`sfondo_impressum`). Only `sfondo_cover` and `sfondo_impressum` get a photo —
 see step 6 below and `references/media_library.md` for where the photos live.
+`sfondo_pagina2` is deliberately left untouched (keeps the template's default
+image); don't fill it.
 
 ## 3. Create a design instance
 
@@ -55,7 +56,7 @@ against the field dict from step 1. Page layout (as of the last fill):
 | Page | Fields |
 |---|---|
 | 1 | `cover_subtitle`, `sfondo_cover` (image) (no `cover_title` field exists anywhere — see gotcha below) |
-| 2 | `mantra_testo`, `intenzione_testo`, `sfondo_pagina2` (image) |
+| 2 | `mantra_testo`, `intenzione_testo` (`sfondo_pagina2` also lives here but is left unfilled — see step 6) |
 | 3 | `lettera_testo_1`, `lettera_testo_2` |
 | 4 (TOC) | `toc_1`–`toc_4` — **see disambiguation gotcha below** |
 | 5 | `sez1_titolo`, `sez1_citazione`, `sez1_testo_1`, `sez1_testo_2` |
@@ -71,12 +72,13 @@ against the field dict from step 1. Page layout (as of the last fill):
 | 15 | impressum/colophon — `sfondo_impressum` (image) |
 
 Re-verify this layout rather than trusting it blindly — the template can change.
-The three image fields (`sfondo_cover` on page 1, `sfondo_pagina2` on page 2,
-`sfondo_impressum` on page 15, as of the last fill) show up as **image**
-elements carrying the same `dataFieldLabel` annotation as text fields — spot
-them in the `read-design` output by `type: "image"` rather than `type: "text"`.
-Note their `locator_id`s alongside the text fields' while you're reading each
-page; you'll need them in step 6.
+The two image fields actually filled (`sfondo_cover` on page 1, `sfondo_impressum`
+on page 15, as of the last fill) show up as **image** elements carrying the
+same `dataFieldLabel` annotation as text fields — spot them in the `read-design`
+output by `type: "image"` rather than `type: "text"`. Note their `locator_id`s
+alongside the text fields' while you're reading each page; you'll need them in
+step 6. (`sfondo_pagina2` on page 2 is the same kind of element but is skipped
+— see step 6.)
 
 ## 5. Apply edits
 
@@ -88,13 +90,16 @@ locator id shown in brackets in the `read-design` output, e.g.
 
 ## 6. Select and place the background photos
 
-Do this after step 5's text edits (same open transaction is fine).
+Do this after step 5's text edits (same open transaction is fine). Only
+`sfondo_cover` (page 1) and `sfondo_impressum` (page 15) get filled —
+`sfondo_pagina2` (page 2) is deliberately left alone, keeping the template's
+default image.
 
 1. **Pick photos.** Follow `references/media_library.md` to choose a subfolder
    matching the month's `tema`, then `mcp__Canva__list-folder-items` that
-   subfolder and pick one photo per background field (reusing one photo across
-   all three is fine, or pick 2-3 for variety — see that doc). Note each
-   photo's asset id (`MA...`).
+   subfolder and pick one photo for `sfondo_cover` and one for `sfondo_impressum`
+   (the same photo for both is fine, or two different ones from the same
+   subfolder — see that doc). Note each photo's asset id (`MA...`).
 2. **Place each photo** with one `edit-design` operation per field:
    ```
    operations: [{
@@ -106,8 +111,8 @@ Do this after step 5's text edits (same open transaction is fine).
    }]
    ```
    Target the same `page_index` the element lives on (per the table above) —
-   `sfondo_cover` on page 1's call, `sfondo_pagina2` on page 2's, `sfondo_impressum`
-   on page 15's (its own call, since page 15 otherwise has no text edits).
+   `sfondo_cover` on page 1's call, `sfondo_impressum` on page 15's (its own
+   call, since page 15 otherwise has no text edits).
 3. **Verify via thumbnail** like any other page edit — pull the page thumbnail
    and check the photo landed, isn't stretched/cropped oddly, and reads well
    under the existing text overlay (title/impressum text sits on top of these

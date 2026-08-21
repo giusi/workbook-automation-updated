@@ -1,10 +1,10 @@
 # Giusi's curated photo library (Canva)
 
-Source for the workbook's three background-photo fields (`sfondo_cover`,
-`sfondo_pagina2`, `sfondo_impressum` — see `canva_mcp_fill.md` step 6). All
-access is via the connected **Canva MCP integration**, read-only — this
-library lives in the same Canva account as the brand template, not in this
-repo.
+Source for the workbook's two background-photo fields, `sfondo_cover` and
+`sfondo_impressum` (see `canva_mcp_fill.md` step 6 — the template's third
+image field, `sfondo_pagina2`, is deliberately left unfilled). All access is
+via the connected **Canva MCP integration**, read-only — this library lives
+in the same Canva account as the brand template, not in this repo.
 
 ## Location
 
@@ -28,7 +28,8 @@ thousands of unrelated screenshots and graphics.
 | Giusi - Varie | `FAHS6xUN308` | Miscellaneous named singles (e.g. a NYC trip photo) | Occasional variety; use sparingly, content is a grab-bag |
 
 Only photos of Giusi Valentini live here — nothing else in the account's
-Uploads pool should ever be used for `sfondo_*` fields.
+Uploads pool should ever be used for the `sfondo_cover`/`sfondo_impressum`
+fields.
 
 ## How to browse and pick a photo
 
@@ -38,12 +39,13 @@ Uploads pool should ever be used for `sfondo_*` fields.
 2. Pick the subfolder whose mood/context matches the month's `tema` (see the
    table above). If nothing obviously matches, default to **Selezione 2020
    (Finalen)** or **Ritratti 2025** — both are safe, generically warm choices.
-3. Within the chosen subfolder, pick one photo per background field. You can
-   reuse the same photo for all three fields (simplest, consistent look) or
-   pick 2-3 different ones from the same subfolder for variety — judgment
-   call, no fixed rule. Avoid reusing the *exact same* photo two months in a
-   row if you have a way to check (e.g. last month's `out/workbook-<YYYY-MM>.json`
-   if one was kept, or the previous design's title/thumbnail).
+3. Within the chosen subfolder, pick one photo for `sfondo_cover` and one for
+   `sfondo_impressum`. You can reuse the same photo for both (simplest,
+   consistent look) or pick two different ones from the same subfolder for
+   variety — judgment call, no fixed rule. Avoid reusing the *exact same*
+   photo two months in a row if you have a way to check (e.g. last month's
+   `out/workbook-<YYYY-MM>.json` if one was kept, or the previous design's
+   title/thumbnail).
 4. Note the asset id (`MA...`) — that's what `update_fill` needs in
    `canva_mcp_fill.md` step 6.
 
