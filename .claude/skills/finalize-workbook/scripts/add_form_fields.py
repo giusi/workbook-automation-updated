@@ -2,9 +2,12 @@
 """Add real AcroForm text-field widgets to a flat PDF at given coordinates.
 
 Unlike stamping static text onto a page, this creates interactive form
-fields a reader can tap/click and type into on both desktop and mobile PDF
-viewers (Acrobat, Preview, Chrome/Edge built-in viewers, mobile Adobe
-Reader). Requires pymupdf: `pip install pymupdf`.
+fields a reader can tap/click and type into on desktop AND mobile PDF
+viewers — including iOS's native Files/Quick Look/Mail viewer (Apple's
+PDFKit), which needs more than a plain AcroForm widget to treat a field as
+genuinely interactive; see the in-function comments for exactly what and
+why, diagnosed against a real iPhone plus a known-working reference PDF.
+Requires pymupdf: `pip install pymupdf`.
 
 Usage:
     python3 add_form_fields.py <input.pdf> <fields.json> <output.pdf>
@@ -14,8 +17,13 @@ fields.json shape:
   {
     "page": 6,                          # 1-indexed
     "field_name": "sez1_ex1_line1",     # unique across the whole document
-    "rect": [72.0, 380.5, 520.0, 402.0],# [x0, y0, x1, y1] in PDF points,
-                                         # y=0 at the BOTTOM of the page
+    "rect": [72.0, 380.5, 520.0, 402.0],# [x0, y0, x1, y1] in PyMuPDF page
+                                         # space: origin top-left, y
+                                         # increasing downward — NOT the
+                                         # raw PDF-spec bottom-left-origin
+                                         # convention. Matches what
+                                         # page.get_text()/draw_line()/
+                                         # Widget.rect all use natively.
     "font_size": 11                     # optional, default 11
   },
   ...

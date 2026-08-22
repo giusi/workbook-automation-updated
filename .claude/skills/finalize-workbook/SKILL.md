@@ -47,16 +47,15 @@ you ship the wrong month's PDF as fillable.
    need it kept).
 
 3. **Get answer-line coordinates.** Follow
-   `references/coordinate_extraction.md` in full — it covers reading exact
-   geometry from Canva first (`read-design` with an open transaction, if
-   the lines are addressable elements), falling back to structural
-   detection on the flat PDF (reusing the `pdf` skill's
-   `extract_form_structure.py`), and visual estimation as a last resort.
-   Get each page's real size first with `scripts/get_page_sizes.py` — you
-   need it for any coordinate conversion. Build a `fields.json` (see that
-   script's docstring in `scripts/add_form_fields.py` for the exact shape)
-   with one entry per answer line, named per the convention in that
-   reference doc.
+   `references/coordinate_extraction.md` in full. For this template, the
+   answer lines aren't separate Canva elements — they're one long dot-run
+   per answer that word-wraps — so the real method is
+   `scripts/detect_dotlines.py <flat.pdf>`, which finds those dot-runs
+   directly in the exported PDF and groups each answer's wrapped sub-lines
+   into one bounding box. Build a `fields.json` (see that script's
+   docstring in `scripts/add_form_fields.py` for the exact shape) with one
+   *merged* field per answer (not per wrapped sub-line), named per the
+   convention in that reference doc.
 
 4. **Validate the field map.** `python3 scripts/check_fields.py
    fields.json`. Fix everything it reports (duplicate names, degenerate or
@@ -102,8 +101,22 @@ you ship the wrong month's PDF as fillable.
   months-old `fields.json`) each time, since a template edit in Canva
   would silently desync a cached coordinate file from the real answer-line
   positions.
-- `pymupdf`'s `need_appearances(True)` call in `add_form_fields.py` is a
-  deliberate belt-and-suspenders for older/mobile viewers that don't
-  regenerate field appearances themselves — pymupdf already writes correct
-  appearance streams per field, so this shouldn't be needed in practice,
-  but costs nothing to set.
+- **A plain AcroForm widget is not enough to be tappable in iOS's native
+  PDF viewer (Files/Quick Look/Mail — Apple's PDFKit).** This was found the
+  hard way: the first two builds of this pipeline rendered fields correctly
+  in Acrobat and PyMuPDF but were completely inert on a real iPhone —
+  visible, but tapping did nothing. Diagnosed by comparing against a
+  known-working, iOS-fillable reference PDF (produced by DocFly) field by
+  field. `add_form_fields.py` now reproduces the markers that turned out to
+  matter: the `Multiline` field flag, an explicit `/MK` + `/Border` on each
+  widget, `NeedAppearances: true` plus a proper top-level `/DR`/`/DA` on the
+  AcroForm dict, and — the key one — a private Apple annotation extension
+  key, `/AAPL:AKExtras`, that only appears on PDFKit-authored/targeted
+  forms. None of this is exotic or fragile; it's just what a real
+  interactive PDF form needs to carry for Apple's viewer specifically, and
+  it's now baked into the script — nothing more to do here on future runs
+  unless Apple changes what PDFKit expects. If a future run produces a PDF
+  that again renders but doesn't respond to taps on iOS, re-run this same
+  diff-against-a-working-reference approach rather than guessing from
+  scratch — get a fillable PDF known to work on the affected device and
+  compare its widget dict against `add_form_fields.py`'s output.

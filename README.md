@@ -70,6 +70,7 @@ Routine_Prompt.md           Instructions payload for the scheduled cloud routine
     coordinate_extraction.md  How to find each answer line's PDF coordinates
   scripts/
     add_form_fields.py      Authors real AcroForm text-field widgets onto a flat PDF
+    detect_dotlines.py      Finds each answer's dot-run position(s) in the exported PDF
     check_fields.py         Validates a fields.json before authoring (overlaps, dupes)
     get_page_sizes.py       Prints PDF page sizes in points, for coordinate conversion
     render_with_fields.py   Renders pages with field rects outlined, for visual QA

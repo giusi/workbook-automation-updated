@@ -1,8 +1,11 @@
 # Finding answer-line coordinates
 
-`add_form_fields.py` needs a `fields.json` of `{page, field_name, rect}` in
-**PDF points, y=0 at the bottom of the page** (standard PDF coordinate
-space — not Canva's, not image pixels). This is how to build that file.
+`add_form_fields.py` needs a `fields.json` of `{page, field_name, rect}`,
+`rect` in **PyMuPDF page space**: origin top-left, y increasing downward
+(the same convention `page.get_text()`, `page.draw_line()`, and
+`Widget.rect` all use — not the raw PDF-spec bottom-left-origin convention).
+Since every script here is PyMuPDF end to end, coordinates never need
+flipping between steps. This is how to build that file.
 
 ## Which pages have answer lines
 
@@ -13,89 +16,78 @@ completions on 13 (`esercizio_finale`) and 14 (`completamenti`). Re-verify
 against the live design rather than trusting this blindly; the template can
 change.
 
-## Tier 1 — read exact geometry from Canva (preferred)
+## The answer lines are not separate Canva elements
 
-While the design is still open (before or instead of exporting), call
-`read-design` with `open_transaction: true` and `filter.fields:
-["design_content"]` on one of the exercise pages. Each element in the
-response carries geometry. Check whether the dotted answer lines are their
-own addressable elements (distinct from the prompt text elements) — if so,
-their `rect`/position/size in the response *is* your source of truth, no
-guessing needed.
+Confirmed by reading the live design during the October 2026 fill: each
+answer "line" is not its own element. Every `esercizi`/`completamenti`/
+`esercizio_finale` field is **one single text box** whose content includes
+one long unbroken run of dots per answer (e.g. `"." * 458`, no embedded
+newlines — see `generate-workbook`'s `field_assembly.md`), which Canva's
+text engine word-wraps into ~3 visual sub-lines on its own. There is no
+Canva-side geometry to read for these — reading exact element positions via
+`read-design` (what would otherwise be the first thing to try) doesn't
+apply here, because there's nothing at the per-line granularity to read.
+This may change if the template is ever restructured to use discrete line
+elements per answer instead — worth re-checking `read-design` on one
+exercise page first if a future run's dot count/format looks different from
+what's documented here, before assuming this section still applies.
 
-Canva's page coordinate origin is **top-left, y increasing downward**, and
-its units may not be PDF points 1:1. Convert using the page's actual export
-size:
-```
-pdf_x0 = canva_x / canva_page_width  * pdf_width
-pdf_x1 = (canva_x + canva_w) / canva_page_width * pdf_width
-pdf_y0 = pdf_height - ((canva_y + canva_h) / canva_page_height * pdf_height)   # PDF y=0 is bottom
-pdf_y1 = pdf_height - (canva_y / canva_page_height * pdf_height)
-```
-Get `pdf_width`/`pdf_height` from the exported PDF itself (see Tier 2's
-`get_page_sizes.py` — run it regardless of which tier you end up using, you
-need real page sizes either way). Get `canva_page_width`/`canva_page_height`
-from `read-design`'s `page_metadata`.
+## Detecting answer positions in the exported flat PDF
 
-If the lines are **not** distinct elements (e.g. baked into a background
-frame graphic), fall back to Tier 2.
+Since the dots are real rendered text, their positions can be read directly
+and reliably from the exported flat PDF — no guessing, no image-based
+estimation needed. Use `scripts/detect_dotlines.py <flat.pdf>`: it finds
+every line of text that's >90% period characters, then groups consecutive
+dot-sublines (small vertical gap) into one bounding box per answer — that
+grouped box is what one printed answer actually occupies, wrapped sub-lines
+included.
 
-## Tier 2 — detect lines in the exported flat PDF (fallback)
+Verify the output makes sense before building `fields.json`: the block
+count per page should match the known content structure (4 answer blocks
+on each of pages 6/8/10/12, 2 on page 13, 3 on page 14 — 21 total, as of
+this template). Recompute the expected count from your own fields for the
+edition you're finalizing rather than trusting "21" as a magic number if
+the template or content schema ever changes.
 
-Once you have the flat PDF (`export-design` → download), reuse the `pdf`
-skill's structure extractor rather than writing a new one:
+## One field per answer, not one field per wrapped sub-line
 
-```
-python3 /mnt/skills/public/pdf/scripts/extract_form_structure.py <workbook.pdf> structure.json
-```
-
-This finds horizontal line segments and their exact PDF-coordinate
-bounding boxes (`lines` in its output) along with any text `labels` nearby.
-Cross-reference against the exercise prompt text (from the field values you
-already assembled in `generate-workbook`) to match each detected line to
-the exercise/blank it belongs to, in page order.
-
-Build each field's `rect` as a box sitting *on* the line: same x-span as
-the line, `y0` a few points above the line (room for one line of typed
-text), `y1` a few points below it (so the line stays visible as underline
-once printed/typed-over). Example: a detected line at `y=402` running
-`x=72`–`520` → `rect: [72, 396, 520, 408]`.
-
-## Tier 3 — visual estimation (last resort)
-
-Only if Tier 2 finds nothing usable (rare — these are simple, machine-
-generated vector PDFs, not scans). Render pages to PNG
-(`python3 /mnt/skills/public/pdf/scripts/convert_pdf_to_images.py`) and
-estimate pixel coordinates by eye, then convert to PDF points using the
-image/page dimension ratio. See the `pdf` skill's `FORMS.md` "Approach B"
-for the full zoom-and-refine procedure — it's written for the same kind of
-coordinate problem.
+Build `fields.json` with **one field per detected group** (i.e. per answer,
+not per wrapped sub-line) — a single multiline field spanning the group's
+full bounding box. This matches the source content's own structure: the
+458-dot run is one continuous writing space that happens to wrap across
+~3 printed lines, not three independent answer slots, so one merged
+multiline field is both simpler and a better match for how someone
+actually types an answer (no artificial break between "line 1" and "line
+2" of what is really one flowing response).
 
 ## Field naming
 
-Use a stable, descriptive scheme so a human glancing at `fields.json` (or
-reduced field names in an Acrobat "Add text field" panel) can tell what
-each one is: `sez<N>_ex<M>_line<L>` for exercise answer lines (e.g.
-`sez2_ex3_line1`), `esercizio_finale_line<L>`, `completamenti_line<L>`.
-Every `field_name` must be unique across the whole document —
-`add_form_fields.py` rejects duplicates.
-
-## Multi-line vs single-line fields
-
-Exercise prompts get one field per printed dotted line (several short
-fields stacked, matching how many lines the template prints under each
-prompt) — a single tall multiline field would let someone's answer to line
-2 visually run into line 3's space with no cue where to break, so match the
-template's own line count instead of collapsing them. `completamenti` and
-`esercizio_finale` are the exception: those templates print one continuous
-ruled area per completion sentence, so one field per sentence-blank is
-correct there, sized to the full print area for that blank.
+Use a stable, descriptive scheme so a human glancing at `fields.json` can
+tell what each one is: `sez<N>_ex<M>_line1` for exercise answers (e.g.
+`sez2_ex3_line1` — always `_line1` since there's exactly one merged field
+per exercise, not per wrapped sub-line), `esercizio_finale_line<L>` for the
+`L`-th completion on that page, `completamenti_line<L>` likewise. Every
+`field_name` must be unique across the whole document —
+`add_form_fields.py` rejects duplicates. Map `detect_dotlines.py`'s
+per-page groups to names in top-to-bottom order (the script already returns
+them sorted by vertical position), using your own knowledge of which
+exercise/completion appears at which position on that page.
 
 ## Validate before authoring
 
-Run `python3 scripts/check_fields.py fields.json` (from this skill's own
-directory) before `add_form_fields.py` — it flags duplicate field names,
-degenerate rects, and any two rects on the same page that overlap, which is
-the most common way a coordinate-extraction pass goes wrong. Fix everything
-it reports before proceeding; don't author fields from a fields.json that
-still fails this check.
+Run `python3 scripts/check_fields.py fields.json` before `add_form_fields.py`
+— it flags duplicate field names, degenerate rects, and any two rects on
+the same page that overlap, which is the most common way a coordinate pass
+goes wrong. Fix everything it reports before proceeding.
+
+## If a future template does have discrete per-line elements
+
+If the template is ever rebuilt so each answer line is its own Canva
+element (a deliberate, more robust design — see the note in `SKILL.md`),
+that geometry can be read directly via `read-design` with an open
+transaction, converting Canva's page-pixel coordinates to PDF points using
+the ratio between the design's page dimensions (`page_metadata`) and the
+exported PDF's actual page size (`scripts/get_page_sizes.py`). That path
+wasn't available for the template as it exists today, so it isn't
+documented in more detail here — write it up properly if and when it
+becomes real, rather than trying to follow speculative steps.
