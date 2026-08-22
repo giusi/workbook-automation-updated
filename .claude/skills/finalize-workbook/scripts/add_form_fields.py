@@ -62,11 +62,45 @@ def add_form_fields(input_path: str, fields_path: str, output_path: str) -> int:
         widget.field_value = ""
         page.add_widget(widget)
 
-    # Belt-and-suspenders: ask viewers that don't render appearance streams
-    # themselves (some older/mobile ones) to regenerate field appearances
-    # on open, in addition to the appearance streams add_widget already sets.
-    if doc.is_form_pdf:
-        doc.need_appearances(True)
+    # Deliberately NOT setting NeedAppearances: add_widget already writes a
+    # correct, self-contained appearance stream (with its own embedded font
+    # resource) per field. Setting NeedAppearances=true instead tells viewers
+    # to regenerate that appearance themselves — and strict renderers (Apple's
+    # PDFKit, used by iOS Files/Quick Look/Mail) do that lookup via the
+    # AcroForm's own /DR entry, not the field's local one. Without a top-level
+    # /DR, that regeneration silently fails and the field never becomes
+    # interactive: it renders fine but tapping does nothing. Acrobat and
+    # PyMuPDF are lenient about this and mask the bug — iOS is not.
+    #
+    # Fix: leave NeedAppearances unset (the per-field appearances are already
+    # correct) and add a top-level /DR + /DA to the AcroForm dict anyway, for
+    # any stricter reader that expects the spec's canonical form-level
+    # defaults to exist regardless of NeedAppearances.
+    if doc.is_form_pdf and fields:
+        first_widget = next(iter(doc[fields[0]["page"] - 1].widgets()))
+        _, ap_ref = doc.xref_get_key(first_widget.xref, "AP")
+        ap_n_xref = int(ap_ref.replace("<<", "").replace(">>", "")
+                         .split("/N")[1].strip().split()[0])
+        _, font_ref = doc.xref_get_key(ap_n_xref, "Resources")
+        helv_xref = font_ref.split("/Helv")[1].strip().split()[0]
+
+        # The AcroForm dict is stored inline on the catalog (not as its own
+        # indirect object), so it has to be rewritten as a whole rather than
+        # patched via a separate xref. Pull out the existing /Fields array
+        # verbatim and rebuild the dict with /DR + /DA added and
+        # /NeedAppearances dropped.
+        catalog_xref = doc.pdf_catalog()
+        _, acro_val = doc.xref_get_key(catalog_xref, "AcroForm")
+        fields_start = acro_val.index("/Fields[") + len("/Fields[")
+        fields_end = acro_val.index("]", fields_start)
+        fields_list = acro_val[fields_start:fields_end]
+
+        new_acroform = (
+            f"<</Fields[{fields_list}]"
+            f"/DR<</Font<</Helv {helv_xref} 0 R>>>>"
+            f"/DA(0 0 0 rg /Helv 10 Tf)>>"
+        )
+        doc.xref_set_key(catalog_xref, "AcroForm", new_acroform)
 
     doc.save(output_path)
     doc.close()
