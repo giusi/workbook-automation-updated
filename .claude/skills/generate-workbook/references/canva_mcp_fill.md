@@ -95,6 +95,21 @@ Do this after step 5's text edits (same open transaction is fine). Only
 `sfondo_pagina2` (page 2) is deliberately left alone, keeping the template's
 default image.
 
+**Don't trust the `dataFieldLabel` on the page 1/2 background elements —
+verify by physical position instead.** As of the October 2026 fill, page 1's
+background rect is actually labeled `sfondo_pagina2` (not `sfondo_cover`),
+and page 2's background rect carries no `dataFieldLabel` at all — the labels
+have drifted from what's documented here, and from what the brand template's
+own dataset schema (`get-brand-template-dataset`) implies. This doesn't
+block filling: `update_fill` targets by `locator_id`, not by label, so place
+the cover photo on **page 1's background rect regardless of its label**, and
+leave **page 2's background rect** alone regardless of its label (same
+"don't touch it" rule as always). But flag this to Giusi — it means the
+brand template's own autofill data model is out of sync with its visual
+layout, which will confuse anyone (or anything) that fills this template
+through Canva's native autofill UI/API instead of this locator-based MCP
+flow. Worth her fixing the label directly in Canva at some point.
+
 1. **Pick photos.** Follow `references/media_library.md` to choose a subfolder
    matching the month's `tema`, then `mcp__Canva__list-folder-items` that
    subfolder and pick one photo for `sfondo_cover` and one for `sfondo_impressum`
@@ -137,16 +152,31 @@ default image.
   run; just note it in the final report as before.
 - **`replace_text` can trigger Canva's autoshrink** on some title-sized text
   boxes, collapsing the font to ~1px even when the new text is *shorter* than the
-  old — this happened on `sez2_titolo` and `sez3_titolo` in the first fill.
-  Always pull a page thumbnail (`read-design` with `filter.fields: ["thumbnails"]`
-  and the transaction_id) after editing each page and eyeball it; if text has
-  vanished or shrunk, fix with a `format_text` operation setting an explicit
-  `font_size` back to a sane value (title fields on this template render around
-  27px).
-- **Formatting can leak from the old content.** One body field inherited
-  `fontWeight: bold` from the previous edition's multi-run rich text (which had a
-  bold opening line). Check thumbnails for stray bold/italic runs and normalize
-  with `format_text` if the new text shouldn't have them.
+  old — this happened on `sez2_titolo` and `sez3_titolo` in the first fill,
+  and hit the exact same two fields again in the October 2026 fill. Treat
+  this as an expected, deterministic step for `sez2_titolo`/`sez3_titolo`
+  specifically, not a rare fluke — always pull a page thumbnail (`read-design`
+  with `filter.fields: ["thumbnails"]` and the transaction_id) after editing
+  each page and eyeball it; if text has vanished or shrunk, fix with a
+  `format_text` operation setting an explicit `font_size` back to a sane
+  value (title fields on this template render around 27px).
+- **Formatting leaks from the old content on every `esercizi`/
+  `completamenti`/`esercizio_finale` field, not just occasionally.** These
+  fields hold multi-run rich text (bold numbered headers, differently-colored
+  prompts); `replace_text` collapses the whole block into the first run's
+  formatting, so the entire field comes back bold and gold-colored, dots
+  included. Always follow up with a `format_text` call normalizing to
+  `font_weight: "normal"` / `color: "#000000"` on that same element — see
+  `field_assembly.md` for the fuller note. Don't skip this expecting it to be
+  fine "most of the time"; it wasn't fine on any of the 6 fields of this type
+  in the October 2026 fill.
+- **`cover_subtitle` has no documented character budget but visibly needs
+  one.** A longer subtitle (~78 characters) grew the text box tall enough to
+  overlap the "GIUSI VALENTINI" byline beneath it — Canva doesn't autoshrink
+  this box the way it does section titles, it just lets the box grow and
+  collide. Keep `cover_subtitle` close to June's original length (~59
+  characters) as a practical ceiling, and check the page 1 thumbnail for
+  overlap with the byline before committing.
 - **Font family isn't settable via the API.** `format_text` can set size,
   weight, style, color, alignment, etc., but not the font family — if a text
   element is rendering in the wrong typeface, that has to be fixed by hand in

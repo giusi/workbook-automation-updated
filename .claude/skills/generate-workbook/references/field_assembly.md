@@ -75,11 +75,27 @@ each Canva `dataFieldLabel` as follows before filling (step 5):
   {esercizi[3].prompt}
   {ANSWER_LINES}
   ```
-  where `ANSWER_LINES` is **3 dotted lines**, each exactly `"." * 150`
-  (150 period characters), separated by newlines — this is fixed scaffolding,
-  always the same regardless of content. Each numbered block and its answer
-  lines are separated by a blank line (double newline), matching the pattern
-  above.
+  where `ANSWER_LINES` is **one unbroken line of `"." * 458`** (458 period
+  characters, no embedded newlines) — the template's text box word-wraps
+  this into ~3 visual lines on its own. (Confirmed against the live
+  October 2026 fill — do not use 3 separate 150-dot lines joined by
+  newlines; that was this doc's original guess and doesn't match what's
+  actually in the template. Re-verify the dot count if the box width ever
+  changes, since it's tuned to the current ~535px-wide exercise boxes.)
+  This is fixed scaffolding, always the same regardless of content. Each
+  numbered block and its answer line are separated by a blank line (double
+  newline), matching the pattern above.
+- **After every `replace_text` on an `esercizi`/`completamenti`/
+  `esercizio_finale` field, immediately follow with a `format_text` call
+  setting `font_weight: "normal"` (and usually `color: "#000000"`) on that
+  same element.** These fields carry multi-run rich text in the template
+  (bold numbered headers, differently-colored prompts) that `replace_text`
+  collapses into a single run using the *first* run's formatting — in
+  practice this means the whole block comes back bold and gold-colored,
+  not just an occasional stray run. This isn't the rare edge case the
+  older gotcha note below implies; it happens on essentially every one of
+  these fields, every time. Normalizing to plain black after each fill is
+  the reliable fix, not a "check and fix if you notice it" step.
 
 **`integrazione_testo_1`/`_2`** = `integrazione_corpo[0]`/`[1]` directly.
 
