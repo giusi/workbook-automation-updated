@@ -21,7 +21,9 @@ fields.json shape:
   ...
 ]
 """
+import base64
 import json
+import os
 import sys
 
 import pymupdf
@@ -62,20 +64,34 @@ def add_form_fields(input_path: str, fields_path: str, output_path: str) -> int:
         widget.field_value = ""
         page.add_widget(widget)
 
-    # Deliberately NOT setting NeedAppearances: add_widget already writes a
-    # correct, self-contained appearance stream (with its own embedded font
-    # resource) per field. Setting NeedAppearances=true instead tells viewers
-    # to regenerate that appearance themselves — and strict renderers (Apple's
-    # PDFKit, used by iOS Files/Quick Look/Mail) do that lookup via the
-    # AcroForm's own /DR entry, not the field's local one. Without a top-level
-    # /DR, that regeneration silently fails and the field never becomes
-    # interactive: it renders fine but tapping does nothing. Acrobat and
-    # PyMuPDF are lenient about this and mask the bug — iOS is not.
-    #
-    # Fix: leave NeedAppearances unset (the per-field appearances are already
-    # correct) and add a top-level /DR + /DA to the AcroForm dict anyway, for
-    # any stricter reader that expects the spec's canonical form-level
-    # defaults to exist regardless of NeedAppearances.
+        # Match the structural markers found on a known-working, iOS-fillable
+        # PDF (produced by DocFly) that a plain pymupdf widget doesn't set by
+        # default. Diagnosed from a real iPhone test: our first two builds
+        # rendered fields fine in Acrobat/PyMuPDF but were completely
+        # non-interactive in iOS's native Files/Quick Look viewer (PDFKit) —
+        # tapping did nothing. DocFly's working file's widgets carry:
+        #   - Ff = Multiline(4096) + DoNotSpellCheck(4194304) — ours were
+        #     plain single-line (Ff 0). Multiline is also just correct here
+        #     regardless of the iOS bug, since these fields are meant to hold
+        #     wrapped multi-line answers, not one-line entries.
+        #   - an explicit (if empty) /MK appearance-characteristics dict and
+        #     /Border [0 0 0], instead of omitting them entirely.
+        #   - a private Apple annotation extension key, /AAPL:AKExtras. This
+        #     is namespaced to Apple and only appears on PDFKit-authored/
+        #     targeted forms — its presence is the strongest candidate for
+        #     why PDFKit treats one file as a real form and not the other.
+        #     Its content (/PPKID, a per-field opaque token) doesn't look
+        #     load-bearing, so a freshly generated placeholder is used here.
+        w = next(cand for cand in page.widgets() if cand.field_name == name)
+        doc.xref_set_key(w.xref, "Ff", "4198400")
+        doc.xref_set_key(w.xref, "MK", "<<>>")
+        doc.xref_set_key(w.xref, "Border", "[0 0 0]")
+        ppkid = base64.b64encode(os.urandom(16)).decode()
+        doc.xref_set_key(w.xref, "AAPL:AKExtras", f"<</PPKID ({ppkid})>>")
+
+    # NeedAppearances=true matches the working reference file; PyMuPDF's own
+    # per-field appearance streams are also correct and kept as a fallback
+    # for viewers that honor /AP directly instead of regenerating.
     if doc.is_form_pdf and fields:
         first_widget = next(iter(doc[fields[0]["page"] - 1].widgets()))
         _, ap_ref = doc.xref_get_key(first_widget.xref, "AP")
@@ -87,8 +103,7 @@ def add_form_fields(input_path: str, fields_path: str, output_path: str) -> int:
         # The AcroForm dict is stored inline on the catalog (not as its own
         # indirect object), so it has to be rewritten as a whole rather than
         # patched via a separate xref. Pull out the existing /Fields array
-        # verbatim and rebuild the dict with /DR + /DA added and
-        # /NeedAppearances dropped.
+        # verbatim and rebuild the dict with /DR + /DA + /NeedAppearances.
         catalog_xref = doc.pdf_catalog()
         _, acro_val = doc.xref_get_key(catalog_xref, "AcroForm")
         fields_start = acro_val.index("/Fields[") + len("/Fields[")
@@ -98,7 +113,8 @@ def add_form_fields(input_path: str, fields_path: str, output_path: str) -> int:
         new_acroform = (
             f"<</Fields[{fields_list}]"
             f"/DR<</Font<</Helv {helv_xref} 0 R>>>>"
-            f"/DA(0 0 0 rg /Helv 10 Tf)>>"
+            f"/DA(0 0 0 rg /Helv 10 Tf)"
+            f"/NeedAppearances true>>"
         )
         doc.xref_set_key(catalog_xref, "AcroForm", new_acroform)
 
