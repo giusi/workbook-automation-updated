@@ -1,6 +1,6 @@
 <!--
 Source: https://docs.google.com/document/d/1-EJ8KTtA2eif9vUwF6msYU2hVw4tYWBASwK_3JHPbhE/edit
-Fetched: 2026-08-14 10:42 UTC
+Fetched: 2026-08-21 16:34 UTC
 Generated snapshot — do not hand-edit. Edit the Google Doc instead.
 -->
 
@@ -18,10 +18,10 @@ Non comunica per motivare le persone a "fare di più" o a "diventare una version
 
 Il cuore del suo lavoro è accompagnare le donne a tornare a sé stesse, attraverso un approccio integrato che tiene insieme i 4 pilastri del suo metodo (sviluppato da lei in 10 anni di lavoro e formazione):
 
-- mente
-- corpo
-- emozioni
-- respiro
+  - mente
+  - corpo
+  - emozioni
+  - respiro
 
 I contenuti devono sempre riflettere questa visione.
 
@@ -37,13 +37,13 @@ Torna a te stessa. Scopri chi sei. Crea la vita che vuoi. Puoi fare e avere tutt
 
 La missione di Giusi è l'empowerment femminile inteso come:
 
-- libertà interiore;
-- autenticità;
-- presenza;
-- coraggio di vivere la propria vita;
-- volere, chiedere, desiderare di più, in ogni campo della vita
-- Liberarsi da convenzioni e aspettative esterne, per realizzare quello che vuoi
-- riconnessione con il proprio corpo e la propria verità.
+  - libertà interiore;
+  - autenticità;
+  - presenza;
+  - coraggio di vivere la propria vita;
+  - volere, chiedere, desiderare di più, in ogni campo della vita
+  - Liberarsi da convenzioni e aspettative esterne, per realizzare quello che vuoi
+  - riconnessione con il proprio corpo e la propria verità.
 
 Nei contenuti non si parla mai solo di yoga, mindfulness o meditazione. Si parla soprattutto di vita vissuta.
 
@@ -53,14 +53,14 @@ Le donne seguono Giusi perché si sentono comprese e perché trovano uno spazio 
 
 Le caratteristiche principali del linguaggio di Giusi sono:
 
-- caldo;
-- umano;
-- profondo;
-- elegante;
-- concreto;
-- autorevole;
-- semplice;
-- autentico.
+  - caldo;
+  - umano;
+  - profondo;
+  - elegante;
+  - concreto;
+  - autorevole;
+  - semplice;
+  - autentico.
 
 Un contenuto di Giusi dovrebbe far pensare:
 
@@ -100,14 +100,14 @@ Il metodo migliore consiste nel partire sempre da materiale originale già creat
 
 Ad esempio:
 
-- podcast;
-- workbook di Happy Daily Home;
-- newsletter;
-- ritiri;
-- workshop;
-- dirette;
-- esperienze personali;
-- vecchi contenuti social.
+  - podcast;
+  - workbook di Happy Daily Home;
+  - newsletter;
+  - ritiri;
+  - workshop;
+  - dirette;
+  - esperienze personali;
+  - vecchi contenuti social.
 
 Da una sola fonte possono nascere numerosi contenuti differenti.
 
@@ -117,16 +117,16 @@ L'obiettivo non è riassumere il materiale, ma estrarre le idee più potenti e t
 
 Alternare sempre diverse tipologie di contenuto:
 
-- opinioni e punti di vista;
-- storytelling;
-- esperienze personali;
-- contenuti pratici;
-- podcast;
-- testimonianze;
-- posizionamento del brand;
-- presentazione di Happy Daily Home (awareness sulla sua esistenza e a cosa serve)
-- dietro le quinte;
-- promozione di prodotti e ritiri.
+  - opinioni e punti di vista;
+  - storytelling;
+  - esperienze personali;
+  - contenuti pratici;
+  - podcast;
+  - testimonianze;
+  - posizionamento del brand;
+  - presentazione di Happy Daily Home (awareness sulla sua esistenza e a cosa serve)
+  - dietro le quinte;
+  - promozione di prodotti e ritiri.
 
 Non pubblicare troppi contenuti consecutivi con la stessa struttura.
 
@@ -136,16 +136,16 @@ Negli ultimi mesi abbiamo lavorato per eliminare gran parte del linguaggio tipic
 
 Evitare formule come:
 
-- Ci hanno insegnato che...
-- Ricorda che...
-- Va bene così.
-- Non sei sola.
-- Devi solo...
-- Basta...
-- Ti meriti...
-- Diventa la versione migliore di te.
-- 5 modi per essere felice.
-- 10 cose che devi fare.
+  - Ci hanno insegnato che...
+  - Ricorda che...
+  - Va bene così.
+  - Non sei sola.
+  - Devi solo...
+  - Basta...
+  - Ti meriti...
+  - Diventa la versione migliore di te.
+  - 5 modi per essere felice.
+  - 10 cose che devi fare.
 
 Sono formule ormai inflazionate e poco riconoscibili.
 
@@ -153,12 +153,12 @@ Sono formule ormai inflazionate e poco riconoscibili.
 
 I contenuti che performano meglio sono quelli che:
 
-- partono da un'esperienza personale di Giusi;
-- propongono un'opinione controcorrente;
-- fanno nascere una domanda nella lettrice;
-- raccontano qualcosa di concreto;
-- utilizzano immagini mentali forti;
-- lasciano uno spazio di riflessione.
+  - partono da un'esperienza personale di Giusi;
+  - propongono un'opinione controcorrente;
+  - fanno nascere una domanda nella lettrice;
+  - raccontano qualcosa di concreto;
+  - utilizzano immagini mentali forti;
+  - lasciano uno spazio di riflessione.
 
 Alcuni esempi:
 
@@ -176,13 +176,13 @@ Il contenuto finale non dovrebbe mai essere pubblicato senza revisione umana.
 
 Il workflow consigliato è:
 
-1. Partire sempre da una fonte originale.
-2. Estrarre 10-15 idee di contenuto.
-3. Individuare la tesi principale.
-4. Scegliere il formato migliore (reel, carosello, post, newsletter, podcast).
-5. Generare una prima bozza.
-6. Revisionare il testo eliminando tutto ciò che suona artificiale o generico.
-7. Verificare che il contenuto sembri realmente scritto da Giusi.
+1.  Partire sempre da una fonte originale.
+2.  Estrarre 10-15 idee di contenuto.
+3.  Individuare la tesi principale.
+4.  Scegliere il formato migliore (reel, carosello, post, newsletter, podcast).
+5.  Generare una prima bozza.
+6.  Revisionare il testo eliminando tutto ciò che suona artificiale o generico.
+7.  Verificare che il contenuto sembri realmente scritto da Giusi.
 
 **L'AI non deve mai sostituire la sensibilità editoriale.**
 
@@ -190,13 +190,13 @@ Il workflow consigliato è:
 
 Prima di pubblicare un contenuto chiedersi sempre:
 
-- Sembra davvero scritto da Giusi?
-- Ha un punto di vista preciso?
-- Dice qualcosa di interessante?
-- È troppo lungo o troppo spiegato?
-- È coerente con i valori del brand?
-- Ha un obiettivo preciso?
-- Sta costruendo autorevolezza, relazione o desiderabilità del brand?
+  - Sembra davvero scritto da Giusi?
+  - Ha un punto di vista preciso?
+  - Dice qualcosa di interessante?
+  - È troppo lungo o troppo spiegato?
+  - È coerente con i valori del brand?
+  - Ha un obiettivo preciso?
+  - Sta costruendo autorevolezza, relazione o desiderabilità del brand?
 
 ## 11. EVOLUZIONE DEL LINGUAGGIO
 
@@ -204,12 +204,12 @@ Nel 2025-2026 è stato fatto un lavoro importante sul linguaggio dei contenuti.
 
 La direzione scelta è stata quella di:
 
-- usare meno linguaggio da coaching;
-- scrivere meno e dire di più;
-- privilegiare esperienze personali e punti di vista;
-- creare contenuti memorabili e riconoscibili;
-- costruire autorevolezza prima ancora della vendita;
-- valorizzare il patrimonio di contenuti già esistenti (podcast, workbook, workshop, ritiri, ecc.).
+  - usare meno linguaggio da coaching;
+  - scrivere meno e dire di più;
+  - privilegiare esperienze personali e punti di vista;
+  - creare contenuti memorabili e riconoscibili;
+  - costruire autorevolezza prima ancora della vendita;
+  - valorizzare il patrimonio di contenuti già esistenti (podcast, workbook, workshop, ritiri, ecc.).
 
 L'obiettivo non è produrre più contenuti ma contenuti migliori.
 
