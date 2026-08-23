@@ -224,24 +224,28 @@ flow. Worth her fixing the label directly in Canva at some point.
   fine "most of the time"; it wasn't fine on any of the 6 fields of this type
   in the October 2026 fill.
 - **Body-text fields (`lettera_testo_*`, `sezN_testo_*`,
-  `integrazione_testo_*`) need the same normalize-then-bold treatment on
-  BOTH the left and right box of every pair, every time — including
-  `font_style`, not just `font_weight`.** These boxes have come back
-  rendering fully italic as well as fully bold — this is the same
-  first-run-formatting-wins leak as the exercizi fields above, it just
-  wasn't being corrected on body text until this was added. Per
-  `field_assembly.md`'s "Paragraph rhythm & bold emphasis", only 2-3
-  paragraphs per page actually carry a deliberate bold span (most
-  individual fields will have zero), but the *normalize* call
-  (`font_weight: "normal"` + `font_style: "normal"`) is unconditional on
-  every one of these fields regardless — treat it as a required part of
-  filling these fields, not an optional polish step, and don't skip the
-  second box of a pair just because the first looked fine. Verify the live
-  `format_text` tool schema's range parameters before the first bold call
-  of the run (names aren't pinned in the docs since this hasn't been
-  exercised on body text before); if range-level formatting turns out to be
-  unsupported, say so in the final report rather than shipping unbolded
-  text silently.
+  `integrazione_testo_*`) need the same normalize treatment on BOTH the
+  left and right box of every pair, every time — including `font_style`,
+  not just `font_weight`.** These boxes have come back rendering fully
+  italic as well as fully bold — this is the same first-run-formatting-wins
+  leak as the exercizi fields above, it just wasn't being corrected on body
+  text until this was added. The *normalize* call (`font_weight: "normal"`
+  + `font_style: "normal"`) is unconditional on every one of these fields —
+  treat it as a required part of filling these fields, not an optional
+  polish step, and don't skip the second box of a pair just because the
+  first looked fine.
+- **Bold spans within a text run are NOT achievable with this Canva MCP
+  surface — confirmed, not a caveat.** Tested directly in the October 2026
+  fill: (1) sending `**phrase**` markdown syntax through `replace_text`
+  does not get parsed as rich text — it renders as literal asterisk
+  characters on the page; (2) `format_text`'s `formatting` object has no
+  range/offset/length parameter anywhere in its schema — it can only style
+  a whole element, never a sub-string within it. There is no fallback that
+  makes `field_assembly.md`'s per-paragraph bold-phrase convention work
+  today. Ship body text as plain (marker-stripped) paragraphs and say so in
+  the final report — don't re-attempt the markdown trick expecting a
+  different result, and don't invent a workaround (e.g. a separate bolded
+  text element layered on top) without checking with Giusi first.
 - **`cover_subtitle` has no documented character budget but visibly needs
   one.** A longer subtitle (~78 characters) grew the text box tall enough to
   overlap the "GIUSI VALENTINI" byline beneath it — Canva doesn't autoshrink
@@ -254,6 +258,27 @@ flow. Worth her fixing the label directly in Canva at some point.
   element is rendering in the wrong typeface, that has to be fixed by hand in
   Canva's editor, not through MCP. Size/weight/style are fine to fix
   programmatically (as in the autoshrink and stray-bold cases above).
+- **Font family can drift silently between the two columns of a body-text
+  pair, and normalize doesn't fix it** — confirmed in the October 2026
+  fill. `create-design-from-brand-template` doesn't return a pristine copy
+  of the blank template; it duplicates the *previous edition's actual
+  content*, edit history and all. Somewhere in that history a run got
+  assigned a different registered font family (e.g. "Poppins" vs. "Poppins
+  Light" as two separate font assets, not weight variants of one font —
+  common when the underlying font isn't a variable font). `replace_text`
+  collapses a multi-run box to a single run using the *first* old run's
+  formatting, including its font family, so the new text silently inherits
+  whichever family happened to be first — independently per box, so the
+  left and right column of the same section can end up in different
+  families even though both read "normal" weight/style. Because
+  `format_text` has no font-family parameter, this can't be corrected
+  during a fill. Check for it visually (do the two columns' letterforms
+  actually match, not just their weight?) and flag any affected field by
+  name in the final report rather than silently shipping a mismatch. The
+  durable fix is for a human to open the **brand template itself** in
+  Canva and reset its body-text boxes to one consistent font family, so
+  future editions stop inheriting the drift — worth raising to Giusi
+  directly rather than expecting each fill to catch it.
 - **Resized/repositioned boxes only help if they still span the intended text
   area.** This doesn't come up in routine fills (`replace_text` doesn't move or
   resize boxes), but if you ever restructure the template — add a section,

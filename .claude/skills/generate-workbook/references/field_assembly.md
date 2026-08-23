@@ -44,6 +44,14 @@ Applies to every "wall of text" field: `lettera_testo_1`/`_2`, `sezN_testo_1`/
 fixed-scaffolding fields (`sezN_esercizi`, `esercizio_finale`,
 `completamenti`) — those already get their own formatting treatment below.
 
+**Current status: the paragraph-rhythm half of this convention ships every
+run; the bold half does not.** Confirmed against the live Canva MCP tooling
+(October 2026 fill) that partial-bold within a text box isn't achievable —
+see "Filling" below for the specifics. Still draft the `**phrase**` markers
+as described (they cost nothing and self-document intent if the tooling
+ever adds range support), but the filling step strips them and ships plain
+text — don't expect bold to actually render.
+
 A page reads better — and fills its box more evenly — as short paragraphs
 with a visible break between them, punctuated here and there (not
 everywhere) by a bolded phrase anchoring a paragraph's core idea. Bold on
@@ -114,29 +122,34 @@ every run, not something patched in afterward:
    this normalize step covered `font_style`. Do this unconditionally on
    every one of these fields, don't wait to notice a problem, and don't
    skip the second box of a pair because the first looked fine.
-2. Then, for each recorded bold span (if any), one `format_text` call
-   setting `font_weight: "bold"` (style stays `"normal"` — bold is never
-   paired with italic here) over that character range on the same element.
-   Check the live `format_text` tool schema for the exact range parameter
-   names (e.g. `start`/`end` vs. `offset`/`length`) before calling — it
-   isn't pinned here because it hasn't been exercised on body-text fields
-   yet; verify once per session rather than assuming.
+2. **Do not attempt the bold spans.** Confirmed against the live tooling in
+   the October 2026 fill: `replace_text` does not parse `**markdown**` as
+   rich text (it renders the literal asterisk characters), and
+   `format_text`'s `formatting` object has no range/offset/length parameter
+   anywhere in its schema — it can only style a whole element, never a
+   sub-string. There is currently no way to bold a phrase within a text box
+   through this Canva MCP surface. Strip the `**` markers and send the
+   plain paragraph text only. Don't re-attempt the markdown trick expecting
+   a different result, and don't invent a workaround (e.g. a separate
+   bolded lead-in element) without checking with Giusi first, since that
+   would mean editing the template itself.
 3. Pull the page thumbnail and confirm: no box anywhere on the page reads
-   italic or fully bold, the paragraph break reads as an actual visual
-   break (not a run-on line), each bold span lands on clean word
-   boundaries — never mid-word, never spilling across the blank line into
-   the next paragraph — and the page as a whole shows only its 2-3 bolded
-   paragraphs, not bold on every paragraph.
+   italic or fully bold, and the paragraph break reads as an actual visual
+   break (not a run-on line). Also compare the **font family** of the two
+   columns against each other, not just their weight — `replace_text`
+   inherits whichever old run's formatting happened to be first when it
+   collapses a multi-run box, and that can carry a different font family
+   per column even after normalize (see `canva_mcp_fill.md`'s font-family
+   gotcha). `format_text` can't fix this; if the two columns visibly don't
+   match, name the field in the final report rather than treating it as
+   fixed.
 4. **Verify-and-fix the fill itself, not just the formatting** — see
    "Verify-and-fix loop" below. Don't advance to the next page until both
    the formatting (this section) and the fill (below) check out on the
    thumbnail.
-
-If the connected Canva tooling turns out not to support range-level
-`format_text` on a text element (whole-element only), say so in your final
-report rather than silently shipping unbolded body text — don't invent a
-workaround (e.g. a separate bolded lead-in element) without checking with
-Giusi first, since that would mean editing the template itself.
+5. Note in the final report that body-text fields ship without deliberate
+   bold emphasis, since the tooling doesn't support it — this is an
+   expected, standing limitation, not a per-run failure to flag as new.
 
 ## Verify-and-fix loop for body-text pages
 

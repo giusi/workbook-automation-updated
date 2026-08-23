@@ -105,6 +105,17 @@ there is no Python/API step left in this workflow (see step 5).
    so all four match the brand template instead of drifting. All three are
    spelled out in `references/canva_mcp_fill.md` and
    `references/field_assembly.md`.
+   Two standing tooling limitations to note in the report every run, not
+   chase as new bugs: bold spans within a text box aren't achievable
+   (confirmed — see `field_assembly.md`), and font family can silently
+   differ between the two columns of a body-text pair because
+   `create-design-from-brand-template` duplicates the previous edition's
+   drifted formatting, not a clean template — check each page's two
+   columns visually match in typeface, and name any field that doesn't in
+   the report (see `canva_mcp_fill.md`'s font-family gotcha). The durable
+   fix for the font drift is a human resetting the brand template's
+   body-text boxes to one font family in Canva directly — worth flagging
+   to Giusi as a standalone action item, not something a fill can correct.
 
 6. **Report** the Canva edit URL (`https://www.canva.com/design/<design_id>/edit`),
    so Giusi can finalize it. Don't send an approval email unless explicitly asked —
@@ -147,15 +158,18 @@ Rules — getting them wrong makes the boxes overflow or leaves fields unmapped:
 - Every `corpo` column, and every `lettera_corpo`/`integrazione_corpo`
   string, is itself written as 2 short paragraphs (blank-line-separated) —
   this is what makes each page read as a filled, breathable page instead of
-  one dense block. On top of that, bold **exactly 2 or 3 paragraphs per
-  page** (not every paragraph), each with a `**bolded phrase**` of just 3-5
-  words flagging that paragraph's core idea — two stacked budgets, both
-  page-level and per-paragraph, not something every paragraph gets or a
-  long bolded run. Don't skip this or leave it for the Canva-filling step
-  to patch on; draft it in from the start. Exact rules, word counts, which
-  paragraphs count as "the same page", and how the `**...**` markers
-  get turned into real bold formatting in Canva: see
-  `references/field_assembly.md`, "Paragraph rhythm & bold emphasis".
+  one dense block. Don't skip this or leave it for the Canva-filling step
+  to patch on; draft it in from the start. On top of that, still mark
+  **exactly 2 or 3 paragraphs per page** (not every paragraph) with a
+  `**bolded phrase**` of just 3-5 words flagging that paragraph's core idea
+  — but be aware this markup currently ships as plain text: the connected
+  Canva tooling can't render partial bold within a text box (confirmed,
+  not a maybe), so the markers get stripped rather than turned into actual
+  bold formatting. Draft them anyway (cheap, self-documenting, forward
+  compatible), just don't expect them to render. Exact rules, word counts,
+  which paragraphs count as "the same page", and the current bold
+  limitation: see `references/field_assembly.md`, "Paragraph rhythm & bold
+  emphasis".
 - EXACTLY 2 `esercizio_finale_completamenti`; EXACTLY 3 `completamenti`.
 - Each esercizio has one `titolo` and one reflective `prompt` (second person). Do
   NOT add answer lines — the template adds them.
