@@ -138,11 +138,12 @@ Rules — getting them wrong makes the boxes overflow or leaves fields unmapped:
   string, is itself written as 2 short paragraphs (blank-line-separated) —
   this is what makes each page read as a filled, breathable page instead of
   one dense block. On top of that, bold **exactly 2 or 3 paragraphs per
-  page** (not every paragraph) with a short `**bolded phrase**` flagging
-  that paragraph's core idea — bold is a page-level budget, not something
-  every paragraph gets. Don't skip this or leave it for the Canva-filling
-  step to patch on; draft it in from the start. Exact rules, word counts,
-  which paragraphs count as "the same page", and how the `**...**` markers
+  page** (not every paragraph), each with a `**bolded phrase**` of just 3-5
+  words flagging that paragraph's core idea — two stacked budgets, both
+  page-level and per-paragraph, not something every paragraph gets or a
+  long bolded run. Don't skip this or leave it for the Canva-filling step
+  to patch on; draft it in from the start. Exact rules, word counts, which
+  paragraphs count as "the same page", and how the `**...**` markers
   get turned into real bold formatting in Canva: see
   `references/field_assembly.md`, "Paragraph rhythm & bold emphasis".
 - EXACTLY 2 `esercizio_finale_completamenti`; EXACTLY 3 `completamenti`.

@@ -76,11 +76,13 @@ every run, not something patched in afterward:
      section to section (don't mechanically always bold "testo_1's first
      paragraph") — otherwise the bolding reads as a fixed template pattern
      rather than genuine emphasis.
-   - In each bolded paragraph, wrap exactly ONE short phrase — 3 to 7
-     words, a clause, never a generic connector, never the whole sentence,
-     never a single word — in `**double asterisks**`. A paragraph either
-     has one bold phrase or none; never two phrases in the same paragraph,
-     and never bold the field's very first word.
+   - In each bolded paragraph, wrap exactly ONE short phrase — **3 to 5
+     words**, a tight clause, never a generic connector, never a whole
+     sentence, never a single word — in `**double asterisks**`. A paragraph
+     either has one bold phrase or none; never two phrases in the same
+     paragraph, and never bold the field's very first word. Two budgets
+     stack here: max 2-3 bolded paragraphs per page, and within each of
+     those, max 3-5 bolded words.
 3. The `**` markers themselves are a drafting-time convention only — they
    never reach Canva as literal text (see Assembly below). When checking a
    field against its character budget, you can count them as written (they
