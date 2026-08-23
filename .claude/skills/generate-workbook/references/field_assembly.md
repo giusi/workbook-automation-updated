@@ -103,28 +103,71 @@ every run, not something patched in afterward:
 
 **Filling (step 5):** for each of these body-text fields, after
 `replace_text`:
-1. First normalize the whole element to `font_weight: "normal"` /
-   `color: "#000000"` (the template's placeholder content can carry stray
-   bold/color runs onto the new text, the same way it does on the
-   exercizi/completamenti fields below — do this unconditionally, don't
-   wait to notice a problem, even for a field with no bold span of its own).
+1. First normalize the **whole element** to `font_weight: "normal"`,
+   `font_style: "normal"`, `color: "#000000"` — all three, every time, on
+   both the left and right box of every pair (`sezN_testo_1` AND
+   `sezN_testo_2`, `lettera_testo_1` AND `_2`, `integrazione_testo_1` AND
+   `_2`). The template's placeholder content can carry stray bold, italic,
+   or off-color runs onto the new text — the same leak that hits the
+   exercizi/completamenti fields below — and it's not just a bold problem:
+   text has come back italic as well as fully bold on these boxes before
+   this normalize step covered `font_style`. Do this unconditionally on
+   every one of these fields, don't wait to notice a problem, and don't
+   skip the second box of a pair because the first looked fine.
 2. Then, for each recorded bold span (if any), one `format_text` call
-   setting `font_weight: "bold"` over that character range on the same
-   element. Check the live `format_text` tool schema for the exact range
-   parameter names (e.g. `start`/`end` vs. `offset`/`length`) before
-   calling — it isn't pinned here because it hasn't been exercised on
-   body-text fields yet; verify once per session rather than assuming.
-3. Pull the page thumbnail and confirm: the paragraph break reads as an
-   actual visual break (not a run-on line), each bold span lands on clean
-   word boundaries — never mid-word, never spilling across the blank line
-   into the next paragraph — and the page as a whole shows only its 2-3
-   bolded paragraphs, not bold on every paragraph.
+   setting `font_weight: "bold"` (style stays `"normal"` — bold is never
+   paired with italic here) over that character range on the same element.
+   Check the live `format_text` tool schema for the exact range parameter
+   names (e.g. `start`/`end` vs. `offset`/`length`) before calling — it
+   isn't pinned here because it hasn't been exercised on body-text fields
+   yet; verify once per session rather than assuming.
+3. Pull the page thumbnail and confirm: no box anywhere on the page reads
+   italic or fully bold, the paragraph break reads as an actual visual
+   break (not a run-on line), each bold span lands on clean word
+   boundaries — never mid-word, never spilling across the blank line into
+   the next paragraph — and the page as a whole shows only its 2-3 bolded
+   paragraphs, not bold on every paragraph.
+4. **Verify-and-fix the fill itself, not just the formatting** — see
+   "Verify-and-fix loop" below. Don't advance to the next page until both
+   the formatting (this section) and the fill (below) check out on the
+   thumbnail.
 
 If the connected Canva tooling turns out not to support range-level
 `format_text` on a text element (whole-element only), say so in your final
 report rather than silently shipping unbolded body text — don't invent a
 workaround (e.g. a separate bolded lead-in element) without checking with
 Giusi first, since that would mean editing the template itself.
+
+## Verify-and-fix loop for body-text pages
+
+The character budgets in the table above are a fast offline estimate, not a
+guarantee — actual fill depends on Canva's real font rendering, which the
+word-count table can't see. Close the loop visually, per page, inside the
+same open transaction, right after formatting that page's fields (previous
+section):
+
+1. Pull that page's thumbnail: `read-design` with
+   `filter.fields: ["thumbnails"]`, `filter.page_indices: [<page>]`, same
+   `transaction_id`.
+2. Judge each box on the page against two failure modes:
+   - **Overflow/clipped** — text is cut off, spills past the box edge, or
+     the box has visibly grown into a neighboring element.
+   - **Underfill** — a conspicuously empty lower portion of the box, text
+     stopping well short of where the box actually ends.
+3. If a box fails either way, don't just re-send the same text — revise the
+   *drafted* content for that field (lengthen or shorten a paragraph,
+   rebalance the two paragraphs) while staying inside the field's character
+   budget and keeping the paragraph/bold rules intact, then redo
+   `replace_text` and the formatting calls (normalize + any bold spans) for
+   that field, and re-pull the thumbnail. Repeat until it looks right.
+4. Only move on to the next page once every box on this one reads as
+   genuinely filled — not overflowing, not sparse — and correctly
+   formatted. If a field needs repeated correction to land in-budget, that's
+   a signal the budget table itself may be stale for that field — note it
+   in your final report rather than silently fighting it forever.
+
+This applies to every body-text page: page 3 (lettera), each section's text
+page (5, 7, 9, 11), and page 13 (integrazione).
 
 ## How the 34 Canva fields are assembled from the drafted JSON
 

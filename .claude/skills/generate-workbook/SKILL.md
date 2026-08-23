@@ -95,6 +95,16 @@ there is no Python/API step left in this workflow (see step 5).
    for the `sfondo_cover` and `sfondo_impressum` background-image fields (the
    third such field, `sfondo_pagina2`, is left unfilled), verify via
    thumbnails, rename the design to `WB HDH <Label>`, and commit.
+   Three things to get right on every body-text page (don't treat any of
+   these as optional polish — they're part of the fill, not a follow-up
+   pass): normalize every `testo` box to plain, non-italic weight/style
+   before applying any deliberate bold spans; run the per-page
+   verify-and-fix loop (thumbnail → judge fill → redraft/refill if
+   over/underfilled) before moving to the next page; and on page 4 (TOC),
+   explicitly capture and reapply each title's original font size/alignment
+   so all four match the brand template instead of drifting. All three are
+   spelled out in `references/canva_mcp_fill.md` and
+   `references/field_assembly.md`.
 
 6. **Report** the Canva edit URL (`https://www.canva.com/design/<design_id>/edit`),
    so Giusi can finalize it. Don't send an approval email unless explicitly asked —
