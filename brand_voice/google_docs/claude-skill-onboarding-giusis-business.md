@@ -1,6 +1,6 @@
 <!--
 Source: https://docs.google.com/document/d/125byxQO08ZDEbtjbg89y2SB4B6-v9LcjQo-dYIHjRMs/edit
-Fetched: 2026-08-21 16:34 UTC
+Fetched: 2026-08-23 12:33 UTC
 Generated snapshot — do not hand-edit. Edit the Google Doc instead.
 -->
 
@@ -98,8 +98,8 @@ Inoltre Giusi offre ritiri online e dal vivo (Ritiro Casa Corra, Ritiro Maggio e
   - Scrivere un libro, creare, formarsi in qualcosa di significativo
   - Vivere con più libertà, creatività, autonomia
   - Un percorso di rinascita, evoluzione personale, leadership interiore
-  - È per te se... — Hai già fatto terapia, coaching, corsi di formazione. Sai mille cose su di te, ma: ti trattieni nelle riunioni, in famiglia, nella vita; dici "vediamo" quando vuoi dire "no"; ti senti pronta, ma non ti muovi; continui a fare da sola, anche se sei esausta; ti senti potente... ma solo nella testa.
-  - Grazie a questo Mentoring: non chiederai il permesso per essere vista; dirai no con chiarezza e senza senso di colpa; farai quella chiamata che stai rimandando da mesi; chiederai di più senza giustificarti; chiedi aiuto dove prima ti vergognavi; hai smesso di trattenerti e hai iniziato a guidare.
+  - È per te se... — Hai già fatto terapia, coaching, corsi di formazione. Sai mille cose su di te, ma: ti trattieni nelle riunioni, in famiglia, nella vita; dici "vediamo" quando vuoi dire "no"; ti senti pronta, ma non ti muovi; continui a fare da sola, anche se sei esausta; ti senti potente... ma solo nella testa
+  - Grazie a questo Mentoring — Non chiederai il permesso per essere vista; dirai no con chiarezza e senza senso di colpa; farai quella chiamata che stai rimandando da mesi; chiederai di più, senza giustificarti; chiedi aiuto dove prima ti vergognavi; hai smesso di trattenerti e hai iniziato a guidare.
 
 **4. Cosa dicono le donne della community di HDH**
 
@@ -107,23 +107,23 @@ Inoltre Giusi offre ritiri online e dal vivo (Ritiro Casa Corra, Ritiro Maggio e
 
 **Come descrivono HDH (metafore reali — oro per la comunicazione)**
 
-  - "È il porto sicuro al quale so che posso sempre tornare quando fuori va tutto male, la mia ancora, ciò che non mi fa sentire mai sbagliata e fuori posto." — Gloria
-  - "Una casa, un nido nel quale, quando posso, mi rintano. All'inizio lo facevo soprattutto nei momenti di difficoltà, ma oggi ci entro perché mi piace starci." — Silvia
-  - "È come una cabina armadio dove ci sono tante cose belle da mettere per affermare ed esaltare la bellezza che c'è in me." — Loredana
-  - "Un'oasi di ristoro, una fonte d'ispirazione cui attingere per crescere ed evolvermi continuamente." — Ilaria
-  - "In Happy Daily Home mi sento veramente a casa. Avere un nido in cui rifugiarci ed essere accolte, viste e supportate da altre donne in cammino come noi è meraviglioso e sacro." — Gloria
-  - "Una grande e meravigliosa orchestra, con un direttore, Giusi, eccezionale. A volte ho la sensazione che riesce a leggermi nel pensiero, anche se non ci conosciamo personalmente." — Roberta
-  - "Il miglior investimento in termini di tempo e di denaro che io abbia mai fatto per me stessa." — Serena
+  - *"È il porto sicuro al quale so che posso sempre tornare quando fuori va tutto male, la mia ancora, ciò che non mi fa sentire mai sbagliata e fuori posto." — Gloria*
+  - *"Una casa, un nido nel quale, quando posso, mi rintano. All'inizio lo facevo soprattutto nei momenti di difficoltà, ma oggi ci entro perché mi piace starci." — Silvia*
+  - *"È come una cabina armadio dove ci sono tante cose belle da mettere per affermare ed esaltare la bellezza che c'è in me." — Loredana*
+  - *"Un'oasi di ristoro, una fonte d'ispirazione cui attingere per crescere ed evolvermi continuamente." — Ilaria*
+  - *"In Happy Daily Home mi sento veramente a casa. Avere un nido in cui rifugiarci ed essere accolte, viste e supportate da altre donne in cammino come noi è meraviglioso e sacro." — Gloria*
+  - *"Una grande e meravigliosa orchestra, con un direttore, Giusi, eccezionale. A volte ho la sensazione che riesce a leggermi nel pensiero, anche se non ci conosciamo personalmente." — Roberta*
+  - *"Il miglior investimento in termini di tempo e di denaro che io abbia mai fatto per me stessa." — Serena*
 
 **Trasformazioni reali dichiarate**
 
-  - "Sono riuscita finalmente ad elaborare e lasciare andare il rancore verso mia mamma e a perdonarla. Sono riuscita a trovare il coraggio di andare a vivere da sola." — Gloria, 25-30 anni
-  - "Un luogo sicuro che mi ha aiutata ad uscire dalla depressione che mi tormentava da anni. Perfino il mio psichiatra mi ha chiesto che cosa stessi facendo, perché mi vedeva migliorata." — Grazia, 50-55 anni
-  - "Sono diventata davvero un'altra versione di me. Più serena, più centrata. Ho routine costanti e sto mettendo insieme i pezzi del mio puzzle. Sono fiera di me e questo mi basta." — Daniela
-  - "Ho messo confini sani e precisi. Mi ascolto di più." — Rita, 50-55 anni
-  - "Ho traslocato, ma ho imparato anche a trovare casa prima di tutto dentro di me." — Ilaria, 35-40 anni
-  - "Grazie a te Giusi sono diventata una guerriera, cosa che prima non avrei mai fatto." — Marinella
-  - "Grazie Giusi perché mi fai crescere, mi fai pensare, mi fai rilassare, mi fai arrabbiare quando smascheri le mie parate!!!" — Daniela Marinelli
+  - *"Sono riuscita finalmente ad elaborare e lasciare andare il rancore verso mia mamma e a perdonarla. Sono riuscita a trovare il coraggio di andare a vivere da sola." — Gloria, 25-30 anni*
+  - *"Un luogo sicuro che mi ha aiutata ad uscire dalla depressione che mi tormentava da anni. Perfino il mio psichiatra mi ha chiesto che cosa stessi facendo, perché mi vedeva migliorata." — Grazia, 50-55 anni*
+  - *"Sono diventata davvero un'altra versione di me. Più serena, più centrata. Ho routine costanti e sto mettendo insieme i pezzi del mio puzzle. Sono fiera di me e questo mi basta." — Daniela*
+  - *"Ho messo confini sani e precisi. Mi ascolto di più." — Rita, 50-55 anni*
+  - *"Ho traslocato, ma ho imparato anche a trovare casa prima di tutto dentro di me." — Ilaria, 35-40 anni*
+  - *"Grazie a te Giusi sono diventata una guerriera, cosa che prima non avrei mai fatto." — Marinella*
+  - *"Grazie Giusi perché mi fai crescere, mi fai pensare, mi fai rilassare, mi fai arrabbiare quando smascheri le mie parate!!!" — Daniela Marinelli*
 
 **Perché si iscrivono (trigger di conversione)**
 
@@ -191,6 +191,4 @@ Le aiuta a vivere una vita più autentica, libera, intensa e vera.
 
 Le Homies non descrivono HDH come un corso. Lo descrivono come un luogo. "Casa." "Porto." "Nido." "Rifugio." Il posizionamento reale nella loro mente non è "programma di crescita personale" — è lo spazio in cui tornano a sé stesse.
 
-Ogni contenuto che scrivi, ogni message a cui rispondi, ogni post su LinkedIn deve portare questa donna a sentirsi vista — e chiamata a qualcosa di più grande di quello in cui si trova ora.
-
-[Nota: contenuto troncato nella risposta del connettore Drive — snapshot precedente conservato come riferimento per eventuali sezioni successive non recuperate in questo fetch.]
+Ogni contenuto che scrivi, ogni message a cui rispondi, ogni post su LinkedIn deve portare questa donna a sentirsi vista — e chiamata a qualcosa di più grande di quello in cui si è fermata.
