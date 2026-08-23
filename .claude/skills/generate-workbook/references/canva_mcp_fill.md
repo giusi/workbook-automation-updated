@@ -179,16 +179,21 @@ flow. Worth her fixing the label directly in Canva at some point.
   fine "most of the time"; it wasn't fine on any of the 6 fields of this type
   in the October 2026 fill.
 - **Body-text fields need the same normalize-then-bold treatment, every
-  time, not just the exercizi/completamenti ones.** `lettera_testo_*`,
+  time, not just the exercizi/completamenti ones — but only 2-3 paragraphs
+  per page actually carry a bold span, not every field.** `lettera_testo_*`,
   `sezN_testo_*`, and `integrazione_testo_*` are drafted with an internal
-  paragraph break and 1–2 bolded phrases per `field_assembly.md`'s
-  "Paragraph rhythm & bold emphasis" — treat the normalize + per-span
-  `format_text` calls as a required part of filling these fields, not an
-  optional polish step. Verify the live `format_text` tool schema's range
-  parameters before the first call of the run (names aren't pinned in the
-  docs since this hasn't been exercised on body text before); if range-level
-  formatting turns out to be unsupported, say so in the final report rather
-  than shipping unbolded text silently.
+  paragraph break per `field_assembly.md`'s "Paragraph rhythm & bold
+  emphasis", and bold is a page-level budget of 2-3 paragraphs total, so
+  most individual fields will have zero bold spans and some will have one
+  (rarely two, if both its paragraphs were picked). The normalize call
+  (`font_weight: "normal"`) still applies to every one of these fields
+  unconditionally, whether or not it ends up with a bold span — treat that
+  as a required part of filling these fields, not an optional polish step.
+  Verify the live `format_text` tool schema's range parameters before the
+  first bold call of the run (names aren't pinned in the docs since this
+  hasn't been exercised on body text before); if range-level formatting
+  turns out to be unsupported, say so in the final report rather than
+  shipping unbolded text silently.
 - **`cover_subtitle` has no documented character budget but visibly needs
   one.** A longer subtitle (~78 characters) grew the text box tall enough to
   overlap the "GIUSI VALENTINI" byline beneath it — Canva doesn't autoshrink
