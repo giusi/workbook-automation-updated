@@ -28,12 +28,82 @@ neither overflow nor look sparse.
 Check these by counting characters/words yourself while drafting (no code
 needed — a rough word count is enough; these are fill targets, not hard
 limits). If a field lands outside its range, revise it — don't ship it
-oversized or undersized.
+oversized or undersized. Budget counts include the paragraph-break and bold
+markers described below — see "Paragraph rhythm & bold emphasis".
 
 `cover_title`, `cover_subtitle`, `mantra_testo`, `intenzione_testo`, section
 `titolo`/`citazione`, exercise titles/prompts, and the completion-sentence
 starters are all naturally short/bounded by their nature — no explicit budget
-needed for those.
+needed for those, and the paragraph/bold rules below don't apply to them
+(they're single short lines, not body text).
+
+## Paragraph rhythm & bold emphasis (body text fields)
+
+Applies to every "wall of text" field: `lettera_testo_1`/`_2`, `sezN_testo_1`/
+`_2` (all 4 sections), `integrazione_testo_1`/`_2`. Does NOT apply to the
+fixed-scaffolding fields (`sezN_esercizi`, `esercizio_finale`,
+`completamenti`) — those already get their own formatting treatment below.
+
+A page reads better — and fills its box more evenly — as two short
+paragraphs with a visible break between them and one bolded phrase per
+paragraph anchoring its core idea, rather than one dense uninterrupted
+block. This is a **drafting-time** decision (step 3 of `SKILL.md`), made the
+same way on every run, not something patched in afterward:
+
+1. **Write each `corpo`/`lettera_corpo`/`integrazione_corpo` string as 2
+   paragraphs internally**, separated by a blank line (`\n\n`) inside the
+   same string. Split roughly evenly across the field's word budget above —
+   don't front-load one long paragraph and tack on a two-word fragment.
+   - `integrazione_testo` is short (45–65 words total); if splitting it in
+     half would leave a paragraph under ~15 words, keep it as one paragraph
+     instead — don't force an awkward break just for the pattern's sake.
+2. **Bold one short phrase per paragraph** by wrapping it in
+   `**double asterisks**` in the drafted string — 3 to 7 words, a clause
+   that carries that paragraph's turn or instruction (the reframe, the
+   feeling named, the call to action), never a generic connector, never the
+   whole sentence, never a single word.
+3. That's 2 bolded phrases per field (1 if `integrazione_testo` stayed
+   single-paragraph). Never bold two phrases back-to-back or bold the
+   field's very first word.
+4. The `**` markers themselves are a drafting-time convention only — they
+   never reach Canva as literal text (see Assembly below). When checking a
+   field against its character budget, you can count them as written (they
+   roughly proxy for the visual weight of a bold span) or strip them first;
+   either way stay inside the budget range.
+
+**Assembly (step 4):** for each of these fields, before filling Canva:
+1. Find each `**phrase**` span in the drafted string; record its plain-text
+   start/end character offset (0-indexed, counting the paragraph break as 2
+   characters) in the final field text, i.e. *after* stripping the `**`
+   markers.
+2. Strip the `**` markers to produce the plain text — this plain text (with
+   its `\n\n` paragraph break intact) is what gets sent to `replace_text`.
+3. Keep the `(field_name, start, end)` bold-span list per field for the
+   Canva-filling step.
+
+**Filling (step 5):** for each of these body-text fields, after
+`replace_text`:
+1. First normalize the whole element to `font_weight: "normal"` /
+   `color: "#000000"` (the template's placeholder content can carry stray
+   bold/color runs onto the new text, the same way it does on the
+   exercizi/completamenti fields below — do this unconditionally, don't
+   wait to notice a problem).
+2. Then, for each recorded bold span, one `format_text` call setting
+   `font_weight: "bold"` over that character range on the same element.
+   Check the live `format_text` tool schema for the exact range parameter
+   names (e.g. `start`/`end` vs. `offset`/`length`) before calling — it
+   isn't pinned here because it hasn't been exercised on body-text fields
+   yet; verify once per session rather than assuming.
+3. Pull the page thumbnail and confirm: the paragraph break reads as an
+   actual visual break (not a run-on line), and each bold span lands on
+   clean word boundaries — never mid-word, never spilling across the blank
+   line into the next paragraph.
+
+If the connected Canva tooling turns out not to support range-level
+`format_text` on a text element (whole-element only), say so in your final
+report rather than silently shipping unbolded body text — don't invent a
+workaround (e.g. a separate bolded lead-in element) without checking with
+Giusi first, since that would mean editing the template itself.
 
 ## How the 34 Canva fields are assembled from the drafted JSON
 
@@ -41,9 +111,11 @@ Draft the JSON to the schema in `SKILL.md` first (34-field content: `sezioni`
 with `corpo`/`esercizi`, `completamenti`, etc.). Then build the literal text for
 each Canva `dataFieldLabel` as follows before filling (step 5):
 
-**Direct 1:1 fields** — no assembly, just copy the value:
-`cover_title`, `cover_subtitle`, `mantra_testo`, `intenzione_testo`,
-`lettera_testo_1` = `lettera_corpo[0]`, `lettera_testo_2` = `lettera_corpo[1]`.
+**Direct 1:1 fields** — no assembly beyond the paragraph/bold-span
+processing above, just copy the value: `cover_title`, `cover_subtitle`,
+`mantra_testo`, `intenzione_testo`, `lettera_testo_1` = `lettera_corpo[0]`,
+`lettera_testo_2` = `lettera_corpo[1]` (the latter two go through "Paragraph
+rhythm & bold emphasis" above like any other body-text field).
 
 **Per section N (1–4):**
 - `toc_N` = `sezioni[N].titolo` (the subtitle only — the template's own
@@ -51,6 +123,7 @@ each Canva `dataFieldLabel` as follows before filling (step 5):
 - `sezN_titolo` = `sezioni[N].titolo` (same value as `toc_N`)
 - `sezN_citazione` = `sezioni[N].citazione`
 - `sezN_testo_1` = `sezioni[N].corpo[0]`, `sezN_testo_2` = `sezioni[N].corpo[1]`
+  (both go through "Paragraph rhythm & bold emphasis" above)
 - `sezN_esercizi` = the exercises block, assembled as:
   ```
   {esercizi_intro}
@@ -97,7 +170,9 @@ each Canva `dataFieldLabel` as follows before filling (step 5):
   these fields, every time. Normalizing to plain black after each fill is
   the reliable fix, not a "check and fix if you notice it" step.
 
-**`integrazione_testo_1`/`_2`** = `integrazione_corpo[0]`/`[1]` directly.
+**`integrazione_testo_1`/`_2`** = `integrazione_corpo[0]`/`[1]` directly
+(through "Paragraph rhythm & bold emphasis" above like the other body-text
+fields).
 
 **`esercizio_finale`** — assembled as:
 ```

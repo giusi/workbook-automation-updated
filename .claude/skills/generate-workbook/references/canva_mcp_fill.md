@@ -88,6 +88,14 @@ for every field on that page, `finalize: "keep_open"`. `element_id` is the
 locator id shown in brackets in the `read-design` output, e.g.
 `PBhq7xcTvPR0HS9f-LBFYH72pn9PnlXsf` for `[PBhq7xcTvPR0HS9f-LBFYH72pn9PnlXsf]`.
 
+For the body-text fields (`lettera_testo_*`, `sezN_testo_*`,
+`integrazione_testo_*`), immediately follow each `replace_text` with the
+normalize + bold-span `format_text` calls from `field_assembly.md`'s
+"Paragraph rhythm & bold emphasis" — same page, same still-open transaction,
+before moving to the next page. Don't defer this to a separate pass; do it
+field-by-field right after each `replace_text` so a page's thumbnail check
+(step below) reflects the final formatted state.
+
 ## 6. Select and place the background photos
 
 Do this after step 5's text edits (same open transaction is fine). Only
@@ -170,6 +178,17 @@ flow. Worth her fixing the label directly in Canva at some point.
   `field_assembly.md` for the fuller note. Don't skip this expecting it to be
   fine "most of the time"; it wasn't fine on any of the 6 fields of this type
   in the October 2026 fill.
+- **Body-text fields need the same normalize-then-bold treatment, every
+  time, not just the exercizi/completamenti ones.** `lettera_testo_*`,
+  `sezN_testo_*`, and `integrazione_testo_*` are drafted with an internal
+  paragraph break and 1–2 bolded phrases per `field_assembly.md`'s
+  "Paragraph rhythm & bold emphasis" — treat the normalize + per-span
+  `format_text` calls as a required part of filling these fields, not an
+  optional polish step. Verify the live `format_text` tool schema's range
+  parameters before the first call of the run (names aren't pinned in the
+  docs since this hasn't been exercised on body text before); if range-level
+  formatting turns out to be unsupported, say so in the final report rather
+  than shipping unbolded text silently.
 - **`cover_subtitle` has no documented character budget but visibly needs
   one.** A longer subtitle (~78 characters) grew the text box tall enough to
   overlap the "GIUSI VALENTINI" byline beneath it — Canva doesn't autoshrink

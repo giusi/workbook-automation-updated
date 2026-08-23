@@ -134,6 +134,14 @@ Return/write JSON with this shape:
 Rules — getting them wrong makes the boxes overflow or leaves fields unmapped:
 - EXACTLY 4 sezioni; each with EXACTLY 2 `corpo` columns and EXACTLY 4 `esercizi`.
 - EXACTLY 2 paragraphs in `lettera_corpo` and in `integrazione_corpo`.
+- Every `corpo` column, and every `lettera_corpo`/`integrazione_corpo` string,
+  is itself written as 2 short paragraphs (blank-line-separated) with one
+  `**bolded phrase**` per paragraph flagging its core idea — this is what
+  makes each page read as a filled, breathable page instead of one dense
+  block. Don't skip this or leave it for the Canva-filling step to patch on;
+  draft it in from the start. Exact rules, word counts, and how the
+  `**...**` markers get turned into real bold formatting in Canva: see
+  `references/field_assembly.md`, "Paragraph rhythm & bold emphasis".
 - EXACTLY 2 `esercizio_finale_completamenti`; EXACTLY 3 `completamenti`.
 - Each esercizio has one `titolo` and one reflective `prompt` (second person). Do
   NOT add answer lines — the template adds them.
