@@ -79,6 +79,30 @@ fields — spot them in the `read-design` output by `type: "image"` rather than
 `type: "text"`. Note their `locator_id`s alongside the text fields' while you're
 reading each page; you'll need them in step 6.
 
+**Page 4 (TOC / "Contenuti") — capture original title styling before you
+touch it.** The four section titles below their numbers (the real-content
+`toc_1`..`toc_4` elements — see the disambiguation gotcha in step 7) have
+come back with inconsistent font sizes and alignments across the four
+entries after filling. The template's own authored values are correct and
+identical across all four (same size, same weight, same alignment) — the
+drift is introduced by the fill, not present in the template. So:
+
+1. While reading page 4 in this step, for each of the four real-content
+   `toc_N` elements (not the "SEZIONE N" structural ones), record its
+   *current* `font_size`, `text_align`, `font_weight`, and `color` straight
+   from the `read-design` output, before any edit. These four elements
+   should already show matching values to each other — if they don't even
+   before you touch anything, that's the template itself out of sync; flag
+   it rather than trying to invent a "correct" value.
+2. After `replace_text` on each `toc_N`, immediately follow with one
+   `format_text` call re-applying that captured `font_size`/`text_align`/
+   `font_weight`/`color` explicitly — don't assume `replace_text` preserves
+   them; the observed symptom is exactly that it doesn't, consistently.
+3. Pull the page 4 thumbnail and confirm all four titles now render at the
+   same size, weight, and alignment as each other, matching how they looked
+   pre-edit (i.e. matching the brand template) — not just individually
+   readable, but visually uniform as a set.
+
 ## 5. Apply edits
 
 For each page, one `mcp__Canva__edit-design` call with `page_index` set and
@@ -86,6 +110,22 @@ For each page, one `mcp__Canva__edit-design` call with `page_index` set and
 for every field on that page, `finalize: "keep_open"`. `element_id` is the
 locator id shown in brackets in the `read-design` output, e.g.
 `PBhq7xcTvPR0HS9f-LBFYH72pn9PnlXsf` for `[PBhq7xcTvPR0HS9f-LBFYH72pn9PnlXsf]`.
+
+For the body-text fields (`lettera_testo_*`, `sezN_testo_*`,
+`integrazione_testo_*`), immediately follow each `replace_text` with the
+normalize + bold-span `format_text` calls from `field_assembly.md`'s
+"Paragraph rhythm & bold emphasis" — same page, same still-open transaction,
+before moving to the next page. Don't defer this to a separate pass; do it
+field-by-field right after each `replace_text` so a page's thumbnail check
+reflects the final formatted state. Then run `field_assembly.md`'s
+"Verify-and-fix loop" for that page before advancing — pull the thumbnail,
+check both boxes actually look filled (not overflowing, not sparse) and
+formatted correctly (no stray italic or full-block bold), and redraft/refill
+in place if not. This applies to pages 3, 5, 7, 9, 11, and 13.
+
+For page 4 (TOC), see the dedicated procedure below the field-mapping table
+in step 4 above and the `toc_1`..`toc_4` gotchas below — its title styling
+needs an explicit capture-and-reapply step, not just replace-and-check.
 
 ## 6. Select and place the background photos
 
@@ -140,6 +180,17 @@ upstream in Canva's editor.
   static headings, not content slots). Disambiguate by the element's *current*
   text: if it reads as a themed phrase, it's real content; if it's a generic
   structural label, skip it.
+- **The four real `toc_N` titles drift to inconsistent font sizes and
+  alignments after `replace_text`, even though the template has them
+  matching.** Not the same bug as the `sez2_titolo`/`sez3_titolo` autoshrink
+  below (that collapses to ~1px; this one just picks slightly different
+  sizes/alignments per element), but the same category of "replace_text
+  doesn't reliably preserve styling" — treat it as expected every run, not
+  a rare fluke. Fix: capture each `toc_N`'s original `font_size`/
+  `text_align`/`font_weight`/`color` before editing and explicitly
+  re-apply them via `format_text` after `replace_text` — see the dedicated
+  procedure in step 4 above. Skipping this is what produces the visibly
+  inconsistent "Contenuti" page.
 - **`cover_title` has no field anywhere.** Confirmed by reading all 15 pages —
   there is no `dataFieldLabel="cover_title"` element in this template. The large
   cover heading is tagged `cover_subtitle`. Don't spend time hunting for it every
@@ -159,11 +210,36 @@ upstream in Canva's editor.
   fields hold multi-run rich text (bold numbered headers, differently-colored
   prompts); `replace_text` collapses the whole block into the first run's
   formatting, so the entire field comes back bold and gold-colored, dots
-  included. Always follow up with a `format_text` call normalizing to
-  `font_weight: "normal"` / `color: "#000000"` on that same element — see
+  included — and sometimes italic too, depending on what the previous
+  edition's content happened to carry in that first run. Always follow up
+  with a `format_text` call normalizing to `font_weight: "normal"`,
+  `font_style: "normal"`, `color: "#000000"` on that same element — see
   `field_assembly.md` for the fuller note. Don't skip this expecting it to be
   fine "most of the time"; it wasn't fine on any of the 6 fields of this type
   in the October 2026 fill.
+- **Body-text fields (`lettera_testo_*`, `sezN_testo_*`,
+  `integrazione_testo_*`) need the same normalize treatment on BOTH the
+  left and right box of every pair, every time — including `font_style`,
+  not just `font_weight`.** These boxes have come back rendering fully
+  italic as well as fully bold — this is the same first-run-formatting-wins
+  leak as the exercizi fields above, it just wasn't being corrected on body
+  text until this was added. The *normalize* call (`font_weight: "normal"`
+  + `font_style: "normal"`) is unconditional on every one of these fields —
+  treat it as a required part of filling these fields, not an optional
+  polish step, and don't skip the second box of a pair just because the
+  first looked fine.
+- **Bold spans within a text run are NOT achievable with this Canva MCP
+  surface — confirmed, not a caveat.** Tested directly in the October 2026
+  fill: (1) sending `**phrase**` markdown syntax through `replace_text`
+  does not get parsed as rich text — it renders as literal asterisk
+  characters on the page; (2) `format_text`'s `formatting` object has no
+  range/offset/length parameter anywhere in its schema — it can only style
+  a whole element, never a sub-string within it. There is no fallback that
+  makes `field_assembly.md`'s per-paragraph bold-phrase convention work
+  today. Ship body text as plain (marker-stripped) paragraphs and say so in
+  the final report — don't re-attempt the markdown trick expecting a
+  different result, and don't invent a workaround (e.g. a separate bolded
+  text element layered on top) without checking with Giusi first.
 - **`cover_subtitle` has no documented character budget but visibly needs
   one.** A longer subtitle (~78 characters) grew the text box tall enough to
   overlap the "GIUSI VALENTINI" byline beneath it — Canva doesn't autoshrink
@@ -176,6 +252,27 @@ upstream in Canva's editor.
   element is rendering in the wrong typeface, that has to be fixed by hand in
   Canva's editor, not through MCP. Size/weight/style are fine to fix
   programmatically (as in the autoshrink and stray-bold cases above).
+- **Font family can drift silently between the two columns of a body-text
+  pair, and normalize doesn't fix it** — confirmed in the October 2026
+  fill. `create-design-from-brand-template` doesn't return a pristine copy
+  of the blank template; it duplicates the *previous edition's actual
+  content*, edit history and all. Somewhere in that history a run got
+  assigned a different registered font family (e.g. "Poppins" vs. "Poppins
+  Light" as two separate font assets, not weight variants of one font —
+  common when the underlying font isn't a variable font). `replace_text`
+  collapses a multi-run box to a single run using the *first* old run's
+  formatting, including its font family, so the new text silently inherits
+  whichever family happened to be first — independently per box, so the
+  left and right column of the same section can end up in different
+  families even though both read "normal" weight/style. Because
+  `format_text` has no font-family parameter, this can't be corrected
+  during a fill. Check for it visually (do the two columns' letterforms
+  actually match, not just their weight?) and flag any affected field by
+  name in the final report rather than silently shipping a mismatch. The
+  durable fix is for a human to open the **brand template itself** in
+  Canva and reset its body-text boxes to one consistent font family, so
+  future editions stop inheriting the drift — worth raising to Giusi
+  directly rather than expecting each fill to catch it.
 - **Resized/repositioned boxes only help if they still span the intended text
   area.** This doesn't come up in routine fills (`replace_text` doesn't move or
   resize boxes), but if you ever restructure the template — add a section,
