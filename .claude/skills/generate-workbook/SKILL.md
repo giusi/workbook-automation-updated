@@ -200,3 +200,14 @@ Rules — getting them wrong makes the boxes overflow or leaves fields unmapped:
   live and how to pick one, and `references/canva_mcp_fill.md` step 6 for the
   placement mechanics. The third image field, `sfondo_pagina2`, is left
   unfilled on purpose.
+- Monthly decorative element (`completamenti_elemento`, page 14, the
+  line-art graphic under "Porta con te questo:"): a fourth image-style
+  autofill field, same rotate-from-a-curated-folder pattern as the
+  background photos, but **not live yet** — check
+  `get-brand-template-dataset` at the start of a run; if
+  `completamenti_elemento` has appeared, follow
+  `references/elements_library.md` to pick and place one from its curated
+  folder (`FAHTeLzym44`) as part of the fill. If it's still absent, skip it
+  silently (this is expected until Giusi finishes tagging it in Canva) —
+  don't treat it as a gap to flag every run, that doc explains the pending
+  setup.

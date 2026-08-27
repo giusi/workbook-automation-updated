@@ -68,7 +68,7 @@ against the field dict from step 1. Page layout (as of the last fill):
 | 11 | `sez4_titolo`, `sez4_citazione`, `sez4_testo_1`, `sez4_testo_2` |
 | 12 | `sez4_esercizi` |
 | 13 | `integrazione_testo_1`, `integrazione_testo_2`, `esercizio_finale` |
-| 14 | `completamenti` |
+| 14 | `completamenti`; `completamenti_elemento` (image, decorative line-art graphic — **pending**, see below) |
 | 15 | impressum/colophon — `sfondo_impressum` (image) |
 
 Re-verify this layout rather than trusting it blindly — the template can change.
@@ -176,6 +176,15 @@ flow. Worth her fixing the label directly in Canva at some point.
 4. If a chosen photo doesn't read well once placed, just pick a different one
    from the same subfolder and redo the `update_fill` — it's a cheap operation
    inside the still-open transaction, nothing is committed yet.
+
+**Fourth image field, `completamenti_elemento` (page 14) — pending, not
+part of routine fills yet.** This is a decorative line-art graphic, not a
+photo; it's not in the template's autofill dataset yet (Giusi is tagging
+it manually in Canva). Check `get-brand-template-dataset` at the top of a
+run — if it's still absent, skip this step entirely (expected, not a
+gotcha to report). If it has appeared, follow
+`references/elements_library.md` for the curated folder, geometry, and
+recoloring notes, then place it the same way as steps 1-4 above.
 
 ## 7. Known gotchas (hit these on the first fill — check for them every time)
 
