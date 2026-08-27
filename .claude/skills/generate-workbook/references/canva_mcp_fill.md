@@ -21,13 +21,14 @@ out-of-range field.
 
 Brand template id: **`EAHNaGY-7DM`** (title shows as "WB HDH \<last-used-month\>").
 Confirm with `mcp__Canva__get-brand-template-dataset` if you want to re-verify
-field names — the live dataset has **48 fields**, not 34: extra numbered variants
+field names — the live dataset has **47 fields**, not 34: extra numbered variants
 per section (`sez2_testo_3`, `sez2_testo_4`, `sez1_esercizi_1`, `sez1_esercizi_2`,
-etc.) and 3 background image fields (`sfondo_cover`, `sfondo_pagina2`,
-`sfondo_impressum`). Only `sfondo_cover` and `sfondo_impressum` get a photo —
-see step 6 below and `references/media_library.md` for where the photos live.
-`sfondo_pagina2` is deliberately left untouched (keeps the template's default
-image); don't fill it.
+etc.) and 2 background image fields (`sfondo_cover`, `sfondo_impressum`) — both
+get a photo, see step 6 below and `references/media_library.md` for where the
+photos live. Page 2 has no background image element (only text elements and a
+decorative vector shape), so there is no third `sfondo_*` field — an earlier
+version of this template briefly had a stray, unusable `sfondo_pagina2` field
+declared with nothing to connect it to; it's been removed.
 
 ## 3. Create a design instance
 
@@ -56,7 +57,7 @@ against the field dict from step 1. Page layout (as of the last fill):
 | Page | Fields |
 |---|---|
 | 1 | `cover_subtitle`, `sfondo_cover` (image) (no `cover_title` field exists anywhere — see gotcha below) |
-| 2 | `mantra_testo`, `intenzione_testo` (`sfondo_pagina2` also lives here but is left unfilled — see step 6) |
+| 2 | `mantra_testo`, `intenzione_testo` (no background image field on this page — see step 2's note) |
 | 3 | `lettera_testo_1`, `lettera_testo_2` |
 | 4 (TOC) | `toc_1`–`toc_4` — **see disambiguation gotcha below** |
 | 5 | `sez1_titolo`, `sez1_citazione`, `sez1_testo_1`, `sez1_testo_2` |
@@ -72,13 +73,11 @@ against the field dict from step 1. Page layout (as of the last fill):
 | 15 | impressum/colophon — `sfondo_impressum` (image) |
 
 Re-verify this layout rather than trusting it blindly — the template can change.
-The two image fields actually filled (`sfondo_cover` on page 1, `sfondo_impressum`
-on page 15, as of the last fill) show up as **image** elements carrying the
-same `dataFieldLabel` annotation as text fields — spot them in the `read-design`
-output by `type: "image"` rather than `type: "text"`. Note their `locator_id`s
-alongside the text fields' while you're reading each page; you'll need them in
-step 6. (`sfondo_pagina2` on page 2 is the same kind of element but is skipped
-— see step 6.)
+Both image fields (`sfondo_cover` on page 1, `sfondo_impressum` on page 15) show
+up as **image** elements carrying the same `dataFieldLabel` annotation as text
+fields — spot them in the `read-design` output by `type: "image"` rather than
+`type: "text"`. Note their `locator_id`s alongside the text fields' while you're
+reading each page; you'll need them in step 6.
 
 ## 5. Apply edits
 
@@ -90,25 +89,20 @@ locator id shown in brackets in the `read-design` output, e.g.
 
 ## 6. Select and place the background photos
 
-Do this after step 5's text edits (same open transaction is fine). Only
-`sfondo_cover` (page 1) and `sfondo_impressum` (page 15) get filled —
-`sfondo_pagina2` (page 2) is deliberately left alone, keeping the template's
-default image.
+Do this after step 5's text edits (same open transaction is fine). Both
+image fields get filled: `sfondo_cover` (page 1) and `sfondo_impressum`
+(page 15). Page 2 has no background image field at all — its only background
+element is a decorative vector shape (a flat color fill, not an image), so
+there's nothing to place there; don't go looking for a third `sfondo_*` field.
 
-**Don't trust the `dataFieldLabel` on the page 1/2 background elements —
-verify by physical position instead.** As of the October 2026 fill, page 1's
-background rect is actually labeled `sfondo_pagina2` (not `sfondo_cover`),
-and page 2's background rect carries no `dataFieldLabel` at all — the labels
-have drifted from what's documented here, and from what the brand template's
-own dataset schema (`get-brand-template-dataset`) implies. This doesn't
-block filling: `update_fill` targets by `locator_id`, not by label, so place
-the cover photo on **page 1's background rect regardless of its label**, and
-leave **page 2's background rect** alone regardless of its label (same
-"don't touch it" rule as always). But flag this to Giusi — it means the
-brand template's own autofill data model is out of sync with its visual
-layout, which will confuse anyone (or anything) that fills this template
-through Canva's native autofill UI/API instead of this locator-based MCP
-flow. Worth her fixing the label directly in Canva at some point.
+As of the November 2026 fix, page 1's background rect is correctly labeled
+`sfondo_cover` in the live template's `dataFieldLabel` — the earlier drift
+where it carried the (now-removed) `sfondo_pagina2` label has been corrected
+directly in the brand template. Still worth spot-checking with
+`get-brand-template-dataset` / a `read-design` on page 1 before a fill, in
+case it drifts again — `update_fill` targets by `locator_id`, not by label,
+so a mismatch doesn't block filling, but it's a signal something changed
+upstream in Canva's editor.
 
 1. **Pick photos.** Follow `references/media_library.md` to choose a subfolder
    matching the month's `tema`, then `mcp__Canva__list-folder-items` that

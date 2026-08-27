@@ -92,9 +92,8 @@ there is no Python/API step left in this workflow (see step 5).
    from brand template `EAHNaGY-7DM`, map the 34 assembled field values to
    their `dataFieldLabel`-tagged text elements page by page, replace their
    text, pick a themed photo from the curated library (`references/media_library.md`)
-   for the `sfondo_cover` and `sfondo_impressum` background-image fields (the
-   third such field, `sfondo_pagina2`, is left unfilled), verify via
-   thumbnails, rename the design to `WB HDH <Label>`, and commit.
+   for the `sfondo_cover` and `sfondo_impressum` background-image fields,
+   verify via thumbnails, rename the design to `WB HDH <Label>`, and commit.
 
 6. **Report** the Canva edit URL (`https://www.canva.com/design/<design_id>/edit`),
    so Giusi can finalize it. Don't send an approval email unless explicitly asked —
@@ -160,5 +159,5 @@ Rules — getting them wrong makes the boxes overflow or leaves fields unmapped:
   image fields are filled from a curated Canva folder of Giusi's photos, not
   generated or drafted — see `references/media_library.md` for where they
   live and how to pick one, and `references/canva_mcp_fill.md` step 6 for the
-  placement mechanics. The third image field, `sfondo_pagina2`, is left
-  unfilled on purpose.
+  placement mechanics. Page 2 has no background image field — its background
+  is a decorative vector shape, not an image placeholder.
