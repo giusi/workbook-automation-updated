@@ -150,7 +150,11 @@ upstream in Canva's editor.
    matching the month's `tema`, then `mcp__Canva__list-folder-items` that
    subfolder and pick one photo for `sfondo_cover` and one for `sfondo_impressum`
    (the same photo for both is fine, or two different ones from the same
-   subfolder — see that doc). Note each photo's asset id (`MA...`).
+   subfolder — see that doc). Note each photo's asset id (`MA...`) and add
+   both to `out/workbook-<YYYY-MM>.json` (e.g. under a `sfondo_cover` /
+   `sfondo_impressum` key, each with `asset_id` and the `alt_text` you used) —
+   `generate-companion-designs` reuses these same photos on the Tiles
+   companion design rather than picking its own.
 2. **Place each photo** with one `edit-design` operation per field:
    ```
    operations: [{

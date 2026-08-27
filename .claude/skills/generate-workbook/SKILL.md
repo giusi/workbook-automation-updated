@@ -81,8 +81,11 @@ there is no Python/API step left in this workflow (see step 5).
    assembly rules in `references/field_assembly.md` (direct copies for most
    fields; the exercises/completamenti/esercizio_finale blocks need their fixed
    scaffolding — numbering, dotted answer lines, connective phrases — added on
-   top of your drafted text). Optionally save the JSON to
-   `out/workbook-<YYYY-MM>.json` for your own reference during the run.
+   top of your drafted text). Save this JSON to `out/workbook-<YYYY-MM>.json`
+   — this is required, not optional: it's the handoff `generate-companion-designs`
+   reads from to reuse this month's theme, mantra, and intention text without
+   re-deriving anything, and (once step 5 fills in the photo asset ids) the
+   fallback source for the photos it reuses too.
 
 5. **Fill Canva via MCP.** There's no Python/API step — fill the brand template
    directly using the connected Canva MCP tools. Follow
