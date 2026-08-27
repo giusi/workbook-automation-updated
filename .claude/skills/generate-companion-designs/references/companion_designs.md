@@ -72,6 +72,49 @@ under one parent folder: id **`FAF67DAHCKg`**
 `"<MESE MAIUSCOLO> <anno>"` and holds exactly 4 designs: the workbook plus
 these 3 companions.
 
+## Known gotchas (confirmed on the October 2026 test run — expect these every time)
+
+- **`replace_text` drifts `text_align` from `center` to `start` on several
+  fields, not just occasionally.** Hit on Tiles pages 8 (`intenzione_testo`)
+  and 9 (`mantra_testo`) in the October test — both came back left-aligned
+  after `replace_text` even though the template has them centered. Always
+  follow every `replace_text` on a `mantra_testo`/`intenzione_testo`/
+  `tagline_secondaria` field with a `format_text` call setting
+  `text_align: "center"` (plus `font_weight`/`font_style: "normal"`, same
+  normalize habit as the workbook fill) — don't treat this as optional or
+  wait to see if it happens; bundle it into the same edit as the
+  `replace_text`, not a reactive follow-up pass.
+- **Font family drifts on `intenzione_testo` specifically, every time so
+  far.** Hit on all 3 designs in the October test (Tiles page 8, Intenzione
+  e Mantra page 2, Mobile page 1) — the field's `fontRef` changed to a
+  different (sans-serif-looking) font after `replace_text`, while
+  `mantra_testo` and `tagline_secondaria` kept the correct serif in the same
+  run. Same root cause as the workbook's font-family gotcha
+  (`canva_mcp_fill.md`) — not fixable via `format_text` (no font-family
+  parameter exists on this API). Flag it in the report every run rather than
+  re-attempting a fix; the durable fix is Giusi resetting that field's font
+  in Canva's editor directly, once, on the brand template itself.
+- **Autoshrink can hit `intenzione_testo` on the Mobile design specifically,
+  and it's severe.** In the October test, Mobile page 1's `intenzione_testo`
+  collapsed to ~12px (from ~85px) and its box height collapsed to ~14px
+  after a plain `replace_text` — same bug class as the workbook's
+  `sez2_titolo`/`sez3_titolo` autoshrink, but worse (text was reduced to an
+  unreadable sliver, not just small). Fix: `format_text` with an explicit
+  `font_size` restored to the field's original value (~85 for Mobile
+  `intenzione_testo`, ~88 for Mobile `mantra_testo` — re-check the actual
+  pre-edit value each run rather than hardcoding these) bundled into the
+  same `text_align`/weight/style normalize call. Always pull the thumbnail
+  after every text fill on this design and check for a collapsed/tiny box
+  before moving to the next page — don't assume it only happens
+  occasionally.
+- **Net practical rule:** for every `mantra_testo`/`intenzione_testo`/
+  `tagline_secondaria` field on any of these 3 designs, follow
+  `replace_text` with one `format_text` call in the same `edit-design`
+  request setting `text_align: "center"`, `font_weight: "normal"`,
+  `font_style: "normal"`, and (Mobile design only, both fields) an explicit
+  `font_size` matching the pre-edit value. Verify via thumbnail before
+  moving to the next page regardless.
+
 ## Phase 0 leftovers (informational, not needed for routine runs)
 
 Two earlier brand-template creation attempts failed after the template

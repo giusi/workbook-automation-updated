@@ -81,7 +81,16 @@ workbook's own brand template.
      `tema_del_mese` ← theme phrase, `tagline_secondaria` ← the fresh
      tagline from step 2, `mantra_testo` ← mantra, `intenzione_testo` ←
      intention. (Only the Tiles template has all 4; the other two only have
-     `mantra_testo`/`intenzione_testo`.)
+     `mantra_testo`/`intenzione_testo`.) **Bundle a `format_text` call into
+     the same `edit-design` request, on every one of these 4 fields, every
+     time** — `replace_text` reliably drifts `text_align` from `center` to
+     `start` on several of them, and `intenzione_testo` specifically drifts
+     font family too and (on the Mobile design) can autoshrink severely.
+     Confirmed on the October 2026 test run, not a maybe — see
+     `companion_designs.md`'s "Known gotchas" for the exact fields and fix
+     (`text_align: "center"`, `font_weight`/`font_style: "normal"`, and for
+     Mobile's two fields an explicit `font_size` restored to its pre-edit
+     value).
    - On the Tiles template only: `update_fill` the 3 photo fields
      (`sfondo_tema`, `sfondo_diretta`, `sfondo_domande`) with the asset
      id(s) from step 1 — reuse the workbook's own `sfondo_cover`/
