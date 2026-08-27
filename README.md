@@ -23,12 +23,18 @@ Either path reports back a Canva edit URL
 (`https://www.canva.com/design/<design_id>/edit`) for Giusi to review and
 finalize by hand in Canva. No email is sent automatically.
 
-- **After approval:** once Giusi has finalized a design in Canva, run the
-  `/finalize-workbook` skill (giving it that Canva URL) to turn it into a
-  fillable PDF — real form fields over the answer lines, typeable on
-  desktop or mobile. This is a separate, explicitly-triggered step; it
-  never runs automatically off the back of generation. See
-  [`.claude/skills/finalize-workbook/SKILL.md`](.claude/skills/finalize-workbook/SKILL.md).
+- **After approval:** once Giusi has finalized a design in Canva, two more
+  steps are available, both explicitly-triggered — neither ever runs
+  automatically off the back of generation:
+  - `/finalize-workbook` (giving it the Canva URL) turns the workbook into a
+    fillable PDF — real form fields over the answer lines, typeable on
+    desktop or mobile. See
+    [`.claude/skills/finalize-workbook/SKILL.md`](.claude/skills/finalize-workbook/SKILL.md).
+  - `/generate-companion-designs` produces the month's 3 companion Canva
+    designs (Tiles, Intenzione e Mantra, Mobile Mantra e Intenzione),
+    reusing the workbook's theme, mantra, intention, and photos, and filing
+    everything into that month's Canva folder. See
+    [`.claude/skills/generate-companion-designs/SKILL.md`](.claude/skills/generate-companion-designs/SKILL.md).
 
 ## How it works
 
@@ -74,6 +80,10 @@ Routine_Prompt.md           Instructions payload for the scheduled cloud routine
     check_fields.py         Validates a fields.json before authoring (overlaps, dupes)
     get_page_sizes.py       Prints PDF page sizes in points, for coordinate conversion
     render_with_fields.py   Renders pages with field rects outlined, for visual QA
+.claude/skills/generate-companion-designs/
+  SKILL.md                  Post-approval workflow: fill the 3 companion brand templates
+  references/
+    companion_designs.md    Brand template ids, tagged field names, naming conventions
 ```
 
 ## History note
