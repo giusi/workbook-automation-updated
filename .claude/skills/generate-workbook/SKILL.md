@@ -198,4 +198,6 @@ Rules — getting them wrong makes the boxes overflow or leaves fields unmapped:
   generated or drafted — see `references/media_library.md` for where they
   live and how to pick one, and `references/canva_mcp_fill.md` step 6 for the
   placement mechanics. Page 2 has no background image field — its background
-  is a decorative vector shape, not an image placeholder.
+  element is a recolored image mask with `isMediaReplaceable: false`, so the
+  API can't swap its photo even though it's technically an image, not a
+  plain shape.

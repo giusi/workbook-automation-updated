@@ -25,10 +25,11 @@ field names — the live dataset has **47 fields**, not 34: extra numbered varia
 per section (`sez2_testo_3`, `sez2_testo_4`, `sez1_esercizi_1`, `sez1_esercizi_2`,
 etc.) and 2 background image fields (`sfondo_cover`, `sfondo_impressum`) — both
 get a photo, see step 6 below and `references/media_library.md` for where the
-photos live. Page 2 has no background image element (only text elements and a
-decorative vector shape), so there is no third `sfondo_*` field — an earlier
-version of this template briefly had a stray, unusable `sfondo_pagina2` field
-declared with nothing to connect it to; it's been removed.
+photos live. Page 2's only background element is a recolored image mask
+(`isMediaReplaceable: false`), not a real photo placeholder — the API can't
+swap its media — so there is no third `sfondo_*` field. An earlier version of
+this template briefly had a stray, unusable `sfondo_pagina2` field declared
+with nothing valid to connect it to; it's been removed.
 
 ## 3. Create a design instance
 
@@ -132,8 +133,9 @@ needs an explicit capture-and-reapply step, not just replace-and-check.
 Do this after step 5's text edits (same open transaction is fine). Both
 image fields get filled: `sfondo_cover` (page 1) and `sfondo_impressum`
 (page 15). Page 2 has no background image field at all — its only background
-element is a decorative vector shape (a flat color fill, not an image), so
-there's nothing to place there; don't go looking for a third `sfondo_*` field.
+element is a recolored image mask with `isMediaReplaceable: false` (a real
+image element, but one the API can't swap the media on), so there's nothing
+to place there; don't go looking for a third `sfondo_*` field.
 
 As of the November 2026 fix, page 1's background rect is correctly labeled
 `sfondo_cover` in the live template's `dataFieldLabel` — the earlier drift

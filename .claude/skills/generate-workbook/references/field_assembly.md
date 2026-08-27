@@ -302,5 +302,6 @@ Canva MCP (`update_fill`) — they're not part of the 34-field JSON content
 schema above and need no drafting.
 
 Page 2 (mantra/intenzione) has no background image field — its only
-background element is a decorative vector shape, not an image placeholder —
-so there is no third `sfondo_*` field to fill.
+background element is a recolored image mask with `isMediaReplaceable: false`
+(a real image element, but not a swappable placeholder) — so there is no
+third `sfondo_*` field to fill.
