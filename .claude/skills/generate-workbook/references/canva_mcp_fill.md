@@ -21,13 +21,15 @@ out-of-range field.
 
 Brand template id: **`EAHNaGY-7DM`** (title shows as "WB HDH \<last-used-month\>").
 Confirm with `mcp__Canva__get-brand-template-dataset` if you want to re-verify
-field names — the live dataset has **48 fields**, not 34: extra numbered variants
+field names — the live dataset has **47 fields**, not 34: extra numbered variants
 per section (`sez2_testo_3`, `sez2_testo_4`, `sez1_esercizi_1`, `sez1_esercizi_2`,
-etc.) and 3 background image fields (`sfondo_cover`, `sfondo_pagina2`,
-`sfondo_impressum`). Only `sfondo_cover` and `sfondo_impressum` get a photo —
-see step 6 below and `references/media_library.md` for where the photos live.
-`sfondo_pagina2` is deliberately left untouched (keeps the template's default
-image); don't fill it.
+etc.) and 2 background image fields (`sfondo_cover`, `sfondo_impressum`) — both
+get a photo, see step 6 below and `references/media_library.md` for where the
+photos live. Page 2's only background element is a recolored image mask
+(`isMediaReplaceable: false`), not a real photo placeholder — the API can't
+swap its media — so there is no third `sfondo_*` field. An earlier version of
+this template briefly had a stray, unusable `sfondo_pagina2` field declared
+with nothing valid to connect it to; it's been removed.
 
 ## 3. Create a design instance
 
@@ -56,7 +58,7 @@ against the field dict from step 1. Page layout (as of the last fill):
 | Page | Fields |
 |---|---|
 | 1 | `cover_subtitle`, `sfondo_cover` (image) (no `cover_title` field exists anywhere — see gotcha below) |
-| 2 | `mantra_testo`, `intenzione_testo` (`sfondo_pagina2` also lives here but is left unfilled — see step 6) |
+| 2 | `mantra_testo`, `intenzione_testo` (no background image field on this page — see step 2's note) |
 | 3 | `lettera_testo_1`, `lettera_testo_2` |
 | 4 (TOC) | `toc_1`–`toc_4` — **see disambiguation gotcha below** |
 | 5 | `sez1_titolo`, `sez1_citazione`, `sez1_testo_1`, `sez1_testo_2` |
@@ -72,13 +74,11 @@ against the field dict from step 1. Page layout (as of the last fill):
 | 15 | impressum/colophon — `sfondo_impressum` (image) |
 
 Re-verify this layout rather than trusting it blindly — the template can change.
-The two image fields actually filled (`sfondo_cover` on page 1, `sfondo_impressum`
-on page 15, as of the last fill) show up as **image** elements carrying the
-same `dataFieldLabel` annotation as text fields — spot them in the `read-design`
-output by `type: "image"` rather than `type: "text"`. Note their `locator_id`s
-alongside the text fields' while you're reading each page; you'll need them in
-step 6. (`sfondo_pagina2` on page 2 is the same kind of element but is skipped
-— see step 6.)
+Both image fields (`sfondo_cover` on page 1, `sfondo_impressum` on page 15) show
+up as **image** elements carrying the same `dataFieldLabel` annotation as text
+fields — spot them in the `read-design` output by `type: "image"` rather than
+`type: "text"`. Note their `locator_id`s alongside the text fields' while you're
+reading each page; you'll need them in step 6.
 
 **Page 4 (TOC / "Contenuti") — capture original title styling before you
 touch it.** The four section titles below their numbers (the real-content
@@ -130,25 +130,21 @@ needs an explicit capture-and-reapply step, not just replace-and-check.
 
 ## 6. Select and place the background photos
 
-Do this after step 5's text edits (same open transaction is fine). Only
-`sfondo_cover` (page 1) and `sfondo_impressum` (page 15) get filled —
-`sfondo_pagina2` (page 2) is deliberately left alone, keeping the template's
-default image.
+Do this after step 5's text edits (same open transaction is fine). Both
+image fields get filled: `sfondo_cover` (page 1) and `sfondo_impressum`
+(page 15). Page 2 has no background image field at all — its only background
+element is a recolored image mask with `isMediaReplaceable: false` (a real
+image element, but one the API can't swap the media on), so there's nothing
+to place there; don't go looking for a third `sfondo_*` field.
 
-**Don't trust the `dataFieldLabel` on the page 1/2 background elements —
-verify by physical position instead.** As of the October 2026 fill, page 1's
-background rect is actually labeled `sfondo_pagina2` (not `sfondo_cover`),
-and page 2's background rect carries no `dataFieldLabel` at all — the labels
-have drifted from what's documented here, and from what the brand template's
-own dataset schema (`get-brand-template-dataset`) implies. This doesn't
-block filling: `update_fill` targets by `locator_id`, not by label, so place
-the cover photo on **page 1's background rect regardless of its label**, and
-leave **page 2's background rect** alone regardless of its label (same
-"don't touch it" rule as always). But flag this to Giusi — it means the
-brand template's own autofill data model is out of sync with its visual
-layout, which will confuse anyone (or anything) that fills this template
-through Canva's native autofill UI/API instead of this locator-based MCP
-flow. Worth her fixing the label directly in Canva at some point.
+As of the November 2026 fix, page 1's background rect is correctly labeled
+`sfondo_cover` in the live template's `dataFieldLabel` — the earlier drift
+where it carried the (now-removed) `sfondo_pagina2` label has been corrected
+directly in the brand template. Still worth spot-checking with
+`get-brand-template-dataset` / a `read-design` on page 1 before a fill, in
+case it drifts again — `update_fill` targets by `locator_id`, not by label,
+so a mismatch doesn't block filling, but it's a signal something changed
+upstream in Canva's editor.
 
 1. **Pick photos.** Follow `references/media_library.md` to choose a subfolder
    matching the month's `tema`, then `mcp__Canva__list-folder-items` that
@@ -213,16 +209,19 @@ flow. Worth her fixing the label directly in Canva at some point.
   value (title fields on this template render around 27px).
 - **Formatting leaks from the old content on every `esercizi`/
   `completamenti`/`esercizio_finale` field, not just occasionally.** These
-  fields hold multi-run rich text (bold numbered headers, differently-colored
+  fields hold multi-run rich text (bold numbered headers, differently-styled
   prompts); `replace_text` collapses the whole block into the first run's
-  formatting, so the entire field comes back bold and gold-colored, dots
-  included — and sometimes italic too, depending on what the previous
-  edition's content happened to carry in that first run. Always follow up
-  with a `format_text` call normalizing to `font_weight: "normal"`,
-  `font_style: "normal"`, `color: "#000000"` on that same element — see
-  `field_assembly.md` for the fuller note. Don't skip this expecting it to be
-  fine "most of the time"; it wasn't fine on any of the 6 fields of this type
-  in the October 2026 fill.
+  formatting, so the entire field can come back with the wrong weight or
+  style — and sometimes italic, depending on what the previous edition's
+  content happened to carry in that first run. Always follow up with a
+  `format_text` call normalizing to `font_weight: "normal"`,
+  `font_style: "normal"`, `color: "#c99e46"` (the brand template's gold —
+  confirmed live on the template as of the November 2026 normalization; Giusi
+  set every run on these fields, headers and prompts and dotted answer lines
+  alike, to this one gold, replacing what used to be a leftover black/gold
+  mix) on that same element — see `field_assembly.md` for the fuller note.
+  Don't skip this expecting it to be fine "most of the time"; it wasn't fine
+  on any of the 6 fields of this type in the October 2026 fill.
 - **Body-text fields (`lettera_testo_*`, `sezN_testo_*`,
   `integrazione_testo_*`) need the same normalize treatment on BOTH the
   left and right box of every pair, every time — including `font_style`,
@@ -278,7 +277,11 @@ flow. Worth her fixing the label directly in Canva at some point.
   durable fix is for a human to open the **brand template itself** in
   Canva and reset its body-text boxes to one consistent font family, so
   future editions stop inheriting the drift — worth raising to Giusi
-  directly rather than expecting each fill to catch it.
+  directly rather than expecting each fill to catch it. See step 9 below
+  for the audit to run before any design (including a routine fill) is
+  ever republished as the template's new baseline — that's the only point
+  where this kind of drift can get permanently locked in or, if caught
+  first, permanently prevented.
 - **Resized/repositioned boxes only help if they still span the intended text
   area.** This doesn't come up in routine fills (`replace_text` doesn't move or
   resize boxes), but if you ever restructure the template — add a section,
@@ -299,3 +302,53 @@ flow. Worth her fixing the label directly in Canva at some point.
    short links that regenerate on every call — don't rely on them as a stable
    reference. Use the canonical, stable form instead:
    `https://www.canva.com/design/<design_id>/edit`.
+
+## 9. Before republishing a design as the template's new baseline (occasional, not routine)
+
+The brand template `EAHNaGY-7DM` is not a blank scaffold — it's backed by a
+real, previously-filled edition (as of the field-label fix in November 2026,
+that's the June 2026 workbook). A routine monthly fill (steps 1–8 above)
+only ever *pulls from* the template via `create-design-from-brand-template`
+and never writes back to it, so it can't corrupt anything. This section only
+applies on the rare occasion someone — Giusi in Canva's UI via "Republish
+with changes", or a session via `mcp__Canva__publish-brand-template` — makes
+a design the template's new backing content (e.g. after fixing a data field
+label, or a deliberate template redesign). Whatever formatting quirks that
+design has at that moment become the permanent baseline every future edition
+inherits.
+
+This matters specifically because of the font-family gotcha above: font
+family can't be set via `format_text` (no font-family parameter exists on
+this Canva MCP surface). If a field's font has drifted when a design gets
+published as the new baseline, no future automated fill can correct it —
+only a human re-selecting the font by hand in Canva's editor can. So catch
+it *before* the republish, not after:
+
+1. **Read every page of the design that's about to become the new
+   baseline** — `read-design` with `filter.fields: ["design_content"]` and
+   no `page_indices` filter (this template is 15 pages, well under the
+   default 50-page cap).
+2. **For every text element carrying a `dataFieldLabel`, check two things:**
+   - *Internal consistency*: does the element's own `textRegions` array use
+     more than one distinct `fontRef`? That's drift within a single field
+     (a leftover multi-run box).
+   - *Sibling consistency*: group fields by their natural family —
+     `sez1_titolo`/`sez2_titolo`/`sez3_titolo`/`sez4_titolo` together, same
+     for `_citazione`, the four real `toc_N` content elements (not the
+     structural "SEZIONE N"/"Integrazione finale" elements sharing the same
+     label — see the TOC disambiguation gotcha), the `sezN_testo_1`/`_2`
+     pairs, etc. — and compare `fontRef` across each group. Any field whose
+     font differs from its siblings is drift, even if internally
+     single-run.
+3. **Fix every flagged field by hand in Canva's editor** — select the text,
+   set the font family to match its siblings. This step cannot be done via
+   MCP; there's no way around opening the design in the browser for this
+   specific fix.
+4. **Only after every flagged field is corrected**, proceed with the
+   republish (Canva's "Republish with changes" button, or
+   `mcp__Canva__publish-brand-template` if doing it via MCP).
+
+Skipping this check doesn't just risk one bad edition — it silently
+resets what "correct" means for every edition pulled from the template
+afterward, since there's no version history to roll back to if it's
+caught late.

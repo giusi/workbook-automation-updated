@@ -1,10 +1,9 @@
 # Giusi's curated photo library (Canva)
 
 Source for the workbook's two background-photo fields, `sfondo_cover` and
-`sfondo_impressum` (see `canva_mcp_fill.md` step 6 — the template's third
-image field, `sfondo_pagina2`, is deliberately left unfilled). All access is
-via the connected **Canva MCP integration**, read-only — this library lives
-in the same Canva account as the brand template, not in this repo.
+`sfondo_impressum` (see `canva_mcp_fill.md` step 6). All access is via the
+connected **Canva MCP integration**, read-only — this library lives in the
+same Canva account as the brand template, not in this repo.
 
 ## Location
 

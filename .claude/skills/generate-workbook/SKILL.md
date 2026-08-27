@@ -92,9 +92,8 @@ there is no Python/API step left in this workflow (see step 5).
    from brand template `EAHNaGY-7DM`, map the 34 assembled field values to
    their `dataFieldLabel`-tagged text elements page by page, replace their
    text, pick a themed photo from the curated library (`references/media_library.md`)
-   for the `sfondo_cover` and `sfondo_impressum` background-image fields (the
-   third such field, `sfondo_pagina2`, is left unfilled), verify via
-   thumbnails, rename the design to `WB HDH <Label>`, and commit.
+   for the `sfondo_cover` and `sfondo_impressum` background-image fields,
+   verify via thumbnails, rename the design to `WB HDH <Label>`, and commit.
    Three things to get right on every body-text page (don't treat any of
    these as optional polish — they're part of the fill, not a follow-up
    pass): normalize every `testo` box to plain, non-italic weight/style
@@ -198,5 +197,14 @@ Rules — getting them wrong makes the boxes overflow or leaves fields unmapped:
   image fields are filled from a curated Canva folder of Giusi's photos, not
   generated or drafted — see `references/media_library.md` for where they
   live and how to pick one, and `references/canva_mcp_fill.md` step 6 for the
-  placement mechanics. The third image field, `sfondo_pagina2`, is left
-  unfilled on purpose.
+  placement mechanics. Page 2 has no background image field — its background
+  element is a recolored image mask with `isMediaReplaceable: false`, so the
+  API can't swap its photo even though it's technically an image, not a
+  plain shape.
+- The brand template is backed by a real previously-filled edition, not a
+  blank scaffold — a routine fill only ever reads from it and can't corrupt
+  it, but if you or Giusi ever republish a design as the template's new
+  baseline (e.g. after fixing a data field label in Canva), that design's
+  formatting quirks become permanent for every future edition. Run the
+  font-family audit in `references/canva_mcp_fill.md` step 9 before any
+  such republish — font family can't be fixed via the API after the fact.
