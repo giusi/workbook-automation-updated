@@ -274,7 +274,11 @@ upstream in Canva's editor.
   durable fix is for a human to open the **brand template itself** in
   Canva and reset its body-text boxes to one consistent font family, so
   future editions stop inheriting the drift — worth raising to Giusi
-  directly rather than expecting each fill to catch it.
+  directly rather than expecting each fill to catch it. See step 9 below
+  for the audit to run before any design (including a routine fill) is
+  ever republished as the template's new baseline — that's the only point
+  where this kind of drift can get permanently locked in or, if caught
+  first, permanently prevented.
 - **Resized/repositioned boxes only help if they still span the intended text
   area.** This doesn't come up in routine fills (`replace_text` doesn't move or
   resize boxes), but if you ever restructure the template — add a section,
@@ -295,3 +299,53 @@ upstream in Canva's editor.
    short links that regenerate on every call — don't rely on them as a stable
    reference. Use the canonical, stable form instead:
    `https://www.canva.com/design/<design_id>/edit`.
+
+## 9. Before republishing a design as the template's new baseline (occasional, not routine)
+
+The brand template `EAHNaGY-7DM` is not a blank scaffold — it's backed by a
+real, previously-filled edition (as of the field-label fix in November 2026,
+that's the June 2026 workbook). A routine monthly fill (steps 1–8 above)
+only ever *pulls from* the template via `create-design-from-brand-template`
+and never writes back to it, so it can't corrupt anything. This section only
+applies on the rare occasion someone — Giusi in Canva's UI via "Republish
+with changes", or a session via `mcp__Canva__publish-brand-template` — makes
+a design the template's new backing content (e.g. after fixing a data field
+label, or a deliberate template redesign). Whatever formatting quirks that
+design has at that moment become the permanent baseline every future edition
+inherits.
+
+This matters specifically because of the font-family gotcha above: font
+family can't be set via `format_text` (no font-family parameter exists on
+this Canva MCP surface). If a field's font has drifted when a design gets
+published as the new baseline, no future automated fill can correct it —
+only a human re-selecting the font by hand in Canva's editor can. So catch
+it *before* the republish, not after:
+
+1. **Read every page of the design that's about to become the new
+   baseline** — `read-design` with `filter.fields: ["design_content"]` and
+   no `page_indices` filter (this template is 15 pages, well under the
+   default 50-page cap).
+2. **For every text element carrying a `dataFieldLabel`, check two things:**
+   - *Internal consistency*: does the element's own `textRegions` array use
+     more than one distinct `fontRef`? That's drift within a single field
+     (a leftover multi-run box).
+   - *Sibling consistency*: group fields by their natural family —
+     `sez1_titolo`/`sez2_titolo`/`sez3_titolo`/`sez4_titolo` together, same
+     for `_citazione`, the four real `toc_N` content elements (not the
+     structural "SEZIONE N"/"Integrazione finale" elements sharing the same
+     label — see the TOC disambiguation gotcha), the `sezN_testo_1`/`_2`
+     pairs, etc. — and compare `fontRef` across each group. Any field whose
+     font differs from its siblings is drift, even if internally
+     single-run.
+3. **Fix every flagged field by hand in Canva's editor** — select the text,
+   set the font family to match its siblings. This step cannot be done via
+   MCP; there's no way around opening the design in the browser for this
+   specific fix.
+4. **Only after every flagged field is corrected**, proceed with the
+   republish (Canva's "Republish with changes" button, or
+   `mcp__Canva__publish-brand-template` if doing it via MCP).
+
+Skipping this check doesn't just risk one bad edition — it silently
+resets what "correct" means for every edition pulled from the template
+afterward, since there's no version history to roll back to if it's
+caught late.
