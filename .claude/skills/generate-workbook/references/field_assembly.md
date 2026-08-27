@@ -60,23 +60,25 @@ so bold is a **page-level budget, not a per-paragraph requirement.** This is
 a **drafting-time** decision (step 3 of `SKILL.md`), made the same way on
 every run, not something patched in afterward:
 
-1. **Write each `corpo`/`lettera_corpo`/`integrazione_corpo` string as 2
+1. **Write each `corpo`/`lettera_corpo`/`integrazione_corpo` string as 3
    paragraphs internally**, separated by a blank line (`\n\n`) inside the
    same string. Split roughly evenly across the field's word budget above —
    don't front-load one long paragraph and tack on a two-word fragment.
-   - `integrazione_testo` is short (45–65 words total); if splitting it in
-     half would leave a paragraph under ~15 words, keep it as one paragraph
-     instead — don't force an awkward break just for the pattern's sake.
+   - `integrazione_testo` is short (45–65 words total), so a 3-way split can
+     get tight: if a 3-way split would leave any paragraph under ~12 words,
+     fall back to 2 paragraphs instead; if even a 2-way split would leave a
+     paragraph under ~15 words, keep it as one paragraph. Don't force an
+     awkward break just for the pattern's sake.
    - Every paragraph gets this split treatment, whether or not it ends up
      bolded (step 2) — the paragraph rhythm and the bold emphasis are two
      separate decisions.
 2. **Across the whole page, bold exactly 2 or 3 paragraphs total — never
    all of them.** A "page" here means the group of paragraphs that land on
    the same physical page: `lettera_testo_1` + `lettera_testo_2` together
-   (up to 4 paragraphs), each section's `sezN_testo_1` + `sezN_testo_2`
-   together (up to 4 paragraphs), and `integrazione_testo_1` +
-   `integrazione_testo_2` together (up to 4, fewer if either stayed
-   single-paragraph per the rule above).
+   (up to 6 paragraphs), each section's `sezN_testo_1` + `sezN_testo_2`
+   together (up to 6 paragraphs), and `integrazione_testo_1` +
+   `integrazione_testo_2` together (up to 6, fewer if either fell back to
+   2 or 1 paragraph per the rule above).
    - Pick the 2–3 paragraphs carrying the page's strongest turns — the
      reframe, the instruction, the emotional pivot — and leave the rest of
      that page's paragraphs plain, with no `**...**` marker at all.

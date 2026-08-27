@@ -156,9 +156,11 @@ Rules — getting them wrong makes the boxes overflow or leaves fields unmapped:
 - EXACTLY 4 sezioni; each with EXACTLY 2 `corpo` columns and EXACTLY 4 `esercizi`.
 - EXACTLY 2 paragraphs in `lettera_corpo` and in `integrazione_corpo`.
 - Every `corpo` column, and every `lettera_corpo`/`integrazione_corpo`
-  string, is itself written as 2 short paragraphs (blank-line-separated) —
-  this is what makes each page read as a filled, breathable page instead of
-  one dense block. Don't skip this or leave it for the Canva-filling step
+  string, is itself written as 3 short paragraphs (blank-line-separated,
+  falling back to 2 or 1 for the short `integrazione` field when a 3-way
+  split would leave a paragraph too thin — see `field_assembly.md`) — this
+  is what makes each page read as a filled, breathable page instead of one
+  dense block. Don't skip this or leave it for the Canva-filling step
   to patch on; draft it in from the start. On top of that, still mark
   **exactly 2 or 3 paragraphs per page** (not every paragraph) with a
   `**bolded phrase**` of just 3-5 words flagging that paragraph's core idea
