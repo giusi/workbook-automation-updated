@@ -239,15 +239,21 @@ rhythm & bold emphasis" above like any other body-text field).
   newline), matching the pattern above.
 - **After every `replace_text` on an `esercizi`/`completamenti`/
   `esercizio_finale` field, immediately follow with a `format_text` call
-  setting `font_weight: "normal"` (and usually `color: "#000000"`) on that
-  same element.** These fields carry multi-run rich text in the template
-  (bold numbered headers, differently-colored prompts) that `replace_text`
+  setting `font_weight: "normal"` and `color: "#c99e46"` on that same
+  element.** These fields carry multi-run rich text in the template (bold
+  numbered headers, prompts, dotted answer lines) that `replace_text`
   collapses into a single run using the *first* run's formatting — in
-  practice this means the whole block comes back bold and gold-colored,
-  not just an occasional stray run. This isn't the rare edge case the
-  older gotcha note below implies; it happens on essentially every one of
-  these fields, every time. Normalizing to plain black after each fill is
-  the reliable fix, not a "check and fix if you notice it" step.
+  practice this means the whole block can come back with the wrong weight
+  or style, not just an occasional stray run. This isn't the rare edge case
+  the older gotcha note below implies; check it on essentially every one of
+  these fields, every time. Normalizing weight to plain (not bold — the
+  tooling can't reproduce the template's per-header bold anyway, see the
+  bold-spans note above) while explicitly re-setting color to `#c99e46` is
+  the reliable fix, not a "check and fix if you notice it" step. `#c99e46`
+  is the brand template's gold — as of Giusi's November 2026 normalization
+  every run on these fields (headers, prompts, and the dotted answer lines)
+  is this one gold uniformly; don't fall back to black even if a
+  `replace_text` collapse happens to leave black behind.
 
 **`integrazione_testo_1`/`_2`** = `integrazione_corpo[0]`/`[1]` directly
 (through "Paragraph rhythm & bold emphasis" above like the other body-text

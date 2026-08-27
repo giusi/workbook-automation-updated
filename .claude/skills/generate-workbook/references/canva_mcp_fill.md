@@ -209,16 +209,19 @@ upstream in Canva's editor.
   value (title fields on this template render around 27px).
 - **Formatting leaks from the old content on every `esercizi`/
   `completamenti`/`esercizio_finale` field, not just occasionally.** These
-  fields hold multi-run rich text (bold numbered headers, differently-colored
+  fields hold multi-run rich text (bold numbered headers, differently-styled
   prompts); `replace_text` collapses the whole block into the first run's
-  formatting, so the entire field comes back bold and gold-colored, dots
-  included — and sometimes italic too, depending on what the previous
-  edition's content happened to carry in that first run. Always follow up
-  with a `format_text` call normalizing to `font_weight: "normal"`,
-  `font_style: "normal"`, `color: "#000000"` on that same element — see
-  `field_assembly.md` for the fuller note. Don't skip this expecting it to be
-  fine "most of the time"; it wasn't fine on any of the 6 fields of this type
-  in the October 2026 fill.
+  formatting, so the entire field can come back with the wrong weight or
+  style — and sometimes italic, depending on what the previous edition's
+  content happened to carry in that first run. Always follow up with a
+  `format_text` call normalizing to `font_weight: "normal"`,
+  `font_style: "normal"`, `color: "#c99e46"` (the brand template's gold —
+  confirmed live on the template as of the November 2026 normalization; Giusi
+  set every run on these fields, headers and prompts and dotted answer lines
+  alike, to this one gold, replacing what used to be a leftover black/gold
+  mix) on that same element — see `field_assembly.md` for the fuller note.
+  Don't skip this expecting it to be fine "most of the time"; it wasn't fine
+  on any of the 6 fields of this type in the October 2026 fill.
 - **Body-text fields (`lettera_testo_*`, `sezN_testo_*`,
   `integrazione_testo_*`) need the same normalize treatment on BOTH the
   left and right box of every pair, every time — including `font_style`,
