@@ -262,30 +262,35 @@ upstream in Canva's editor.
   Canva's editor, not through MCP. Size/weight/style are fine to fix
   programmatically (as in the autoshrink and stray-bold cases above).
 - **Font family can drift silently between the two columns of a body-text
-  pair, and normalize doesn't fix it** — confirmed in the October 2026
-  fill. `create-design-from-brand-template` doesn't return a pristine copy
-  of the blank template; it duplicates the *previous edition's actual
-  content*, edit history and all. Somewhere in that history a run got
-  assigned a different registered font family (e.g. "Poppins" vs. "Poppins
+  pair, and normalize doesn't fix it** — this is a mechanism risk, not a
+  currently-active problem: it was observed once, in the October 2026
+  fill, but a full audit of every field in the template's current backing
+  content (done afterward, covering all 15 pages) found no drift anywhere
+  — it isn't a standing issue as of this writing. Still worth watching for
+  on every fill, because the mechanism that caused it hasn't gone away:
+  `create-design-from-brand-template` doesn't return a pristine copy of the
+  blank template; it duplicates the *previous edition's actual content*,
+  edit history and all. If some future edition's history ever assigns a
+  run a different registered font family (e.g. "Poppins" vs. "Poppins
   Light" as two separate font assets, not weight variants of one font —
-  common when the underlying font isn't a variable font). `replace_text`
-  collapses a multi-run box to a single run using the *first* old run's
-  formatting, including its font family, so the new text silently inherits
-  whichever family happened to be first — independently per box, so the
-  left and right column of the same section can end up in different
-  families even though both read "normal" weight/style. Because
-  `format_text` has no font-family parameter, this can't be corrected
-  during a fill. Check for it visually (do the two columns' letterforms
-  actually match, not just their weight?) and flag any affected field by
-  name in the final report rather than silently shipping a mismatch. The
-  durable fix is for a human to open the **brand template itself** in
-  Canva and reset its body-text boxes to one consistent font family, so
-  future editions stop inheriting the drift — worth raising to Giusi
-  directly rather than expecting each fill to catch it. See step 9 below
-  for the audit to run before any design (including a routine fill) is
-  ever republished as the template's new baseline — that's the only point
-  where this kind of drift can get permanently locked in or, if caught
-  first, permanently prevented.
+  common when the underlying font isn't a variable font), `replace_text`
+  would collapse a multi-run box to a single run using the *first* old
+  run's formatting, including its font family, so the new text would
+  silently inherit whichever family happened to be first — independently
+  per box, so the left and right column of the same section could end up
+  in different families even though both read "normal" weight/style.
+  Because `format_text` has no font-family parameter, this can't be
+  corrected during a fill if it recurs. Check for it visually on every fill
+  (do the two columns' letterforms actually match, not just their weight?)
+  and flag any affected field by name in the final report rather than
+  silently shipping a mismatch. If it does show up again, the durable fix
+  is for a human to open the **brand template itself** in Canva and reset
+  its body-text boxes to one consistent font family, so future editions
+  stop inheriting the drift. See step 9 below for the audit to run before
+  any design (including a routine fill) is ever republished as the
+  template's new baseline — that's the only point where this kind of drift
+  can get permanently locked in or, if caught first, permanently
+  prevented.
 - **Resized/repositioned boxes only help if they still span the intended text
   area.** This doesn't come up in routine fills (`replace_text` doesn't move or
   resize boxes), but if you ever restructure the template — add a section,
