@@ -138,13 +138,13 @@ Return/write JSON with this shape:
   "cover_subtitle": "sottotitolo breve del percorso",
   "mantra_testo": "frase breve, prima persona, presente",
   "intenzione_testo": "frase breve complementare al mantra",
-  "lettera_corpo": ["paragrafo 1 (~85-110 parole)", "paragrafo 2, termina con 'Namaste,'"],
+  "lettera_corpo": ["paragrafo 1 (~105-135 parole)", "paragrafo 2 (~85-110 parole), termina con 'Namaste,'"],
   "sezioni": [
     {
       "numero": 1,
       "titolo": "sottotitolo della sezione",
       "citazione": "citazione ispirazionale breve",
-      "corpo": ["colonna 1 (~90-120 parole)", "colonna 2 (~90-120 parole)"],
+      "corpo": ["colonna 1 (~105-135 parole)", "colonna 2 (~105-135 parole)"],
       "esercizi_intro": "Esercizi – [nome breve]",
       "esercizi": [
         {"titolo": "titolo esercizio", "prompt": "domanda/istruzione riflessiva, seconda persona"}
@@ -161,15 +161,21 @@ Return/write JSON with this shape:
 
 Rules — getting them wrong makes the boxes overflow or leaves fields unmapped:
 - EXACTLY 4 sezioni; each with EXACTLY 2 `corpo` columns and EXACTLY 4 `esercizi`.
-- EXACTLY 2 paragraphs in `lettera_corpo` and in `integrazione_corpo`.
-- Every `corpo` column, and every `lettera_corpo`/`integrazione_corpo`
-  string, is itself written as 3 short paragraphs (blank-line-separated,
-  falling back to 2 or 1 for the short `integrazione` field when a 3-way
-  split would leave a paragraph too thin — see `field_assembly.md`) — this
-  is what makes each page read as a filled, breathable page instead of one
-  dense block. Don't skip this or leave it for the Canva-filling step
-  to patch on; draft it in from the start. On top of that, still mark
-  **exactly 2 or 3 paragraphs per page** (not every paragraph) with a
+- EXACTLY 2 array entries in `lettera_corpo` and in `integrazione_corpo`
+  (one per column) — not to be confused with the paragraph counts below,
+  which are about how many paragraphs go *inside* each entry.
+- Every `sezioni[N].corpo` column and `lettera_corpo[0]` (the lettera's left
+  column) is itself written as 4 short paragraphs (blank-line-separated).
+  `lettera_corpo[1]` (the lettera's right column) stays at 3 paragraphs,
+  the last ending with `"Namaste,"` as the sign-off — not a 4th content
+  paragraph. `integrazione_corpo`'s entries stay at 3 paragraphs each,
+  falling back to 2 or 1 when a 3-way split would leave a paragraph too
+  thin — see `field_assembly.md` for the exact per-field counts. This
+  paragraph rhythm is what makes each page read as a filled, breathable
+  page instead of one dense block. Don't skip this or leave it for the
+  Canva-filling step to patch on; draft it in from the start. On top of
+  that, still mark **exactly 2 or 3 paragraphs per page** (not every
+  paragraph) with a
   `**bolded phrase**` of just 3-5 words flagging that paragraph's core idea
   — but be aware this markup currently ships as plain text: the connected
   Canva tooling can't render partial bold within a text box (confirmed,

@@ -16,14 +16,24 @@ neither overflow nor look sparse.
 
 | Field | Budget (chars) | ~Words |
 |---|---|---|
-| `sez1_testo_1`, `sez1_testo_2` | 480–720 | ~90–120 |
-| `sez2_testo_1`, `sez2_testo_2` | 480–720 | ~90–120 |
-| `sez3_testo_1`, `sez3_testo_2` | 480–720 | ~90–120 |
-| `sez4_testo_1`, `sez4_testo_2` | 480–720 | ~90–120 |
-| `lettera_testo_1` | 470–700 | ~85–110 |
+| `sez1_testo_1`, `sez1_testo_2` | 620–860 | ~105–135 |
+| `sez2_testo_1`, `sez2_testo_2` | 620–860 | ~105–135 |
+| `sez3_testo_1`, `sez3_testo_2` | 620–860 | ~105–135 |
+| `sez4_testo_1`, `sez4_testo_2` | 620–860 | ~105–135 |
+| `lettera_testo_1` | 620–860 | ~105–135 |
 | `lettera_testo_2` | 440–670 | ~85–110 |
 | `integrazione_testo_1` | 250–440 | ~45–65 |
 | `integrazione_testo_2` | 260–450 | ~45–65 |
+
+Every `sezN_testo_1`/`_2` field and `lettera_testo_1` now carry **4** paragraphs
+each (raised from 3 in August 2026, to match the fuller page that reads as
+filled rather than sparse in the box — confirmed against the October 2026
+edition's actual committed content: `sez1_testo_1` at 843 chars/133 words down
+to `sez4_testo_2` at 650 chars/109 words, all comfortably inside this band).
+`lettera_testo_2` is the one exception — it stays at **3** paragraphs plus the
+`"Namaste,"` sign-off line (unchanged budget, unchanged paragraph count) since
+it closes the letter rather than continuing to build the argument. See
+"Paragraph rhythm & bold emphasis" below for the per-field paragraph counts.
 
 Check these by counting characters/words yourself while drafting (no code
 needed — a rough word count is enough; these are fill targets, not hard
@@ -60,25 +70,40 @@ so bold is a **page-level budget, not a per-paragraph requirement.** This is
 a **drafting-time** decision (step 3 of `SKILL.md`), made the same way on
 every run, not something patched in afterward:
 
-1. **Write each `corpo`/`lettera_corpo`/`integrazione_corpo` string as 3
-   paragraphs internally**, separated by a blank line (`\n\n`) inside the
-   same string. Split roughly evenly across the field's word budget above —
-   don't front-load one long paragraph and tack on a two-word fragment.
-   - `integrazione_testo` is short (45–65 words total), so a 3-way split can
+1. **Write each `corpo`/`lettera_corpo`/`integrazione_corpo` string as
+   several paragraphs internally**, separated by a blank line (`\n\n`)
+   inside the same string. Split roughly evenly across the field's word
+   budget above — don't front-load one long paragraph and tack on a
+   two-word fragment. The paragraph count differs by field:
+   - `sezioni[N].corpo[0]` and `corpo[1]` (→ `sezN_testo_1`/`_2`, all 4
+     sections): **4 paragraphs** each.
+   - `lettera_corpo[0]` (→ `lettera_testo_1`, the left column): **4
+     paragraphs**.
+   - `lettera_corpo[1]` (→ `lettera_testo_2`, the right column): **3
+     paragraphs**, the last one ending with `"Namaste,"` on its own
+     blank-line-separated line (this is the sign-off, not a 4th content
+     paragraph — don't add a paragraph after it). This field's count stays
+     at 3 even though every other body-text field moved to 4, since it's
+     closing the letter rather than continuing to build the argument.
+   - `integrazione_corpo[0]`/`[1]` (→ `integrazione_testo_1`/`_2`):
+     **3 paragraphs**, unchanged.
+     `integrazione_testo` is short (45–65 words total), so a 3-way split can
      get tight: if a 3-way split would leave any paragraph under ~12 words,
      fall back to 2 paragraphs instead; if even a 2-way split would leave a
      paragraph under ~15 words, keep it as one paragraph. Don't force an
-     awkward break just for the pattern's sake.
+     awkward break just for the pattern's sake. (This fallback applies only
+     to `integrazione_corpo` — every other field above keeps its fixed
+     paragraph count regardless of how the word budget splits.)
    - Every paragraph gets this split treatment, whether or not it ends up
      bolded (step 2) — the paragraph rhythm and the bold emphasis are two
      separate decisions.
 2. **Across the whole page, bold exactly 2 or 3 paragraphs total — never
    all of them.** A "page" here means the group of paragraphs that land on
    the same physical page: `lettera_testo_1` + `lettera_testo_2` together
-   (up to 6 paragraphs), each section's `sezN_testo_1` + `sezN_testo_2`
-   together (up to 6 paragraphs), and `integrazione_testo_1` +
-   `integrazione_testo_2` together (up to 6, fewer if either fell back to
-   2 or 1 paragraph per the rule above).
+   (up to 7 paragraphs, `"Namaste,"` not counted as one), each section's
+   `sezN_testo_1` + `sezN_testo_2` together (up to 8 paragraphs), and
+   `integrazione_testo_1` + `integrazione_testo_2` together (up to 6, fewer
+   if either fell back to 2 or 1 paragraph per the rule above).
    - Pick the 2–3 paragraphs carrying the page's strongest turns — the
      reframe, the instruction, the emotional pivot — and leave the rest of
      that page's paragraphs plain, with no `**...**` marker at all.
