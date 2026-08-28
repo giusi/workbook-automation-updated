@@ -109,15 +109,20 @@ there is no Python/API step left in this workflow (see step 5).
    `references/field_assembly.md`.
    Two standing tooling limitations to note in the report every run, not
    chase as new bugs: bold spans within a text box aren't achievable
-   (confirmed — see `field_assembly.md`), and font family can silently
-   differ between the two columns of a body-text pair because
+   (confirmed — see `field_assembly.md`), and font family *can* silently
+   differ between the two columns of a body-text pair, because
    `create-design-from-brand-template` duplicates the previous edition's
-   drifted formatting, not a clean template — check each page's two
-   columns visually match in typeface, and name any field that doesn't in
-   the report (see `canva_mcp_fill.md`'s font-family gotcha). The durable
-   fix for the font drift is a human resetting the brand template's
-   body-text boxes to one font family in Canva directly — worth flagging
-   to Giusi as a standalone action item, not something a fill can correct.
+   actual content rather than a clean template — if that content's history
+   ever carries mismatched formatting, a fill would inherit it. This was
+   observed once (October 2026) but a full field-by-field audit afterward
+   found the template's current backing content clean — so check each
+   page's two columns visually match in typeface as routine due diligence,
+   not because it's a known-active problem, and name any field that
+   doesn't in the report (see `canva_mcp_fill.md`'s font-family gotcha). If
+   it does recur, the durable fix is a human resetting the brand
+   template's body-text boxes to one font family in Canva directly — worth
+   flagging to Giusi as a standalone action item, not something a fill can
+   correct.
 
 6. **Report** the Canva edit URL (`https://www.canva.com/design/<design_id>/edit`),
    so Giusi can finalize it. Don't send an approval email unless explicitly asked —
