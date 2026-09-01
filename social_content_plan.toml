@@ -1,0 +1,20 @@
+# Weekly content plan for the HDH social post automation.
+#
+# Giusi fills this in a week or two ahead. generate-social-post looks up the
+# entry for the target date (default: the nearest upcoming one) and drafts
+# that post. If there's no entry for the target date, it stops and asks
+# rather than inventing a source or style.
+#
+# Each entry needs:
+#   fonte  — "podcast" or "workbook"
+#   stile  — one of: pain_point, awareness, unpopular_opinion, educational,
+#            personal_experience
+# Key format: "YYYY-MM-DD" — the date the post is due.
+#
+# Cadence (how many entries per week, which days) is intentionally not fixed
+# here — Giusi is still deciding the exact weekly rhythm beyond the existing
+# Saturday 10:00 podcast-topic slot. Add entries for whatever days apply.
+
+# ["2026-09-06"]
+# fonte = "podcast"
+# stile = "pain_point"
