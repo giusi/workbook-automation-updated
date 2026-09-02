@@ -72,23 +72,30 @@ Rules for the payload:
 - `schema_version` exists so the scenario can fail loudly on a payload shape it
   doesn't know, instead of publishing a half-mapped post.
 
-## Scenario spec (proposal — confirm before building)
+## Scenario spec — current design
 
-1. **Webhook** (Custom webhook) receives the payload above.
-2. **Router** — no branching yet; a single path to the review step.
-3. **Email** to Giusi: thesis, the Canva edit link, each platform's caption in
-   full, the `aperti` list, and two links — approve / reject.
-4. **Wait for approval.** Nothing reaches a platform before this resolves.
-5. **On approval, router splits per platform**: Instagram, Facebook profile,
-   Facebook group, YouTube community, Telegram — each with its own module and
-   its own connection, owned by Make.
-6. **On rejection**: stop, and notify. No retry loop, no partial publish.
+One scenario, no approval email (Giusi's decision, 2026-09-02):
 
-Open in this spec, pending Giusi:
+```
+webhook  →  Canva: exportDesign  →  Facebook Page: create post (unpublished)
+```
 
-- Whether the carousel images are exported from Canva by Make, or attached by
-  hand before publishing.
-- Whether all five platforms publish at once, or Telegram/YouTube lag the feed
-  post.
-- What happens if one platform fails after others succeeded — retry that one
-  only, or alert and stop.
+The review that an email round-trip used to provide now happens twice over:
+once when Giusi approves the post before `schedule-social-post` is invoked at
+all, and again on the Facebook Page, where the draft lands unpublished and she
+decides whether to publish it.
+
+See `make/` in the repo root for the importable blueprint and the test plan.
+
+**Giusi already has a scenario for this** — "Publish Done Canva Designs"
+(id 9724996, inactive, never run), built around polling a Canva folder rather
+than a webhook. It cannot carry captions, which is why the webhook design
+exists. Any move to reconcile the two is **hers to approve first**.
+
+## Standing rule: never change Make without asking
+
+Giusi's instruction, 2026-09-02: **never create, modify, activate or delete
+anything in her Make account without asking her first and getting a yes.**
+That covers scenarios, webhooks, connections and folders, and it holds even
+when the Make write tools are available in a session. Reading and validating
+are fine.

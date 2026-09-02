@@ -13,11 +13,11 @@ brand template (`EAHT9Ay4G_4`, see
 [`references in hdh-social-copy`](../hdh-social-copy/references/social_carousel_template.md))
 directly via the Canva MCP connector.
 
-**This produces a draft for review, not a published post.** The Make
-hand-off (webhook → email review → per-platform publish) doesn't exist yet —
-see the repo's social-automation plan. Until it does, this skill's output is
-a Canva edit URL and a review package, same spirit as `generate-workbook`
-reporting back a Canva URL "for Giusi to review and finalize by hand."
+**This produces a draft to iterate on, and nothing else.** It ends with a
+Canva edit URL and a review package — same spirit as `generate-workbook`
+reporting back a URL for Giusi to review and finalise by hand. Giusi then
+refines the design in Canva until it's right. Only when she says it's approved
+does anyone invoke `schedule-social-post`, which is what talks to Make.
 
 ## Inputs
 
@@ -161,19 +161,12 @@ reporting back a Canva URL "for Giusi to review and finalize by hand."
 9. **Log it.** Append an entry to `posting_log.md` (date, hook/title,
    fonte, stile, Canva URL, review package path, status `draft`).
 
-10. **Hand off to Make — only if it's wired up.** If `MAKE_WEBHOOK_URL` is set
-   in the environment, POST the payload described in
-   [`references/make_handoff.md`](references/make_handoff.md) to it, and record
-   `Make webhook: sent <timestamp>` in the log entry from step 9. If it isn't
-   set, skip this silently — it means the scenario doesn't exist yet — and
-   leave the log line as `not yet sent (no scenario built)`.
+10. **Stop here. Do not send anything to Make.** Give Giusi the Canva edit URL
+   and the review package path, and say plainly that this is a draft for her to
+   iterate on. Scheduling is a **separate skill** (`schedule-social-post`) that
+   a human invokes once the design and captions are actually approved — the
+   same shape as `generate-workbook` → `finalize-workbook`.
 
-   **Never publish to a platform yourself.** Claude holds no Instagram,
-   Facebook, YouTube or Telegram connection, by design; Make owns all of them,
-   and a human approves every post between the webhook and any platform. That
-   constraint is explained in `references/make_handoff.md` and is not yours to
-   relax — if a task seems to need a platform connector, raise it with Giusi.
-
-11. **Report back.** Give Giusi the Canva edit URL and the review package
-   path, and say whether the Make webhook was called or skipped. Until the
-   scenario exists, this draft needs manual review and publishing.
+   Never POST to a webhook, never touch Make, and never publish to a platform
+   from this skill. Producing good copy and deciding to publish it are two
+   different decisions, and only the second one is Giusi's to make here.
