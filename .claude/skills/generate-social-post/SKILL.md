@@ -161,7 +161,19 @@ reporting back a Canva URL "for Giusi to review and finalize by hand."
 9. **Log it.** Append an entry to `posting_log.md` (date, hook/title,
    fonte, stile, Canva URL, review package path, status `draft`).
 
-10. **Report back.** Give Giusi the Canva edit URL and the review package
-   path. Note explicitly that no Make webhook was called — that hand-off is
-   a separate, not-yet-built step (see the repo's social-automation plan) —
-   so this draft needs manual review/publishing until it exists.
+10. **Hand off to Make — only if it's wired up.** If `MAKE_WEBHOOK_URL` is set
+   in the environment, POST the payload described in
+   [`references/make_handoff.md`](references/make_handoff.md) to it, and record
+   `Make webhook: sent <timestamp>` in the log entry from step 9. If it isn't
+   set, skip this silently — it means the scenario doesn't exist yet — and
+   leave the log line as `not yet sent (no scenario built)`.
+
+   **Never publish to a platform yourself.** Claude holds no Instagram,
+   Facebook, YouTube or Telegram connection, by design; Make owns all of them,
+   and a human approves every post between the webhook and any platform. That
+   constraint is explained in `references/make_handoff.md` and is not yours to
+   relax — if a task seems to need a platform connector, raise it with Giusi.
+
+11. **Report back.** Give Giusi the Canva edit URL and the review package
+   path, and say whether the Make webhook was called or skipped. Until the
+   scenario exists, this draft needs manual review and publishing.
