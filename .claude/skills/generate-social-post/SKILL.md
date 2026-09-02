@@ -23,25 +23,51 @@ reporting back a Canva URL "for Giusi to review and finalize by hand."
 
 - Optional `--date YYYY-MM-DD` (the target post date). If absent, use the
   nearest upcoming entry in `social_content_plan.toml`.
+- Optional `--fonte` / `--stile` — explicit overrides for an **ad-hoc run**
+  (Giusi asking for a one-off post, or a test run). These are the only way
+  to draft without a plan entry; see step 1.
 
 ## Steps
+
+0. **Read `posting_log.md` first.** It's what prevents duplicates: check the
+   last few entries so you don't reuse a thesis, hook, or source episode
+   that's already been drafted, and so you honour `hdh-social-copy`'s rule
+   that two consecutive posts never share the same `stile`/structure. If the
+   plan's `stile` collides with the previous entry's, draft it anyway but say
+   so in your report — the plan is Giusi's call, not yours to silently
+   override.
 
 1. **Resolve the week's plan.** Read `social_content_plan.toml` for the
    target date to get `fonte` (`podcast` or `workbook`) and `stile` (one of
    `pain_point`, `awareness`, `unpopular_opinion`, `educational`,
-   `personal_experience`). **Never invent these** — if there's no entry for
-   the target date, stop and tell Giusi to add one, same rule
-   `generate-workbook` follows for `content_plan.toml`.
+   `personal_experience`). **Never invent these.** If there's no entry for
+   the target date:
+   - `--fonte` and `--stile` were both passed → use them, and say clearly in
+     your report that this was an ad-hoc run with no plan entry (don't write
+     one into `social_content_plan.toml` on Giusi's behalf).
+   - otherwise → stop and ask Giusi for `fonte` + `stile`, same rule
+     `generate-workbook` follows for `content_plan.toml`. Note that the file
+     currently ships with **no active entries at all** (only commented
+     examples), so a plain scheduled run will land here until Giusi fills it.
 
 2. **Gather source material.**
    - `fonte = podcast`: use the Castmagic MCP connector, `Happy Daily
-     Podcast` space, to pull the latest episode's summary, headlines, and
-     post ideas (Castmagic already generates these — don't re-derive from a
-     raw transcript unless the generated ideas are missing/thin).
-   - `fonte = workbook`: read `out/workbook-<current-month>.json` (written by
-     `generate-workbook`). If it doesn't exist yet, stop and tell Giusi
-     rather than inventing workbook content — don't guess at a section or
-     exercise that hasn't been drafted.
+     Podcast` space. **Don't just take the newest recording** — the space
+     also holds test clips, work files and third-party English podcasts, and
+     `published_at` is `null` on most of them. Follow `hdh-social-copy`'s
+     "Scegliere l'episodio podcast" rules to pick a real episode that fits
+     the month's theme, and name the exact title in your report. Use
+     Castmagic's `quote_hooks` and overviews as raw material — never its
+     generated captions/carousels as a draft (see that skill's "Castmagic:
+     cosa usare e cosa non usare"), and never carry over promos, coupons or
+     prices found in the source.
+   - `fonte = workbook`: read `out/workbook-<target month>.json` (written by
+     `generate-workbook`). **`out/` is gitignored**, so in a fresh clone or a
+     cloud routine that file won't exist — in that case fall back to the
+     month's entry in `content_plan.toml` (`tema` + `obiettivi`), which is
+     the same theme the workbook was generated from, and say which of the two
+     you used. Never invent a workbook section, exercise, mantra or intention
+     you haven't actually read.
 
 3. **Load voice and format rules.** Invoke the `hdh-social-copy` skill
    before drafting anything — it loads `brand_voice/tone_guide.md` and the
@@ -67,7 +93,11 @@ reporting back a Canva URL "for Giusi to review and finalize by hand."
      `hdh-social-copy`'s "Adattamento per piattaforma" section. Same core
      asset, tailored copy per platform. Instagram and Facebook profilo get a
      3-5 hashtag block (specific to this post's theme, not generic/repeated
-     every week); the other three platforms don't.
+     every week); the other three platforms don't. The YouTube variant leads
+     with the episode link — the repo holds **no canonical episode URL**, so
+     leave an explicit placeholder (`<LINK EPISODIO>`) and ask Giusi for it;
+     never fabricate a URL, a handle, or a domain (the sources disagree on the
+     spelling of her name — see `hdh-social-copy`).
 
 5. **Self-review before Giusi ever sees it.** Follow `hdh-social-copy`'s
    "Self-review prima di consegnare a Giusi" procedure: run a `brand-review`-

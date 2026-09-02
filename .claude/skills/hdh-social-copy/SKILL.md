@@ -78,16 +78,70 @@ un tema generico.
 
 ## Le fonti — in ordine di priorità
 
-1. **Podcast** (episodio più recente, via Castmagic — usa il summary, gli
-   headline, e i post idea che Castmagic estrae automaticamente come punto
-   di partenza, poi riscrivi nella voce di Giusi, non come riassunto).
-2. **Workbook HDH del mese corrente** (`out/workbook-<YYYY-MM>.json` se
-   presente — un esercizio, una sezione, il mantra/intenzione del mese).
+1. **Podcast** (via Castmagic — vedi le regole di selezione e di uso qui
+   sotto).
+2. **Workbook HDH del mese** — `out/workbook-<YYYY-MM>.json` se presente
+   (un esercizio, una sezione, il mantra/intenzione del mese). `out/` è
+   gitignored: in una sessione fresca o in una routine cloud quel file **non
+   esiste**. Fallback durevole: l'entry del mese in `content_plan.toml`
+   (`tema` + `obiettivi`) — è la stessa fonte da cui il workbook è stato
+   generato, quindi resta on-theme. Dichiara sempre nel report quale delle
+   due hai usato; non inventare mai un esercizio o una sezione che non hai
+   letto davvero.
 3. Altro materiale originale (newsletter, dirette, esperienze personali) se
    disponibile.
 
 L'obiettivo non è riassumere la fonte — è estrarne l'idea più forte e farne
 un contenuto autonomo (spesso: un'unpopular opinion).
+
+### Scegliere l'episodio podcast (non fidarti di "l'ultimo")
+
+Lo space Castmagic `Happy Daily Podcast` contiene anche materiale che **non
+è un episodio pubblicabile di Giusi**: clip di test di pochi minuti, file di
+lavorazione, e podcast di terzi in inglese salvati come riferimento. E
+`published_at` è `null` su gran parte delle registrazioni, quindi "il più
+recente" non è un'informazione affidabile.
+
+Prima di scegliere, scarta:
+
+- registrazioni molto brevi (< ~8 minuti) o con titoli non-episodio
+  (nomi propri, numeri, parole isolate);
+- titoli non italiani o chiaramente di altri autori;
+- doppioni dello stesso episodio (versioni con e senza numero di puntata).
+
+Poi scegli, tra quelle rimaste, l'episodio **coerente con il tema del mese**
+(`content_plan.toml`) — non semplicemente il primo della lista — e
+**nomina il titolo esatto nel report a Giusi**, così può correggerti in un
+secondo se hai preso l'episodio sbagliato.
+
+### Castmagic: cosa usare e cosa non usare
+
+Castmagic restituisce ~20 blocchi per episodio; solo alcuni sono tipizzati
+(`episode_overview`, `quote_hooks`, `speaker_bio`), il resto arriva come
+`dynamic` e va riconosciuto dalla forma.
+
+**Usa come materia prima:** i `quote_hooks` (citazioni verbatim di Giusi,
+con timestamp — è la sua voce reale, il materiale più prezioso), la sequenza
+dei temi, l'`episode_overview`, gli esempi personali concreti.
+
+**Non usare mai così com'è:** le caption, i carousel e le newsletter che
+Castmagic genera. Sono fuori voce in modo sistematico — emoji decorative,
+formule vietate (in un episodio reale compariva letteralmente "Non sei
+sola"), hashtag generici, listicle numerati, e frammenti in inglese lasciati
+dentro il testo italiano ("focused on", "One concept discussed was"). Servono
+al massimo come indice di cosa contiene l'episodio, mai come bozza.
+
+**Non riportare mai promo, prezzi, sconti, coupon o scadenze** presi dalla
+fonte. I transcript contengono offerte a tempo (es. un coupon estivo) che
+alla data di pubblicazione del post sono quasi sempre scadute: riportarle
+significa pubblicare una promessa falsa. Se un post deve promuovere
+qualcosa, l'informazione arriva da Giusi in quel momento, non dal
+transcript.
+
+**Non inventare mai URL, handle o nomi di dominio.** Le fonti brand-voice
+riportano grafie diverse del nome (`giusyvalentini.com`, "Giusy Valentini
+Coach") mentre il template del carosello porta `@giusivalentinicoach`: dove
+serve un link o un handle, lascia un segnaposto esplicito e chiedi a Giusi.
 
 ## I 5 stili di contenuto da alternare
 
@@ -138,6 +192,24 @@ SLIDE N        = CTA verso la masterclass gratuita + tag del mese corrente,
                  generato dinamicamente dalla data del run (es. "Settembre
                  2026"), mai hardcoded.
 ```
+
+### Budget di lunghezza
+
+Il template Canva rimpicciolisce automaticamente il testo che non entra
+(stesso bug visto in `generate-workbook`), quindi le slide hanno un tetto
+reale, non indicativo:
+
+| Campo | Tetto |
+|---|---|
+| `hook_testo` | ~90 caratteri, max 2 righe |
+| `valore1..3_testo` | ~180 caratteri ciascuno |
+| `chiusura_testo` | ~120 caratteri, max 2 righe |
+| `cta_podcast_titolo` | ~60 caratteri (titolo reale dell'episodio) |
+| `cta_podcast_azione` / `cta_masterclass_azione` | ~70 caratteri |
+
+Per le caption: Instagram e Facebook profilo 900–1400 caratteri (hashtag
+esclusi), Gruppo Podcast 600–1000, YouTube 300–500, Telegram 250–450. Sotto
+il minimo il post non lascia niente; sopra il massimo si perde il TRANSFER.
 
 ### Adattamento per piattaforma
 
@@ -207,6 +279,12 @@ autoverifica in stile `brand-review` (skill separata, stesso repo) usando
 □ Hashtag presenti solo dove previsto (IG/FB profilo), pertinenti non generici?
 □ CTA sempre parola-chiave nei commenti, mai linguaggio da CTA generico
   ("clicca qui", "scopri di più", verbi da SaaS)?
+□ Nessuna promo/prezzo/coupon/scadenza ereditata dalla fonte?
+□ Nessun URL, handle o dominio inventato (segnaposto espliciti dove manca)?
+□ Titolo dell'episodio citato = titolo reale, verificato su Castmagic?
+□ Niente residui di Castmagic (emoji decorative, frasi in inglese, hashtag
+  generici, listicle numerati)?
+□ Stile diverso dall'ultimo post loggato in `posting_log.md`?
 ```
 
 Non pubblicare mai senza revisione umana — questo skill produce una bozza
