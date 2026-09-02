@@ -114,22 +114,41 @@ Poi scegli, tra quelle rimaste, l'episodio **coerente con il tema del mese**
 **nomina il titolo esatto nel report a Giusi**, così può correggerti in un
 secondo se hai preso l'episodio sbagliato.
 
-### Castmagic: cosa usare e cosa non usare
+### Leggi il transcript completo. Sempre.
 
-Castmagic restituisce ~20 blocchi per episodio; solo alcuni sono tipizzati
-(`episode_overview`, `quote_hooks`, `speaker_bio`), il resto arriva come
-`dynamic` e va riconosciuto dalla forma.
+**La fonte è il transcript integrale dell'episodio** (`get_transcript`), non
+il materiale che Castmagic ne ricava. Leggilo tutto prima di scrivere una
+riga — un episodio di 12-25 minuti si legge in un attimo, e la differenza
+nel risultato è netta.
 
-**Usa come materia prima:** i `quote_hooks` (citazioni verbatim di Giusi,
-con timestamp — è la sua voce reale, il materiale più prezioso), la sequenza
-dei temi, l'`episode_overview`, gli esempi personali concreti.
+Perché: verificato su un episodio reale, l'output derivato di Castmagic
+perdeva quasi tutto ciò che rende un contenuto riconoscibile. Nel transcript
+c'erano il canto degli uccellini e le farfalle nel momento di gratitudine, il
+libro/lo sport/la nuotata/la casa sistemata come catena di tentativi di
+riempire il vuoto, "l'impulso nel mio cuore, nel mio corpo, nella mia mente,
+ma anche nelle mie mani", "riposo sacro", "carta e penna", l'invito diretto
+"scrivimi dove lo senti", e il fatto che chi rimanda "si occupa sempre di
+qualcos'altro o di qualcun altro" — l'aggancio all'avatar. Nei riassunti
+generati: niente di tutto questo. **Il dettaglio concreto è la voce.** È
+quello che rende un post suo e non di chiunque altro, ed è esattamente quello
+che i riassunti tolgono per primo.
 
-**Non usare mai così com'è:** le caption, i carousel e le newsletter che
-Castmagic genera. Sono fuori voce in modo sistematico — emoji decorative,
-formule vietate (in un episodio reale compariva letteralmente "Non sei
-sola"), hashtag generici, listicle numerati, e frammenti in inglese lasciati
-dentro il testo italiano ("focused on", "One concept discussed was"). Servono
-al massimo come indice di cosa contiene l'episodio, mai come bozza.
+Castmagic resta utile solo come **indice**: l'`episode_overview` con i
+timestamp aiuta a orientarsi in un transcript lungo, e i `quote_hooks`
+segnalano i passaggi forti. Sono una mappa, non il testo.
+
+**Non usare mai come bozza** le caption, i carousel e le newsletter generate
+da Castmagic. Sono fuori voce in modo sistematico — emoji decorative, formule
+vietate (in un episodio reale compariva letteralmente "Non sei sola"),
+hashtag generici, listicle numerati, e frammenti in inglese lasciati dentro
+il testo italiano ("focused on", "One concept discussed was").
+
+**Attenzione agli errori di trascrizione.** Il transcript è ASR: nello stesso
+episodio Giusi si presenta come "sono Giusy, Valentina" (cioè "Giusi
+Valentini") e compare "nuota nel tuo corpo" al posto di "nota nel tuo corpo".
+Prima di riportare una frase come sua, verifica che stia in piedi; se una
+citazione è centrale nel post e il transcript è ambiguo, riformulala con
+parole tue invece di attribuirle una frase che forse non ha detto.
 
 **Non riportare mai promo, prezzi, sconti, coupon o scadenze** presi dalla
 fonte. I transcript contengono offerte a tempo (es. un coupon estivo) che
@@ -254,6 +273,27 @@ mai una keyword nuova.
 5. Genera una prima bozza.
 6. Rimuovi tutto ciò che suona artificiale o generico.
 7. Verifica che il contenuto sembri realmente scritto da Giusi.
+
+Il punto 2 va **fatto davvero, non saltato**: da un transcript escono
+facilmente 10-15 idee, e la tesi che scegli è migliore quando è scelta tra
+molte invece di essere la prima che arriva. Non serve mostrarle tutte a
+Giusi — serve averle scritte prima di decidere.
+
+### Tre cose da consegnare sempre a Giusi con la bozza
+
+Nate dal confronto con le skill di copywriting generiche (`draft-content`,
+`content-creation`): il loro contenuto non è utilizzabile qui — è marketing
+B2B SaaS, con formule listicle e CTA da funnel che questa skill vieta
+esplicitamente — ma tre meccaniche sì, svuotate del loro contenuto:
+
+1. **Tre opzioni di hook, non una.** L'hook decide se il post viene letto.
+   Scrivine tre che reggano da sole e lascia scegliere a Giusi — stessa
+   logica con cui già sceglie lei le foto di sfondo, non l'AI.
+2. **Dichiara a quale avatar parla questo post** (Giulia o Rossella) prima
+   di scrivere, non dopo. Un post che prova a parlare a entrambe finisce per
+   non toccare nessuna delle due.
+3. **Dichiara la tesi in una riga**, separata dalla bozza. Se non riesci a
+   scriverla in una riga, il post non ce l'ha — e va rifatto, non limato.
 
 ## Self-review prima di consegnare a Giusi
 

@@ -72,11 +72,12 @@ reporting back a Canva URL "for Giusi to review and finalize by hand."
      also holds test clips, work files and third-party English podcasts, and
      `published_at` is `null` on most of them. Follow `hdh-social-copy`'s
      "Scegliere l'episodio podcast" rules to pick a real episode that fits
-     the month's theme, and name the exact title in your report. Use
-     Castmagic's `quote_hooks` and overviews as raw material — never its
-     generated captions/carousels as a draft (see that skill's "Castmagic:
-     cosa usare e cosa non usare"), and never carry over promos, coupons or
-     prices found in the source.
+     the month's theme, and name the exact title in your report. Then **read
+     the full transcript** (`get_transcript`) — not Castmagic's summaries,
+     quote hooks or generated posts, which strip out exactly the concrete
+     detail that makes the copy sound like Giusi (see that skill's "Leggi il
+     transcript completo"). Never carry over promos, coupons or prices found
+     in the source.
    - `fonte = workbook`: read `out/workbook-<target month>.json` (written by
      `generate-workbook`). **`out/` is gitignored**, so in a fresh clone or a
      cloud routine that file won't exist — in that case fall back to the
@@ -109,6 +110,10 @@ reporting back a Canva URL "for Giusi to review and finalize by hand."
      she is the only source for them.
    - `mese_anno_tag` — derive from the target date (e.g. "Settembre 2026").
      Never hardcode a month.
+   - **Three hook options**, the target avatar (Giulia or Rossella), and the
+     thesis in one line — delivered alongside the draft for Giusi to choose
+     from and react to. See `hdh-social-copy`, "Tre cose da consegnare sempre
+     a Giusi con la bozza".
    - Per-platform caption variants (Instagram, Facebook profilo, Facebook
      Gruppo Podcast, YouTube community post, Telegram) — see
      `hdh-social-copy`'s "Adattamento per piattaforma" section. Same core
