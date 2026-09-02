@@ -43,3 +43,12 @@ the Make hand-off exists to do this automatically.
 - Make webhook: not yet sent (no scenario built)
 - Stato: draft — generato in sessione di test delle skill, da rivedere prima di qualsiasi uso
 ---
+
+### 2026-08-29 | La pratica non è quando ti siedi a meditare. È il minuto in cui fermi la mano.
+- Fonte: podcast ("Noia in vacanza - Cosa Stai Evitando", sezione 4 pilastri) + tema workbook agosto
+- Stile: educational
+- Canva design URL: — (non generato: run di test sulla sola copy)
+- Review package: out/social/2026-08-29-la-pratica-non-e-quando-ti-siedi.json
+- Make webhook: not yet sent (no scenario built)
+- Stato: draft — generato in sessione di test delle skill, da rivedere prima di qualsiasi uso
+---

@@ -208,9 +208,13 @@ reale, non indicativo:
 | `cta_podcast_titolo` | ~60 caratteri (titolo reale dell'episodio) |
 | `cta_podcast_azione` / `cta_masterclass_azione` | ~70 caratteri |
 
-Per le caption: Instagram e Facebook profilo 900–1400 caratteri (hashtag
-esclusi), Gruppo Podcast 600–1000, YouTube 300–500, Telegram 250–450. Sotto
-il minimo il post non lascia niente; sopra il massimo si perde il TRANSFER.
+Per le caption (hashtag esclusi): Instagram 800–1400, Facebook profilo
+700–1200 (è di norma una versione più compatta della stessa caption),
+Gruppo Podcast 600–1000, YouTube 280–500, Telegram 250–450. Sopra il massimo
+si perde il TRANSFER; sotto il minimo, verifica che ci siano davvero tutti e
+cinque i passaggi (hook, contesto, valore, transfer, CTA) prima di
+concludere che va bene — una caption corta e completa è meglio di una
+allungata per rispettare un numero.
 
 ### Adattamento per piattaforma
 
