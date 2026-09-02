@@ -37,18 +37,34 @@ reporting back a Canva URL "for Giusi to review and finalize by hand."
    so in your report — the plan is Giusi's call, not yours to silently
    override.
 
-1. **Resolve the week's plan.** Read `social_content_plan.toml` for the
-   target date to get `fonte` (`podcast` or `workbook`) and `stile` (one of
-   `pain_point`, `awareness`, `unpopular_opinion`, `educational`,
-   `personal_experience`). **Never invent these.** If there's no entry for
-   the target date:
-   - `--fonte` and `--stile` were both passed → use them, and say clearly in
-     your report that this was an ad-hoc run with no plan entry (don't write
-     one into `social_content_plan.toml` on Giusi's behalf).
-   - otherwise → stop and ask Giusi for `fonte` + `stile`, same rule
-     `generate-workbook` follows for `content_plan.toml`. Note that the file
-     currently ships with **no active entries at all** (only commented
-     examples), so a plain scheduled run will land here until Giusi fills it.
+1. **Resolve the week's plan — and write it if it's missing.** Read
+   `social_content_plan.toml` for the target date to get `fonte` (`podcast`
+   or `workbook`) and `stile` (one of `pain_point`, `awareness`,
+   `unpopular_opinion`, `educational`, `personal_experience`). An existing
+   entry always wins — never overwrite one Giusi has written.
+
+   If there's no entry for the target date, **you fill it in** — this is
+   unlike `content_plan.toml`, which the workbook pipeline may never write.
+   The reason is that the theme isn't the thing being invented: it already
+   comes from the month's workbook theme (`content_plan.toml`) and from the
+   podcast episodes that exist. What you're choosing is only the routing:
+
+   - `--fonte` / `--stile` passed → use them.
+   - otherwise → pick `fonte` by what actually has material for the target
+     week (a real, on-theme episode published since the last podcast-sourced
+     post → `podcast`; otherwise `workbook`), and pick `stile` by rotating
+     away from the last entries in `posting_log.md`, matching the style to
+     the material (a lived episode story → `personal_experience`, a named
+     blocco → `pain_point`, a counter-current thesis → `unpopular_opinion`,
+     a workbook exercise → `educational`, an HDH introduction → `awareness`).
+
+   Then **write the entry into `social_content_plan.toml`** before drafting,
+   and say in your report which values you chose and why, so Giusi can
+   correct the file in one edit.
+
+   What you still must never invent: the **month's theme** — if
+   `content_plan.toml` has no entry for the target month, stop and ask,
+   exactly as `generate-workbook` does.
 
 2. **Gather source material.**
    - `fonte = podcast`: use the Castmagic MCP connector, `Happy Daily
@@ -79,13 +95,18 @@ reporting back a Canva URL "for Giusi to review and finalize by hand."
    - `hook_testo`, `valore1_testo`, `valore2_testo`, `valore3_testo`,
      `chiusura_testo` — the narrative arc.
    - `cta_podcast_titolo` / `cta_podcast_azione` — always present, always
-     references the actual current episode and one of Giusi's real comment
-     keywords (e.g. `PODCAST`).
+     references the actual current episode.
    - `cta_masterclass_header` / `cta_masterclass_azione` — the evergreen
      funnel slide. **The masterclass registration link doesn't exist yet**
-     (per the repo plan) — draft the keyword CTA text (e.g. `Scrivi
-     "MASTERCLASS" nei commenti`) but do not fabricate a URL; flag this
-     explicitly in your report until Giusi provides the real link.
+     (per the repo plan) — draft the keyword CTA text but do not fabricate a
+     URL; flag this explicitly in your report until Giusi provides the real
+     link.
+   - **Always ask Giusi which comment keyword to use, every run, for both CTA
+     slides** — before finalizing the draft, not after. Don't default to
+     `PODCAST` because it's the obvious one, and never invent a new keyword
+     (an early draft of this pipeline invented `MASTERCLASS`, which doesn't
+     exist). Her real keywords change with what she's promoting that week;
+     she is the only source for them.
    - `mese_anno_tag` — derive from the target date (e.g. "Settembre 2026").
      Never hardcode a month.
    - Per-platform caption variants (Instagram, Facebook profilo, Facebook
@@ -96,8 +117,7 @@ reporting back a Canva URL "for Giusi to review and finalize by hand."
      every week); the other three platforms don't. The YouTube variant leads
      with the episode link — the repo holds **no canonical episode URL**, so
      leave an explicit placeholder (`<LINK EPISODIO>`) and ask Giusi for it;
-     never fabricate a URL, a handle, or a domain (the sources disagree on the
-     spelling of her name — see `hdh-social-copy`).
+     never fabricate a URL, a handle, or a domain.
 
 5. **Self-review before Giusi ever sees it.** Follow `hdh-social-copy`'s
    "Self-review prima di consegnare a Giusi" procedure: run a `brand-review`-

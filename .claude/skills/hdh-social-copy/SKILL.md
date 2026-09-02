@@ -138,10 +138,11 @@ significa pubblicare una promessa falsa. Se un post deve promuovere
 qualcosa, l'informazione arriva da Giusi in quel momento, non dal
 transcript.
 
-**Non inventare mai URL, handle o nomi di dominio.** Le fonti brand-voice
-riportano grafie diverse del nome (`giusyvalentini.com`, "Giusy Valentini
-Coach") mentre il template del carosello porta `@giusivalentinicoach`: dove
-serve un link o un handle, lascia un segnaposto esplicito e chiedi a Giusi.
+**La grafia corretta del nome è "Giusi"** — confermata da lei (2026-09-02).
+Alcune fonti riportano ancora "Giusy" (`giusyvalentini.com`, "Giusy Valentini
+Coach"): è una grafia da non replicare mai nel testo di un post. Resta però
+vero che **non si inventano URL, handle o domini**: dove serve un link,
+lascia un segnaposto esplicito e chiedilo a Giusi.
 
 ## I 5 stili di contenuto da alternare
 
@@ -230,8 +231,14 @@ Stesso asset visivo (il carosello), copy adattato:
 
 **CTA per piattaforma non sono "clicca qui/scarica/iscriviti" da marketing
 generico** — restano sempre il meccanismo reale di Giusi: parola-chiave nei
-commenti (PODCAST, CASA, MEDITARE, MATTINA, RITIRO, LEGGERA...), non un link
-diretto.
+commenti, non un link diretto.
+
+**Chiedi sempre a Giusi quale parola-chiave usare, a ogni run**, prima di
+consegnare la bozza. Le keyword esistenti (PODCAST, CASA, MEDITARE, MATTINA,
+RITIRO, LEGGERA...) sono un riferimento di come funziona il meccanismo, non
+un menù da cui scegliere da sola: quale sia quella giusta dipende da cosa
+Giusi sta promuovendo quella settimana, e lei è l'unica fonte. Non inventare
+mai una keyword nuova.
 
 ## Metodo di lavoro con l'AI (dalla guida editoriale, §9)
 
@@ -281,6 +288,8 @@ autoverifica in stile `brand-review` (skill separata, stesso repo) usando
   ("clicca qui", "scopri di più", verbi da SaaS)?
 □ Nessuna promo/prezzo/coupon/scadenza ereditata dalla fonte?
 □ Nessun URL, handle o dominio inventato (segnaposto espliciti dove manca)?
+□ Nome scritto "Giusi", mai "Giusy"?
+□ Parola-chiave CTA chiesta a Giusi in questo run, non scelta o inventata?
 □ Titolo dell'episodio citato = titolo reale, verificato su Castmagic?
 □ Niente residui di Castmagic (emoji decorative, frasi in inglese, hashtag
   generici, listicle numerati)?

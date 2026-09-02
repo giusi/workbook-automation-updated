@@ -23,6 +23,12 @@ Two avatars, both women, Italian-speaking, 30–60:
 Not therapy, not motivational coaching. Giusi is not a guru — "una donna che
 ha fatto strada."
 
+## Spelling (canonica)
+
+Il nome si scrive **"Giusi"** — confermato da lei il 2026-09-02. In alcune
+fonti compare ancora "Giusy" (`giusyvalentini.com`, "Giusy Valentini Coach"):
+non replicarla mai nel testo pubblicato.
+
 ## Voice in three words
 
 Calda · concreta · autorevole
