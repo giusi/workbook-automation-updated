@@ -1,0 +1,155 @@
+{
+  "name": "HDH social — 2. Publish approved",
+  "flow": [
+    {
+      "id": 1,
+      "module": "gateway:CustomWebHook",
+      "version": 1,
+      "parameters": {
+        "hook": 0,
+        "maxResults": 1
+      },
+      "mapper": {},
+      "metadata": {
+        "designer": {
+          "x": 0,
+          "y": 0,
+          "name": "hdh-social-approve"
+        }
+      }
+    },
+    {
+      "id": 2,
+      "module": "builtin:BasicRouter",
+      "version": 1,
+      "mapper": null,
+      "metadata": {
+        "designer": {
+          "x": 300,
+          "y": 0
+        }
+      },
+      "routes": [
+        {
+          "flow": [
+            {
+              "id": 3,
+              "module": "instagram-business:CreateCarouselPhoto",
+              "version": 1,
+              "parameters": {
+                "account": 0
+              },
+              "filter": {
+                "name": "Solo se approvato",
+                "conditions": [
+                  [
+                    {
+                      "a": "{{1.decision}}",
+                      "b": "approve",
+                      "o": "text:equal"
+                    }
+                  ]
+                ]
+              },
+              "mapper": {
+                "caption": "{{1.captions.instagram.testo}}"
+              },
+              "metadata": {
+                "designer": {
+                  "x": 600,
+                  "y": -300,
+                  "name": "Instagram"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "flow": [
+            {
+              "id": 4,
+              "module": "facebook-pages:CreatePostWithPhotos",
+              "version": 6,
+              "parameters": {
+                "account": 0
+              },
+              "filter": {
+                "name": "Solo se approvato",
+                "conditions": [
+                  [
+                    {
+                      "a": "{{1.decision}}",
+                      "b": "approve",
+                      "o": "text:equal"
+                    }
+                  ]
+                ]
+              },
+              "mapper": {
+                "message": "{{1.captions.facebook_profilo.testo}}"
+              },
+              "metadata": {
+                "designer": {
+                  "x": 600,
+                  "y": 0,
+                  "name": "Facebook Page"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "flow": [
+            {
+              "id": 5,
+              "module": "telegram:SendMediaGroup",
+              "version": 1,
+              "parameters": {
+                "account": 0
+              },
+              "filter": {
+                "name": "Solo se approvato",
+                "conditions": [
+                  [
+                    {
+                      "a": "{{1.decision}}",
+                      "b": "approve",
+                      "o": "text:equal"
+                    }
+                  ]
+                ]
+              },
+              "mapper": {
+                "caption": "{{1.captions.telegram.testo}}"
+              },
+              "metadata": {
+                "designer": {
+                  "x": 600,
+                  "y": 300,
+                  "name": "Telegram"
+                }
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "metadata": {
+    "instant": true,
+    "version": 1,
+    "scenario": {
+      "roundtrips": 1,
+      "maxErrors": 3,
+      "autoCommit": true,
+      "autoCommitTriggerLast": true,
+      "sequential": true,
+      "confidential": false,
+      "dataloss": false,
+      "dlq": false
+    },
+    "designer": {
+      "orphans": []
+    }
+  }
+}

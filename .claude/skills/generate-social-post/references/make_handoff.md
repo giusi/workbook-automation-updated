@@ -1,11 +1,10 @@
 # Make hand-off — payload contract and scenario spec
 
-Status: **Claude's side specified, Make side not built.** The Make connector is
-installed on the org but not authorized in this session
-(`enabledInChat: false`), and authorizing it needs an interactive OAuth step
-Giusi has to do herself. Everything below is the half that lives in this repo
-and can be written without Make; the scenario spec is a proposal to confirm
-before anyone builds it.
+Status: **Blueprints written and schema-validated; not yet imported into Make.**
+The Make connector is authorized, but this session's Make tools are read and
+validate only — there is no `scenarios_create` — so the two scenarios ship as
+importable blueprints in [`make/`](../../../../make/) rather than being created
+directly. See `make/README.md` for the import steps and the platform limits.
 
 ## The hard constraint (do not weaken this)
 
