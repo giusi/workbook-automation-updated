@@ -57,13 +57,20 @@ chi sei. Crea la vita che vuoi.**
 
 - "Ci hanno insegnato che..."
 - "Ricorda che..."
-- "Va bene così."
+- "Va bene così." — **come apertura/filler generico.** Attenzione: è anche una
+  frase reale che Giusi ripete spesso in prima persona (es. podcast
+  "estate imperfetta": "va bene così, mi arrendo"). Vietata come platitudine
+  buttata lì all'inizio di un post; ammessa come citazione diretta dalla
+  fonte, dentro una storia specifica, con contesto — non come slogan vuoto.
 - "Non sei sola."
 - "Devi solo..."
 - "Basta..."
 - "Ti meriti..."
 - "Diventa la versione migliore di te."
-- "5 modi per essere felice." / "10 cose che devi fare." (liste generiche)
+- "5 modi per essere felice." / "10 cose che devi fare." (liste generiche) —
+  eccezione: un metodo reale e già esistente di Giusi (es. i 4 pilastri
+  mente/respiro/corpo/emozioni) non è una lista generica; va scritto come
+  pratica integrata, non come listicle numerato/grafico.
 - Nessun filler generico "wellness/new-age"; nessun cliché senza sostanza.
 
 ## Tesi, non argomento (esempio dalla guida)

@@ -106,10 +106,13 @@ Non pubblicare due contenuti consecutivi con la stessa struttura/stile.
 
 ## Formule da evitare, sempre
 
-"Ci hanno insegnato che...", "Ricorda che...", "Va bene così.", "Non sei
-sola.", "Devi solo...", "Basta...", "Ti meriti...", "Diventa la versione
-migliore di te.", liste generiche tipo "5 modi per..." — vedi
-`brand_voice/tone_guide.md` per la lista completa e per cosa funziona bene.
+"Ci hanno insegnato che...", "Ricorda che...", "Va bene così." (come apertura/
+filler — ammessa solo come citazione diretta dalla fonte, in contesto), "Non
+sei sola.", "Devi solo...", "Basta...", "Ti meriti...", "Diventa la versione
+migliore di te.", liste generiche tipo "5 modi per..." (eccezione: un metodo
+reale già esistente di Giusi, es. i 4 pilastri, scritto come pratica non come
+listicle) — vedi `brand_voice/tone_guide.md` per la lista completa e le
+eccezioni, e per cosa funziona bene.
 
 ## Format playbook
 
@@ -141,12 +144,22 @@ SLIDE N        = CTA verso la masterclass gratuita + tag del mese corrente,
 Stesso asset visivo (il carosello), copy adattato:
 
 - **Instagram / Facebook profilo** — caption come sopra, tono diretto "tu."
+  Chiudi con un blocco di 3-5 hashtag pertinenti al tema specifico del post
+  (non generici/ripetuti ogni settimana) — es. dal tema, dallo stile
+  (pain_point/awareness/...), da parole-chiave dell'avatar. Non usarli su
+  Podcast FB Group, YouTube o Telegram — sono canali di community/relazione
+  diretta, non di scoperta via hashtag.
 - **Podcast Facebook Group** — più colloquiale, esplicito riferimento
-  all'episodio, invita al commento ("Com'è per te...?").
+  all'episodio, invita al commento ("Com'è per te...?"). Niente hashtag.
 - **YouTube** — variante community-post: più breve, il link come primo
-  elemento.
+  elemento. Niente hashtag.
 - **Telegram** (canale Happy Daily Body) — tono più informale/diretto,
-  come un messaggio a un'amica, CTA esplicita ma breve.
+  come un messaggio a un'amica, CTA esplicita ma breve. Niente hashtag.
+
+**CTA per piattaforma non sono "clicca qui/scarica/iscriviti" da marketing
+generico** — restano sempre il meccanismo reale di Giusi: parola-chiave nei
+commenti (PODCAST, CASA, MEDITARE, MATTINA, RITIRO, LEGGERA...), non un link
+diretto.
 
 ## Metodo di lavoro con l'AI (dalla guida editoriale, §9)
 
@@ -159,18 +172,43 @@ Stesso asset visivo (il carosello), copy adattato:
 6. Rimuovi tutto ciò che suona artificiale o generico.
 7. Verifica che il contenuto sembri realmente scritto da Giusi.
 
-## Checklist finale prima di consegnare per revisione
+## Self-review prima di consegnare a Giusi
+
+Prima di mostrare qualsiasi bozza a Giusi, esegui una passata di
+autoverifica in stile `brand-review` (skill separata, stesso repo) usando
+`brand_voice/tone_guide.md` come guideline:
+
+1. Controlla ogni campo/caption contro la checklist qui sotto e contro la
+   lista delle formule vietate (con le eccezioni annotate).
+2. Per ogni problema trovato, classifica la severità (Alta/Media/Bassa) come
+   fa `brand-review`, e **correggi direttamente High e Medium** — non
+   mostrare a Giusi una bozza con problemi che puoi già risolvere da solo.
+3. Itera (correggi → riverifica) finché non restano solo eventuali item
+   Bassa severità o vere domande aperte (vedi punto 4).
+4. Non indovinare quando manca un'informazione reale (es. una value
+   proposition non ancora condivisa, una preferenza stilistica mai
+   confermata) — questo resta un'eccezione esplicita alla correzione
+   automatica: segnala la domanda a Giusi invece di inventare una risposta.
+5. Nel report finale a Giusi, includi solo un riepilogo compatto di cosa è
+   stato trovato e corretto automaticamente (non l'intera tabella) più le
+   eventuali domande aperte — la bozza che vede deve già essere pulita.
+
+### Checklist
 
 ```
 □ Parte da una tesi, non da un argomento?
-□ Nessuna formula vietata (vedi sopra)?
+□ Nessuna formula vietata, eccezioni comprese (vedi sopra)?
 □ Frasi vere, non stakkato da coaching?
 □ Hook senza rinforzo artificiale dietro?
 □ Valore concreto, non affermazione vaga?
 □ Nessuna promessa o garanzia inventata?
 □ La tesi centrale è visibile, implicita o esplicita?
 □ Suonerebbe vero se lo leggesse Giusi ad alta voce?
+□ Hashtag presenti solo dove previsto (IG/FB profilo), pertinenti non generici?
+□ CTA sempre parola-chiave nei commenti, mai linguaggio da CTA generico
+  ("clicca qui", "scopri di più", verbi da SaaS)?
 ```
 
 Non pubblicare mai senza revisione umana — questo skill produce una bozza
-per la coda di approvazione (email review), non un post finale.
+già auto-revisionata per la coda di approvazione (email review) di Giusi,
+non un post finale.

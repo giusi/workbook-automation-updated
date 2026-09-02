@@ -65,9 +65,22 @@ reporting back a Canva URL "for Giusi to review and finalize by hand."
    - Per-platform caption variants (Instagram, Facebook profilo, Facebook
      Gruppo Podcast, YouTube community post, Telegram) — see
      `hdh-social-copy`'s "Adattamento per piattaforma" section. Same core
-     asset, tailored copy per platform.
+     asset, tailored copy per platform. Instagram and Facebook profilo get a
+     3-5 hashtag block (specific to this post's theme, not generic/repeated
+     every week); the other three platforms don't.
 
-5. **Generate background image candidates**, for `sfondo_narrativo` and
+5. **Self-review before Giusi ever sees it.** Follow `hdh-social-copy`'s
+   "Self-review prima di consegnare a Giusi" procedure: run a `brand-review`-
+   style pass against `brand_voice/tone_guide.md` and the forbidden-phrase
+   list (with its noted exceptions), fix anything High/Medium severity
+   yourself, and iterate until clean. Don't guess when something depends on
+   an unconfirmed fact (an unshared value proposition, an unconfirmed style
+   preference) — surface that as a real question instead. When you report
+   back in step 9, include only a compact summary of what was caught and
+   auto-fixed, not the full review table — Giusi should see a draft that's
+   already been through this pass, plus any genuinely open questions.
+
+6. **Generate background image candidates**, for `sfondo_narrativo` and
    `sfondo_cta`. Use the Canva `generate-design` tool (`instagram_post`),
    grounded in this week's actual mood/palette — the workbook's cover/mantra
    for a `workbook` post, the episode's mood/imagery for a `podcast` post.
@@ -79,21 +92,21 @@ reporting back a Canva URL "for Giusi to review and finalize by hand."
    candidates to Giusi in this session for her to pick** — never auto-select
    on her behalf.
 
-6. **Fill the Canva template.** `create-design-from-brand-template` with
+7. **Fill the Canva template.** `create-design-from-brand-template` with
    `EAHT9Ay4G_4` → `read-design` (open transaction) to get locator_ids →
    `edit-design` with `replace_text` for each text field and `update_fill`
-   for the two image fields (using the asset ids Giusi picked in step 5) →
+   for the two image fields (using the asset ids Giusi picked in step 6) →
    commit.
 
-7. **Write the review package** to `out/social/<date>-<slug>.json`: the
+8. **Write the review package** to `out/social/<date>-<slug>.json`: the
    Canva edit URL, every caption variant, `fonte`/`stile` used, and the CTA
    keyword(s). (`out/` is gitignored, same as the workbook pipeline's
    handoff files.)
 
-8. **Log it.** Append an entry to `posting_log.md` (date, hook/title,
+9. **Log it.** Append an entry to `posting_log.md` (date, hook/title,
    fonte, stile, Canva URL, review package path, status `draft`).
 
-9. **Report back.** Give Giusi the Canva edit URL and the review package
+10. **Report back.** Give Giusi the Canva edit URL and the review package
    path. Note explicitly that no Make webhook was called — that hand-off is
    a separate, not-yet-built step (see the repo's social-automation plan) —
    so this draft needs manual review/publishing until it exists.
