@@ -18,15 +18,15 @@ the two image fields → commit.
 | Page | Field | Type | Notes |
 |---|---|---|---|
 | 1 | `hook_testo` | text | Hook slide — must stand alone, no stakkato (see hdh-social-copy SKILL.md) |
-| 1–5 | `sfondo_narrativo` | image | **Same field label on all 5 narrative pages** — one photo fills all of them, matching how Giusi's real carousels repeat one background throughout. See "Background photos" below for sourcing. |
+| 1–5 | `sfondo_narrativo` | image | Same field *label* on all 5 narrative pages, but **each page's fill is set independently** (each has its own locator_id even though the label repeats) — normally one photo fills all 5 for consistency, but this is also how the hook page can carry a different image (Giusi's photo) than pages 2–5 (landscape). See "Giusi's photo pattern" below. |
 | 2 | `valore1_testo` | text | Value slide 1 |
 | 3 | `valore2_testo` | text | Value slide 2 |
 | 4 | `valore3_testo` | text | Value slide 3 |
 | 5 | `chiusura_testo` | text | Closing thought, before the CTA slides |
 | 6 | `cta_podcast_titolo` | text | Episode title |
 | 6 | `cta_podcast_azione` | text | The comment-keyword line, e.g. `Scrivi "podcast" nei commenti e ascolta l'ultimo episodio` — reuse Giusi's existing keyword system (see business context notes: MEDITARE, MATTINA, PODCAST, CASA, RITIRO) |
-| 6–7 | `sfondo_cta` | image | Shared across both CTA slides |
-| 7 | `cta_masterclass_header` | text | New — e.g. "MASTERCLASS GRATUITA" |
+| 6–7 | `sfondo_cta` | image | Same field *label* on both CTA pages, but — like `sfondo_narrativo` above — **each page's fill is independently settable**. Page 6 (podcast CTA) normally stays pure landscape; page 7 (masterclass CTA) is the second photo slot on a "photo post". Don't assume setting one fills both. |
+| 7 | `cta_masterclass_header` | text | New — e.g. "MASTERCLASS GRATUITA". If Giusi gives a live/event date, add it here as a second line (`MASTERCLASS GRATUITA\n24 SETTEMBRE`) rather than editing the azione line — see "Editing gotchas" below for the safe wrap pattern. |
 | 7 | `cta_masterclass_azione` | text | New — e.g. `Scrivi "MASTERCLASS" nei commenti` (new keyword, once the masterclass funnel exists) |
 | 7 | `mese_anno_tag` | text | **Dynamic month tag** — generate from the run date (e.g. "Settembre 2026"), never hardcode |
 
@@ -34,6 +34,24 @@ Only 4 value slides total (hook + 3 + closing) in this v1 — Giusi's real
 carousels run longer (8-9 narrative beats), so extending this is just
 duplicating the pattern (add a page, tag `valoreN_testo` + `sfondo_narrativo`
 on it) — not a redesign.
+
+**Don't assume both CTA slides belong on every post — confirm with Giusi
+which one(s) this post needs**, every run. The template defaults to 2 CTA
+slides (podcast, then masterclass), and that's the common case, but a post
+can legitimately need only the podcast CTA (no active masterclass push that
+week), only the masterclass CTA, or in principle neither — same spirit as
+always asking for the comment keyword rather than assuming it. Whichever
+slide(s) aren't needed should be left off the design entirely (don't fill
+them with a CTA that doesn't apply — an unfilled page gets pruned on commit
+per the page-auto-pruning note below, which is the correct outcome here).
+Whichever slide(s) *are* included must carry real, non-placeholder content.
+
+**Always rename the design's title** away from whatever it inherited from
+the brand template (a leftover title from whichever real post the template
+was last derived from) to `HDH <Mese> — Post <N>` — via `update_title`,
+right after the text fields are filled. Do this before handing the edit URL
+to Giusi; a design still carrying the template's old title is a sign the
+fill wasn't finished.
 
 ## Background photos — sourcing (open question, resolved per-run, not pre-curated)
 
@@ -63,6 +81,74 @@ content for a podcast-topic post), not pulled from one generic pool.
   imagery) produces stock-photo-cliché results that don't match Giusi's more
   atmospheric real photography. Ground the prompt in mood/palette/light, not
   literal subject matter.
+
+## Giusi's photo pattern (confirmed 2026-09-03)
+
+When a batch of posts is generated together (e.g. a month's worth in one
+run), split it **exactly half and half**:
+
+- **Half the posts** use one of Giusi's real photos (from
+  `generate-workbook/references/media_library.md` — the "Casual Dez20 e
+  Journal" and "Retreat Maggio 2024" subfolders have read well for this so
+  far) **only on the hook page (page 1, `sfondo_narrativo`) and the post's
+  actual last slide** — normally the masterclass CTA (page 7), but if this
+  post doesn't have one (see "confirm which CTA slide(s)" above), use
+  whichever slide ends up last instead: the podcast CTA if that's the only
+  CTA slide, or the `chiusura` slide if there's no CTA at all. Every other
+  narrative/CTA page in between stays pure landscape — never put her photo
+  on a middle page.
+- **The other half** stay pure landscape throughout, exactly as described
+  above.
+
+When generating one post at a time (not as part of a batch), keep the
+running ratio in `posting_log.md` close to half — check the last several
+entries' `Sfondo` lines before deciding this post's pattern.
+
+**Landscape/photo tone pairing** — use this fixed pairing as the default so
+the palette stays consistent across the feed, generating a new landscape
+candidate only if a future photo's tone doesn't fit either:
+
+| Background | Asset id | Tone | Pairs with |
+|---|---|---|---|
+| Background A | `MAEH0gshJfI` | Warm — green fields, golden/veiled sky | Warm-toned photos (daylight, golden hour, warm clothing) |
+| Background B | `MAHUIYnuU7Y` | Cool — misty forest canopy | Cool/shadowed photos (overcast light, greens/blues, indoor shade) |
+
+## Editing gotchas (confirmed 2026-09-03)
+
+- **Canva `M/...` links are asset links, not design shortlinks.** A URL like
+  `canva.com/M/<id>` that Giusi pastes (e.g. to point at a reference photo)
+  will make `resolve-shortlink` fail with a 307 error. Skip it — call
+  `get-assets` directly with the trailing id as the asset id; it resolves
+  fine and returns the thumbnail.
+- **Untouched pages get silently pruned on commit.** If a page is left
+  carrying only its default/placeholder content (e.g. a `valore3` page never
+  touched because a post only needed 2 value slides), Canva drops it when
+  the transaction commits — and every later page's `page_index` and
+  locator_ids shift down to fill the gap. Never assume the brand template's
+  original page numbering still holds after a commit; re-read the design
+  (`page_metadata` or a fresh `design_content`) before editing it again. If a
+  narrative page must stay genuinely empty on purpose, put a single space
+  `" "` in its text field rather than leaving the placeholder — that's
+  enough to prevent pruning while keeping it visually blank.
+- **Long header text wraps by line, not by width estimate.** For
+  `cta_masterclass_header`, adding a short date line is safe as an explicit
+  `\n`-separated second line (`MASTERCLASS GRATUITA\n24 SETTEMBRE`) — the
+  text box already accommodates 2 lines at that field's font size. Don't try
+  to estimate character-width wrapping; use an explicit line break for any
+  short added line.
+
+## Verification and logging discipline (confirmed 2026-09-03)
+
+- After every `edit-design` call, actually compare the returned
+  after-thumbnail against what you intended — don't just check that the
+  tool call didn't error.
+- Only write a `Stato` of "complete"/"testo e design completi" into
+  `posting_log.md` **after** the `edit-design` transaction has been
+  committed (`finalize: "commit"` returned `status: "committed"`) and you've
+  visually verified it. Never log a post as done based on the plan for what
+  you're about to do — a run got interrupted mid-batch once this way, and
+  the log ended up describing several pages as filled when they still held
+  placeholder text.
 
 ## Verified 2026-09-01
 
