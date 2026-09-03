@@ -60,8 +60,9 @@ the Make hand-off exists to do this automatically.
 - Canva design URL: https://www.canva.com/d/G5dofjsM84Hywcl
 - Sfondo: Background A (campi verdi, foto stock Canva)
 - Parola-chiave CTA: SETTEMBRE
+- Data diretta masterclass: 24 settembre (aggiunta sull'ultima slide del carosello)
 - Make webhook: not yet sent (no scenario built)
-- Stato: draft — testo e design completi (tutte le pagine, CTA con parola-chiave reale), in attesa solo della data di pubblicazione
+- Stato: draft — testo e design completi (tutte le pagine, CTA con parola-chiave reale e data della diretta), in attesa solo della data di pubblicazione
 ---
 
 ### DATA DA ASSEGNARE (Settembre 2026) | Non devi fare tutto da sola. Prenderti cura di te può essere una cosa fatta insieme.
@@ -69,10 +70,11 @@ the Make hand-off exists to do this automatically.
 - Stile: awareness
 - Titolo design Canva: "HDH Settembre — Post 4 — Non devi fare tutto da sola"
 - Canva design URL: https://www.canva.com/d/OmoLcqoAjrShkVM
-- Sfondo: Background B (chioma di foresta nella nebbia, foto stock Canva)
+- Sfondo: pattern foto-solo-su-hook-e-CTA — hook e CTA masterclass: Giusi seduta all'aperto, momento di quiete (MAHIIPqv0_g); pagine centrali: Background B (chioma di foresta nella nebbia)
 - Parola-chiave CTA: SETTEMBRE
+- Data diretta masterclass: 24 settembre (aggiunta sull'ultima slide del carosello)
 - Make webhook: not yet sent (no scenario built)
-- Stato: draft — testo e design completi (tutte le pagine, CTA con parola-chiave reale), in attesa solo della data di pubblicazione
+- Stato: draft — testo e design completi (tutte le pagine, CTA con parola-chiave reale e data della diretta), in attesa solo della data di pubblicazione
 ---
 
 ### DATA DA ASSEGNARE (Settembre 2026) | Essere costante non significa dare il 100%. Significa non abbandonarti quando puoi dare solo il 30%.
@@ -80,10 +82,11 @@ the Make hand-off exists to do this automatically.
 - Stile: educational
 - Titolo design Canva: "HDH Settembre — Post 5 — Il 30% è costanza vera"
 - Canva design URL: https://www.canva.com/d/QIK29XxH0g9nGq4
-- Sfondo: pattern foto-solo-su-hook-e-CTA (come da post Instagram di riferimento) — hook: Giusi_Dez20_12 (al lavoro, scrivania); pagine centrali: Background B (chioma di foresta nella nebbia); CTA masterclass: MediGiusi_54 (meditazione sul divano)
+- Sfondo: pattern foto-solo-su-hook-e-CTA — hook e CTA masterclass: Giusi seduta in città, ritratto lifestyle (MAGoD4-QrOk); pagine centrali: Background B (chioma di foresta nella nebbia)
 - Parola-chiave CTA: SETTEMBRE
+- Data diretta masterclass: 24 settembre (aggiunta sull'ultima slide del carosello)
 - Make webhook: not yet sent (no scenario built)
-- Stato: draft — testo e design completi (tutte le pagine, CTA con parola-chiave reale), in attesa solo della data di pubblicazione
+- Stato: draft — testo e design completi (tutte le pagine, CTA con parola-chiave reale e data della diretta), in attesa solo della data di pubblicazione
 ---
 
 ### DATA DA ASSEGNARE (Settembre 2026) | Anche da ferma, nella tua testa stai ancora correndo.
@@ -93,19 +96,22 @@ the Make hand-off exists to do this automatically.
 - Canva design URL: https://www.canva.com/d/GiuYzPlJ2A5g1pI
 - Sfondo: Background A (campi verdi, foto stock Canva)
 - Parola-chiave CTA: SETTEMBRE
+- Data diretta masterclass: 24 settembre (aggiunta sull'ultima slide del carosello)
 - Make webhook: not yet sent (no scenario built)
-- Stato: draft — testo e design completi (tutte le pagine, CTA con parola-chiave reale), in attesa solo della data di pubblicazione
+- Stato: draft — testo e design completi (tutte le pagine, CTA con parola-chiave reale e data della diretta), in attesa solo della data di pubblicazione
 ---
 
-### DATA DA ASSEGNARE (Settembre 2026) | Anche quando un ciclo si chiude, il tuo spazio vitale non è un capriccio da sacrificare. [REEL]
+### DATA DA ASSEGNARE (Settembre 2026) | Anche quando un ciclo si chiude, il tuo spazio vitale non è un capriccio da sacrificare.
 - Fonte: podcast ("Settembre - riparti con costanza")
 - Stile: personal_experience
-- Formato: Reel (immagine statica 1080x1920, da animare in Canva) — costruito con il nuovo brand template "HDH Reels - Master Template" (EAHUIYZ-aRA)
-- Titolo design Canva: "HDH Settembre — Post 7 [REEL] — Il ciclo che si chiude"
-- Canva design URL: https://www.canva.com/d/T95mrQpX67bO-tm
-- Sfondo: paesaggio al tramonto (cielo + erba alta in controluce, foto stock Canva)
+- Formato: carosello statico a 7 pagine (ripristinato dal formato Reel su richiesta di Giusi) — costruito con il brand template master "Master carousel" (EAHT9Ay4G_4)
+- Titolo design Canva: "HDH Settembre — Post 7 — Il ciclo che si chiude"
+- Canva design URL: https://www.canva.com/d/wGnPldzTAQ-qHoe
+- Sfondo: pattern foto-solo-su-hook-e-CTA — hook e CTA masterclass: Giusi seduta all'aperto, momento di quiete (MAHIIPqv0_g); pagine centrali: Background B (chioma di foresta nella nebbia). Testo valore1-3 ricostruito ex novo (non recuperabile dal Reel, che li aveva assorbiti in un'unica slide) — da rivedere con attenzione in più rispetto agli altri post già approvati.
+- Parola-chiave CTA: SETTEMBRE
+- Data diretta masterclass: 24 settembre (aggiunta sull'ultima slide del carosello)
 - Make webhook: not yet sent (no scenario built)
-- Stato: draft — testo e design completi; nessuna CTA su questo formato (slide singola), in attesa solo della data di pubblicazione
+- Stato: draft — carosello ricostruito da zero, testo valore1-3 NUOVO e non ancora approvato da Giusi, in attesa di revisione prima della data di pubblicazione
 ---
 
 ### DATA DA ASSEGNARE (Settembre 2026) | Non serve la giornata ideale per prenderti cura di te. Serve iniziare in quella che hai davvero.
@@ -113,8 +119,9 @@ the Make hand-off exists to do this automatically.
 - Stile: awareness
 - Titolo design Canva: "HDH Settembre — Post 9 — La giornata ideale non esiste"
 - Canva design URL: https://www.canva.com/d/IX-7oVs13llNyD6
-- Sfondo: pattern foto-solo-su-hook-e-CTA (come da post Instagram di riferimento) — hook: Giusi_Call_30 (al telefono, laptop sul divano); pagine centrali: Background A (campi verdi, cielo velato); CTA masterclass: Giusi_Dez20_63 (invariata, già adatta)
+- Sfondo: pattern foto-solo-su-hook-e-CTA — hook e CTA masterclass: Giusi seduta in città, ritratto lifestyle (MAGoD4-QrOk); pagine centrali: Background A (campi verdi, cielo velato)
 - Parola-chiave CTA: SETTEMBRE
+- Data diretta masterclass: 24 settembre (aggiunta sull'ultima slide del carosello)
 - Make webhook: not yet sent (no scenario built)
-- Stato: draft — testo e design completi (tutte le pagine, CTA con parola-chiave reale), in attesa solo della data di pubblicazione
+- Stato: draft — testo e design completi (tutte le pagine, CTA con parola-chiave reale e data della diretta), in attesa solo della data di pubblicazione
 ---
