@@ -80,7 +80,7 @@ the Make hand-off exists to do this automatically.
 - Stile: educational
 - Titolo design Canva: "HDH Settembre — Post 5 — Il 30% è costanza vera"
 - Canva design URL: https://www.canva.com/d/QIK29XxH0g9nGq4
-- Sfondo: foto di Giusi (Giusi_Retreat maggio '24-29)
+- Sfondo: pattern foto-solo-su-hook-e-CTA (come da post Instagram di riferimento) — hook: Giusi_Dez20_12 (al lavoro, scrivania); pagine centrali: Background B (chioma di foresta nella nebbia); CTA masterclass: MediGiusi_54 (meditazione sul divano)
 - Parola-chiave CTA: SETTEMBRE
 - Make webhook: not yet sent (no scenario built)
 - Stato: draft — testo e design completi (tutte le pagine, CTA con parola-chiave reale), in attesa solo della data di pubblicazione
@@ -113,7 +113,7 @@ the Make hand-off exists to do this automatically.
 - Stile: awareness
 - Titolo design Canva: "HDH Settembre — Post 9 — La giornata ideale non esiste"
 - Canva design URL: https://www.canva.com/d/IX-7oVs13llNyD6
-- Sfondo: foto di Giusi (Giusi_Dez20_63)
+- Sfondo: pattern foto-solo-su-hook-e-CTA (come da post Instagram di riferimento) — hook: Giusi_Call_30 (al telefono, laptop sul divano); pagine centrali: Background A (campi verdi, cielo velato); CTA masterclass: Giusi_Dez20_63 (invariata, già adatta)
 - Parola-chiave CTA: SETTEMBRE
 - Make webhook: not yet sent (no scenario built)
 - Stato: draft — testo e design completi (tutte le pagine, CTA con parola-chiave reale), in attesa solo della data di pubblicazione
