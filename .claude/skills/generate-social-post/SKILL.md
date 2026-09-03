@@ -185,10 +185,10 @@ does anyone invoke `schedule-social-post`, which is what talks to Make.
    catch there than after.
 
    Then **rename the design's title** (`update_title`) from whatever it
-   inherited from the brand template to `HDH <Mese> — Post <N> — <hook
-   breve>`. A design still carrying the template's old title means the fill
-   isn't actually finished — never hand Giusi an edit URL with the old title
-   still showing.
+   inherited from the brand template to `HDH <Mese> — Post <N>`. A design
+   still carrying the template's old title means the fill isn't actually
+   finished — never hand Giusi an edit URL with the old title still
+   showing.
 
 8. **Write the review package** to `out/social/<date>-<slug>.json`: the
    Canva edit URL, every caption variant, `fonte`/`stile` used, the CTA

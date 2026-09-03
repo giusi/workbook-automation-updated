@@ -48,11 +48,10 @@ Whichever slide(s) *are* included must carry real, non-placeholder content.
 
 **Always rename the design's title** away from whatever it inherited from
 the brand template (a leftover title from whichever real post the template
-was last derived from) to this post's actual title —
-`HDH <Mese> — Post <N> — <hook breve>` — via `update_title`, right after the
-text fields are filled. Do this before handing the edit URL to Giusi; a
-design still carrying the template's old title is a sign the fill wasn't
-finished.
+was last derived from) to `HDH <Mese> — Post <N>` — via `update_title`,
+right after the text fields are filled. Do this before handing the edit URL
+to Giusi; a design still carrying the template's old title is a sign the
+fill wasn't finished.
 
 ## Background photos — sourcing (open question, resolved per-run, not pre-curated)
 
