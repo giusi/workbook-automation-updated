@@ -56,54 +56,65 @@ the Make hand-off exists to do this automatically.
 ### DATA DA ASSEGNARE (Settembre 2026) | Non ti manca la disciplina. Ti manca il permesso di non essere sempre al 100%.
 - Fonte: podcast ("Settembre - riparti con costanza")
 - Stile: unpopular_opinion
+- Titolo design Canva: "HDH Settembre — Post 3 — Il permesso di non essere al 100%"
 - Canva design URL: https://www.canva.com/d/G5dofjsM84Hywcl
 - Sfondo: Background A (campi verdi, foto stock Canva)
+- Parola-chiave CTA: SETTEMBRE
 - Make webhook: not yet sent (no scenario built)
-- Stato: draft — approvato nel testo, in attesa di data di pubblicazione e della parola-chiave CTA
+- Stato: draft — testo e design completi (tutte le pagine, CTA con parola-chiave reale), in attesa solo della data di pubblicazione
 ---
 
 ### DATA DA ASSEGNARE (Settembre 2026) | Non devi fare tutto da sola. Prenderti cura di te può essere una cosa fatta insieme.
 - Fonte: podcast ("Settembre - riparti con costanza")
 - Stile: awareness
+- Titolo design Canva: "HDH Settembre — Post 4 — Non devi fare tutto da sola"
 - Canva design URL: https://www.canva.com/d/OmoLcqoAjrShkVM
 - Sfondo: Background B (chioma di foresta nella nebbia, foto stock Canva)
+- Parola-chiave CTA: SETTEMBRE
 - Make webhook: not yet sent (no scenario built)
-- Stato: draft — approvato nel testo, in attesa di data di pubblicazione e della parola-chiave CTA
+- Stato: draft — testo e design completi (tutte le pagine, CTA con parola-chiave reale), in attesa solo della data di pubblicazione
 ---
 
 ### DATA DA ASSEGNARE (Settembre 2026) | Essere costante non significa dare il 100%. Significa non abbandonarti quando puoi dare solo il 30%.
 - Fonte: podcast ("Settembre - riparti con costanza")
 - Stile: educational
+- Titolo design Canva: "HDH Settembre — Post 5 — Il 30% è costanza vera"
 - Canva design URL: https://www.canva.com/d/QIK29XxH0g9nGq4
 - Sfondo: foto di Giusi (Giusi_Retreat maggio '24-29)
+- Parola-chiave CTA: SETTEMBRE
 - Make webhook: not yet sent (no scenario built)
-- Stato: draft — approvato nel testo, in attesa di data di pubblicazione e della parola-chiave CTA
+- Stato: draft — testo e design completi (tutte le pagine, CTA con parola-chiave reale), in attesa solo della data di pubblicazione
 ---
 
 ### DATA DA ASSEGNARE (Settembre 2026) | Anche da ferma, nella tua testa stai ancora correndo.
 - Fonte: podcast ("Settembre - riparti con costanza")
 - Stile: pain_point
+- Titolo design Canva: "HDH Settembre — Post 6 — Anche da ferma, stai ancora correndo"
 - Canva design URL: https://www.canva.com/d/GiuYzPlJ2A5g1pI
 - Sfondo: Background A (campi verdi, foto stock Canva)
+- Parola-chiave CTA: SETTEMBRE
 - Make webhook: not yet sent (no scenario built)
-- Stato: draft — approvato nel testo, in attesa di data di pubblicazione e della parola-chiave CTA
+- Stato: draft — testo e design completi (tutte le pagine, CTA con parola-chiave reale), in attesa solo della data di pubblicazione
 ---
 
 ### DATA DA ASSEGNARE (Settembre 2026) | Anche quando un ciclo si chiude, il tuo spazio vitale non è un capriccio da sacrificare. [REEL]
 - Fonte: podcast ("Settembre - riparti con costanza")
 - Stile: personal_experience
 - Formato: Reel (immagine statica 1080x1920, da animare in Canva) — costruito con il nuovo brand template "HDH Reels - Master Template" (EAHUIYZ-aRA)
+- Titolo design Canva: "HDH Settembre — Post 7 [REEL] — Il ciclo che si chiude"
 - Canva design URL: https://www.canva.com/d/T95mrQpX67bO-tm
 - Sfondo: paesaggio al tramonto (cielo + erba alta in controluce, foto stock Canva)
 - Make webhook: not yet sent (no scenario built)
-- Stato: draft — approvato nel testo, in attesa di data di pubblicazione e della parola-chiave CTA
+- Stato: draft — testo e design completi; nessuna CTA su questo formato (slide singola), in attesa solo della data di pubblicazione
 ---
 
 ### DATA DA ASSEGNARE (Settembre 2026) | Non serve la giornata ideale per prenderti cura di te. Serve iniziare in quella che hai davvero.
 - Fonte: podcast ("Settembre - riparti con costanza")
 - Stile: awareness
+- Titolo design Canva: "HDH Settembre — Post 9 — La giornata ideale non esiste"
 - Canva design URL: https://www.canva.com/d/IX-7oVs13llNyD6
 - Sfondo: foto di Giusi (Giusi_Dez20_63)
+- Parola-chiave CTA: SETTEMBRE
 - Make webhook: not yet sent (no scenario built)
-- Stato: draft — approvato nel testo, in attesa di data di pubblicazione e della parola-chiave CTA
+- Stato: draft — testo e design completi (tutte le pagine, CTA con parola-chiave reale), in attesa solo della data di pubblicazione
 ---
