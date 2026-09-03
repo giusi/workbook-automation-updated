@@ -135,31 +135,67 @@ does anyone invoke `schedule-social-post`, which is what talks to Make.
    auto-fixed, not the full review table — Giusi should see a draft that's
    already been through this pass, plus any genuinely open questions.
 
-6. **Generate background image candidates**, for `sfondo_narrativo` and
-   `sfondo_cta`. Use the Canva `generate-design` tool (`instagram_post`),
-   grounded in this week's actual mood/palette — the workbook's cover/mantra
-   for a `workbook` post, the episode's mood/imagery for a `podcast` post.
-   **Never ground the prompt in the literal metaphor/keywords** — that
-   produces stock-photo-cliché results (see
-   `social_carousel_template.md` for why). Generate a batch, silently
-   discard any candidate with baked-in text, decorative frames, or an
-   illustrated (non-photographic) style, and **present the remaining clean
-   candidates to Giusi in this session for her to pick** — never auto-select
-   on her behalf.
+6. **Decide the photo pattern, then generate background candidates.** First
+   decide whether *this* post gets Giusi's photo or stays pure landscape —
+   see `social_carousel_template.md`'s "Giusi's photo pattern": across a
+   batch generated together, split it **exactly half and half**; for a
+   single post generated on its own, check the last several `Sfondo` lines
+   in `posting_log.md` and pick whichever keeps the running ratio closest to
+   half. Say which you picked, and why, in your report.
+   - **Pure-landscape post**: generate candidates for `sfondo_narrativo` and
+     `sfondo_cta` as before — Canva `generate-design` (`instagram_post`),
+     grounded in this week's actual mood/palette (the workbook's cover/mantra
+     for a `workbook` post, the episode's mood/imagery for a `podcast` post).
+     **Never ground the prompt in the literal metaphor/keywords** — that
+     produces stock-photo-cliché results (see `social_carousel_template.md`
+     for why). Generate a batch, silently discard any candidate with
+     baked-in text, decorative frames, or an illustrated (non-photographic)
+     style, and **present the remaining clean candidates to Giusi in this
+     session for her to pick** — never auto-select on her behalf.
+   - **Photo post**: pick one of Giusi's real photos per
+     `social_carousel_template.md` (media library subfolders listed there),
+     and pair it with whichever of the two established landscapes
+     (Background A/warm or Background B/cool) matches its tone, per the
+     fixed pairing table — only generate a new landscape candidate if
+     neither established one fits. The photo goes on page 1 (hook) and page
+     7 (masterclass CTA) only; pages 2–6 use the landscape.
 
 7. **Fill the Canva template.** `create-design-from-brand-template` with
    `EAHT9Ay4G_4` → `read-design` (open transaction) to get locator_ids →
    `edit-design` with `replace_text` for each text field and `update_fill`
-   for the two image fields (using the asset ids Giusi picked in step 6) →
-   commit.
+   for the image fields per the pattern decided in step 6 → commit.
+
+   Before committing, re-read the design content and confirm **every one of
+   the 7 pages** carries real text and a real image fill — no leftover
+   `{{PLACEHOLDER}}` text or default template image on any page. A page left
+   untouched gets silently pruned on commit and shifts every later page's
+   locator_ids (see `social_carousel_template.md`'s "Editing gotchas") —
+   catching this before committing is much cheaper than after.
+
+   Then **rename the design's title** (`update_title`) from whatever it
+   inherited from the brand template to `HDH <Mese> — Post <N> — <hook
+   breve>`. A design still carrying the template's old title means the fill
+   isn't actually finished — never hand Giusi an edit URL with the old title
+   still showing.
 
 8. **Write the review package** to `out/social/<date>-<slug>.json`: the
-   Canva edit URL, every caption variant, `fonte`/`stile` used, and the CTA
-   keyword(s). (`out/` is gitignored, same as the workbook pipeline's
-   handoff files.)
+   Canva edit URL, every caption variant, `fonte`/`stile` used, the CTA
+   keyword(s), and every drafted field's exact text (hook, valore1-3,
+   chiusura — not just the hook). `out/` is gitignored, so this file won't
+   survive a fresh clone or a new container — that's fine for the working
+   session, but it means `posting_log.md` (step 9) is the only copy that
+   persists. If the design's structure is ever changed later in a way that
+   could lose text (e.g. converting to a different format), that loss is
+   real and irreversible unless the text was captured somewhere durable
+   first.
 
 9. **Log it.** Append an entry to `posting_log.md` (date, hook/title,
-   fonte, stile, Canva URL, review package path, status `draft`).
+   fonte, stile, Canva URL, review package path, background/photo pattern
+   used, status `draft`). **Only write a "complete"/finished status once the
+   Canva commit has actually succeeded and you've checked the after-
+   thumbnail** — never log a post as done based on what you're about to do.
+   If a batch run gets interrupted partway, the log must reflect the real
+   state of each design, not the intended end state.
 
 10. **Stop here. Do not send anything to Make.** Give Giusi the Canva edit URL
    and the review package path, and say plainly that this is a draft for her to
