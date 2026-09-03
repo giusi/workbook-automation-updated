@@ -35,11 +35,16 @@ carousels run longer (8-9 narrative beats), so extending this is just
 duplicating the pattern (add a page, tag `valoreN_testo` + `sfondo_narrativo`
 on it) — not a redesign.
 
-**Every carousel always ends with exactly these 2 CTA slides** (podcast, then
-masterclass) — never 1, never 0, regardless of style or how short the
-narrative arc is. Both pages always carry real, non-placeholder content
-(title/action text, a real fill on `sfondo_cta`), which also keeps them safe
-from the page-auto-pruning behaviour described below.
+**Don't assume both CTA slides belong on every post — confirm with Giusi
+which one(s) this post needs**, every run. The template defaults to 2 CTA
+slides (podcast, then masterclass), and that's the common case, but a post
+can legitimately need only the podcast CTA (no active masterclass push that
+week), only the masterclass CTA, or in principle neither — same spirit as
+always asking for the comment keyword rather than assuming it. Whichever
+slide(s) aren't needed should be left off the design entirely (don't fill
+them with a CTA that doesn't apply — an unfilled page gets pruned on commit
+per the page-auto-pruning note below, which is the correct outcome here).
+Whichever slide(s) *are* included must carry real, non-placeholder content.
 
 **Always rename the design's title** away from whatever it inherited from
 the brand template (a leftover title from whichever real post the template
@@ -86,9 +91,13 @@ run), split it **exactly half and half**:
 - **Half the posts** use one of Giusi's real photos (from
   `generate-workbook/references/media_library.md` — the "Casual Dez20 e
   Journal" and "Retreat Maggio 2024" subfolders have read well for this so
-  far) **only on page 1 (`sfondo_narrativo`, hook) and page 7 (`sfondo_cta`,
-  masterclass CTA)**. Pages 2–6 stay pure landscape even on these posts —
-  never put her photo on a middle narrative page or the podcast CTA page.
+  far) **only on the hook page (page 1, `sfondo_narrativo`) and the post's
+  actual last slide** — normally the masterclass CTA (page 7), but if this
+  post doesn't have one (see "confirm which CTA slide(s)" above), use
+  whichever slide ends up last instead: the podcast CTA if that's the only
+  CTA slide, or the `chiusura` slide if there's no CTA at all. Every other
+  narrative/CTA page in between stays pure landscape — never put her photo
+  on a middle page.
 - **The other half** stay pure landscape throughout, exactly as described
   above.
 
