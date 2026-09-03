@@ -1,0 +1,92 @@
+{
+  "name": "HDH social — Canva → bozza Facebook Page",
+  "flow": [
+    {
+      "id": 1,
+      "module": "gateway:CustomWebHook",
+      "version": 1,
+      "parameters": {
+        "hook": 0,
+        "maxResults": 1
+      },
+      "mapper": {},
+      "metadata": {
+        "designer": {
+          "x": 0,
+          "y": 0,
+          "name": "hdh-social-draft"
+        }
+      }
+    },
+    {
+      "id": 2,
+      "module": "canva:exportDesign",
+      "version": 1,
+      "parameters": {
+        "__IMTCONN__": 0
+      },
+      "filter": {
+        "name": "Solo payload completi",
+        "conditions": [
+          [
+            {
+              "a": "{{1.schema_version}}",
+              "b": "1",
+              "o": "number:equal"
+            },
+            {
+              "a": "{{1.cta_keyword}}",
+              "b": "<",
+              "o": "text:notcontain"
+            }
+          ]
+        ]
+      },
+      "mapper": {
+        "designId": "{{1.canva_design_id}}"
+      },
+      "metadata": {
+        "designer": {
+          "x": 300,
+          "y": 0,
+          "name": "Esporta il carosello"
+        }
+      }
+    },
+    {
+      "id": 3,
+      "module": "facebook-pages:CreatePostWithPhotos",
+      "version": 6,
+      "parameters": {
+        "__IMTCONN__": 0
+      },
+      "mapper": {
+        "message": "{{1.captions.facebook_profilo.testo}}"
+      },
+      "metadata": {
+        "designer": {
+          "x": 600,
+          "y": 0,
+          "name": "Bozza sulla Pagina"
+        }
+      }
+    }
+  ],
+  "metadata": {
+    "instant": true,
+    "version": 1,
+    "scenario": {
+      "roundtrips": 1,
+      "maxErrors": 3,
+      "autoCommit": true,
+      "autoCommitTriggerLast": true,
+      "sequential": true,
+      "confidential": false,
+      "dataloss": false,
+      "dlq": false
+    },
+    "designer": {
+      "orphans": []
+    }
+  }
+}

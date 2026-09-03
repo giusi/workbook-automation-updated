@@ -78,16 +78,90 @@ un tema generico.
 
 ## Le fonti — in ordine di priorità
 
-1. **Podcast** (episodio più recente, via Castmagic — usa il summary, gli
-   headline, e i post idea che Castmagic estrae automaticamente come punto
-   di partenza, poi riscrivi nella voce di Giusi, non come riassunto).
-2. **Workbook HDH del mese corrente** (`out/workbook-<YYYY-MM>.json` se
-   presente — un esercizio, una sezione, il mantra/intenzione del mese).
+1. **Podcast** (via Castmagic — vedi le regole di selezione e di uso qui
+   sotto).
+2. **Workbook HDH del mese** — `out/workbook-<YYYY-MM>.json` se presente
+   (un esercizio, una sezione, il mantra/intenzione del mese). `out/` è
+   gitignored: in una sessione fresca o in una routine cloud quel file **non
+   esiste**. Fallback durevole: l'entry del mese in `content_plan.toml`
+   (`tema` + `obiettivi`) — è la stessa fonte da cui il workbook è stato
+   generato, quindi resta on-theme. Dichiara sempre nel report quale delle
+   due hai usato; non inventare mai un esercizio o una sezione che non hai
+   letto davvero.
 3. Altro materiale originale (newsletter, dirette, esperienze personali) se
    disponibile.
 
 L'obiettivo non è riassumere la fonte — è estrarne l'idea più forte e farne
 un contenuto autonomo (spesso: un'unpopular opinion).
+
+### Scegliere l'episodio podcast (non fidarti di "l'ultimo")
+
+Lo space Castmagic `Happy Daily Podcast` contiene anche materiale che **non
+è un episodio pubblicabile di Giusi**: clip di test di pochi minuti, file di
+lavorazione, e podcast di terzi in inglese salvati come riferimento. E
+`published_at` è `null` su gran parte delle registrazioni, quindi "il più
+recente" non è un'informazione affidabile.
+
+Prima di scegliere, scarta:
+
+- registrazioni molto brevi (< ~8 minuti) o con titoli non-episodio
+  (nomi propri, numeri, parole isolate);
+- titoli non italiani o chiaramente di altri autori;
+- doppioni dello stesso episodio (versioni con e senza numero di puntata).
+
+Poi scegli, tra quelle rimaste, l'episodio **coerente con il tema del mese**
+(`content_plan.toml`) — non semplicemente il primo della lista — e
+**nomina il titolo esatto nel report a Giusi**, così può correggerti in un
+secondo se hai preso l'episodio sbagliato.
+
+### Leggi il transcript completo. Sempre.
+
+**La fonte è il transcript integrale dell'episodio** (`get_transcript`), non
+il materiale che Castmagic ne ricava. Leggilo tutto prima di scrivere una
+riga — un episodio di 12-25 minuti si legge in un attimo, e la differenza
+nel risultato è netta.
+
+Perché: verificato su un episodio reale, l'output derivato di Castmagic
+perdeva quasi tutto ciò che rende un contenuto riconoscibile. Nel transcript
+c'erano il canto degli uccellini e le farfalle nel momento di gratitudine, il
+libro/lo sport/la nuotata/la casa sistemata come catena di tentativi di
+riempire il vuoto, "l'impulso nel mio cuore, nel mio corpo, nella mia mente,
+ma anche nelle mie mani", "riposo sacro", "carta e penna", l'invito diretto
+"scrivimi dove lo senti", e il fatto che chi rimanda "si occupa sempre di
+qualcos'altro o di qualcun altro" — l'aggancio all'avatar. Nei riassunti
+generati: niente di tutto questo. **Il dettaglio concreto è la voce.** È
+quello che rende un post suo e non di chiunque altro, ed è esattamente quello
+che i riassunti tolgono per primo.
+
+Castmagic resta utile solo come **indice**: l'`episode_overview` con i
+timestamp aiuta a orientarsi in un transcript lungo, e i `quote_hooks`
+segnalano i passaggi forti. Sono una mappa, non il testo.
+
+**Non usare mai come bozza** le caption, i carousel e le newsletter generate
+da Castmagic. Sono fuori voce in modo sistematico — emoji decorative, formule
+vietate (in un episodio reale compariva letteralmente "Non sei sola"),
+hashtag generici, listicle numerati, e frammenti in inglese lasciati dentro
+il testo italiano ("focused on", "One concept discussed was").
+
+**Attenzione agli errori di trascrizione.** Il transcript è ASR: nello stesso
+episodio Giusi si presenta come "sono Giusy, Valentina" (cioè "Giusi
+Valentini") e compare "nuota nel tuo corpo" al posto di "nota nel tuo corpo".
+Prima di riportare una frase come sua, verifica che stia in piedi; se una
+citazione è centrale nel post e il transcript è ambiguo, riformulala con
+parole tue invece di attribuirle una frase che forse non ha detto.
+
+**Non riportare mai promo, prezzi, sconti, coupon o scadenze** presi dalla
+fonte. I transcript contengono offerte a tempo (es. un coupon estivo) che
+alla data di pubblicazione del post sono quasi sempre scadute: riportarle
+significa pubblicare una promessa falsa. Se un post deve promuovere
+qualcosa, l'informazione arriva da Giusi in quel momento, non dal
+transcript.
+
+**La grafia corretta del nome è "Giusi"** — confermata da lei (2026-09-02).
+Alcune fonti riportano ancora "Giusy" (`giusyvalentini.com`, "Giusy Valentini
+Coach"): è una grafia da non replicare mai nel testo di un post. Resta però
+vero che **non si inventano URL, handle o domini**: dove serve un link,
+lascia un segnaposto esplicito e chiedilo a Giusi.
 
 ## I 5 stili di contenuto da alternare
 
@@ -139,6 +213,28 @@ SLIDE N        = CTA verso la masterclass gratuita + tag del mese corrente,
                  2026"), mai hardcoded.
 ```
 
+### Budget di lunghezza
+
+Il template Canva rimpicciolisce automaticamente il testo che non entra
+(stesso bug visto in `generate-workbook`), quindi le slide hanno un tetto
+reale, non indicativo:
+
+| Campo | Tetto |
+|---|---|
+| `hook_testo` | ~90 caratteri, max 2 righe |
+| `valore1..3_testo` | ~180 caratteri ciascuno |
+| `chiusura_testo` | ~120 caratteri, max 2 righe |
+| `cta_podcast_titolo` | ~60 caratteri (titolo reale dell'episodio) |
+| `cta_podcast_azione` / `cta_masterclass_azione` | ~70 caratteri |
+
+Per le caption (hashtag esclusi): Instagram 800–1400, Facebook profilo
+700–1200 (è di norma una versione più compatta della stessa caption),
+Gruppo Podcast 600–1000, YouTube 280–500, Telegram 250–450. Sopra il massimo
+si perde il TRANSFER; sotto il minimo, verifica che ci siano davvero tutti e
+cinque i passaggi (hook, contesto, valore, transfer, CTA) prima di
+concludere che va bene — una caption corta e completa è meglio di una
+allungata per rispettare un numero.
+
 ### Adattamento per piattaforma
 
 Stesso asset visivo (il carosello), copy adattato:
@@ -158,8 +254,14 @@ Stesso asset visivo (il carosello), copy adattato:
 
 **CTA per piattaforma non sono "clicca qui/scarica/iscriviti" da marketing
 generico** — restano sempre il meccanismo reale di Giusi: parola-chiave nei
-commenti (PODCAST, CASA, MEDITARE, MATTINA, RITIRO, LEGGERA...), non un link
-diretto.
+commenti, non un link diretto.
+
+**Chiedi sempre a Giusi quale parola-chiave usare, a ogni run**, prima di
+consegnare la bozza. Le keyword esistenti (PODCAST, CASA, MEDITARE, MATTINA,
+RITIRO, LEGGERA...) sono un riferimento di come funziona il meccanismo, non
+un menù da cui scegliere da sola: quale sia quella giusta dipende da cosa
+Giusi sta promuovendo quella settimana, e lei è l'unica fonte. Non inventare
+mai una keyword nuova.
 
 ## Metodo di lavoro con l'AI (dalla guida editoriale, §9)
 
@@ -171,6 +273,27 @@ diretto.
 5. Genera una prima bozza.
 6. Rimuovi tutto ciò che suona artificiale o generico.
 7. Verifica che il contenuto sembri realmente scritto da Giusi.
+
+Il punto 2 va **fatto davvero, non saltato**: da un transcript escono
+facilmente 10-15 idee, e la tesi che scegli è migliore quando è scelta tra
+molte invece di essere la prima che arriva. Non serve mostrarle tutte a
+Giusi — serve averle scritte prima di decidere.
+
+### Tre cose da consegnare sempre a Giusi con la bozza
+
+Nate dal confronto con le skill di copywriting generiche (`draft-content`,
+`content-creation`): il loro contenuto non è utilizzabile qui — è marketing
+B2B SaaS, con formule listicle e CTA da funnel che questa skill vieta
+esplicitamente — ma tre meccaniche sì, svuotate del loro contenuto:
+
+1. **Tre opzioni di hook, non una.** L'hook decide se il post viene letto.
+   Scrivine tre che reggano da sole e lascia scegliere a Giusi — stessa
+   logica con cui già sceglie lei le foto di sfondo, non l'AI.
+2. **Dichiara a quale avatar parla questo post** (Giulia o Rossella) prima
+   di scrivere, non dopo. Un post che prova a parlare a entrambe finisce per
+   non toccare nessuna delle due.
+3. **Dichiara la tesi in una riga**, separata dalla bozza. Se non riesci a
+   scriverla in una riga, il post non ce l'ha — e va rifatto, non limato.
 
 ## Self-review prima di consegnare a Giusi
 
@@ -207,6 +330,14 @@ autoverifica in stile `brand-review` (skill separata, stesso repo) usando
 □ Hashtag presenti solo dove previsto (IG/FB profilo), pertinenti non generici?
 □ CTA sempre parola-chiave nei commenti, mai linguaggio da CTA generico
   ("clicca qui", "scopri di più", verbi da SaaS)?
+□ Nessuna promo/prezzo/coupon/scadenza ereditata dalla fonte?
+□ Nessun URL, handle o dominio inventato (segnaposto espliciti dove manca)?
+□ Nome scritto "Giusi", mai "Giusy"?
+□ Parola-chiave CTA chiesta a Giusi in questo run, non scelta o inventata?
+□ Titolo dell'episodio citato = titolo reale, verificato su Castmagic?
+□ Niente residui di Castmagic (emoji decorative, frasi in inglese, hashtag
+  generici, listicle numerati)?
+□ Stile diverso dall'ultimo post loggato in `posting_log.md`?
 ```
 
 Non pubblicare mai senza revisione umana — questo skill produce una bozza
