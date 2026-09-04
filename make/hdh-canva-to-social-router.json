@@ -126,7 +126,7 @@
           "flow": [
             {
               "id": 6,
-              "module": "telegram:SendPhoto",
+              "module": "telegram:SendMediaGroup",
               "version": 1,
               "parameters": {
                 "__IMTCONN__": 0
@@ -143,14 +143,12 @@
                   ]
                 ]
               },
-              "mapper": {
-                "caption": "{{1.captions.telegram.testo}}"
-              },
+              "mapper": {},
               "metadata": {
                 "designer": {
                   "x": 900,
                   "y": 120,
-                  "name": "Telegram (live!)"
+                  "name": "Telegram — carosello completo (live!)"
                 }
               }
             }

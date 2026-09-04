@@ -37,14 +37,22 @@ branches carry an extra filter: they only fire if the payload's
 explicitly, per channel, per send — never inferred from "the post is
 approved." Facebook needs no such flag.
 
-## YouTube community posts — not automatable, not a Make gap
+## YouTube community posts and Facebook Groups — not automatable, not a Make gap
 
 Checked directly against Make's YouTube module list: video upload/update/
 delete, channel/playlist management, comment replies, and a raw API-call
 module. No community-post module exists, because the YouTube Data API has
-never exposed one publicly, for anyone. Same story for Facebook profile and
-the Podcast Group — no API. All three stay copy-paste from the review
-package. Permanently, not "until we find a way."
+never exposed one publicly, for anyone.
+
+Same wall for **Facebook Groups — public or private, no exceptions.** Make
+has no "Facebook Groups" app at all (checked: no such app exists in its
+catalog, only "Facebook Pages"). This isn't a Make gap either — Meta locked
+down the Groups API for third-party publishing in 2018 and only grants it to
+a small number of specially-reviewed apps. No generic automation tool has
+it.
+
+So Facebook profile, the Podcast Group, and YouTube community posts all stay
+copy-paste from the review package. Permanently, not "until we find a way."
 
 ## Setup Giusi still needs to do (Claude holds no platform credentials)
 
@@ -58,10 +66,13 @@ package. Permanently, not "until we find a way."
    session had no schema-read access to Make's app definitions to confirm
    it against the actual module fields, so check it lands in the right
    place once connected.
-4. **Telegram module** → create a bot via @BotFather if you haven't, add the
-   connection, set the target `chat_id` (your channel), map the exported
-   image and the caption field (`{{1.captions.telegram.testo}}` — same
-   best-guess caveat as Instagram).
+4. **Telegram module** (`SendMediaGroup` — sends the full carousel, not just
+   the cover image) → create a bot via @BotFather if you haven't, add the
+   connection, set the target `chat_id` (your channel), map **all** exported
+   Canva pages into the media array with the caption
+   (`{{1.captions.telegram.testo}}` — best-guess field name, unverified) on
+   the first item only — Telegram's own API only shows one caption per
+   media group, on the first item.
 5. **Leave the scenario off** until you've tested per `make/TESTING.md`.
 6. Once you're happy, tell me the webhook URL is ready to use and I'll set
    `MAKE_WEBHOOK_URL` in the environment where `generate-social-post`/

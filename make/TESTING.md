@@ -116,13 +116,19 @@ placeholder text.
 
 ## 6. Fifth test — Telegram, for real, with no undo
 
+The Telegram module sends the **full carousel** (`SendMediaGroup`, all
+pages), not just the cover image — so this test is also where you confirm
+the whole media array is mapped correctly, not just one image.
+
 Cheaper to de-risk than Instagram:
 
 1. Create a private test channel (just you, or you + whoever else needs to
    see it) — takes about 30 seconds in the Telegram app.
 2. Point the Telegram module's `chat_id` at that test channel.
 3. Enable only the Telegram module, **Run once** with the step-3 payload.
-4. Check formatting, caption, and image in the test channel.
+4. Check formatting, caption (should appear once, under the first image),
+   and that **all** carousel pages arrived as one grouped album, in the
+   right order, in the test channel.
 5. Once it looks right, switch `chat_id` to the real Happy Daily Body
    channel for the actual go-live send.
 
@@ -153,6 +159,13 @@ why it's asked fresh every time, never inferred.
   (`caption` on both), unconfirmed against Make's actual module schema this
   session (no `apps:read` scope). Verify once connected; tell me if either
   needs correcting and I'll fix the blueprint and the live scenario.
+- **Telegram's media-array shape** — the `SendMediaGroup` module's `media`
+  field is left entirely unmapped (empty), same as Facebook/Instagram's
+  photo fields. You'll map all of Canva's exported pages into it in the
+  Make UI once connected — Claude has no verified schema for its exact
+  array shape this session.
 - **The other channels** — Facebook profile, the Podcast Group, and YouTube
-  community posts have no API at all (YouTube confirmed against Make's own
-  module list). They stay copy-paste from the review package permanently.
+  community posts have no API at all (confirmed against Make's own module
+  lists — Facebook Groups specifically has no app in Make's catalog, public
+  or private, because Meta itself locked that API down in 2018). They stay
+  copy-paste from the review package permanently.

@@ -95,8 +95,8 @@ Rules for the payload:
 
 ```
                                     ┌─ Facebook Page: create post (unpublished draft)
-webhook → filter → Canva: export ──┼─ [if "instagram" in canali_live_confermati] → Instagram: create post  (LIVE, no draft)
-                                    └─ [if "telegram" in canali_live_confermati]  → Telegram bot: send photo (LIVE, no draft)
+webhook → filter → Canva: export ──┼─ [if "instagram" in canali_live_confermati] → Instagram: create post        (LIVE, no draft)
+                                    └─ [if "telegram" in canali_live_confermati]  → Telegram bot: send media group — full carousel (LIVE, no draft)
 ```
 
 One scenario (not one per platform) — reasoning: a single execution log per
@@ -110,7 +110,10 @@ others.
 YouTube Data API has no public endpoint for them (confirmed against Make's
 own YouTube module list: video/channel/playlist/comment actions only, no
 community-post module, for anyone, not a Make gap). Same for Facebook
-profile and the Podcast Group — no API exists. All three stay copy-paste
+profile and **the Podcast Group — public or private, no exceptions**: Make
+has no "Facebook Groups" app at all (only "Facebook Pages"), because Meta
+locked down third-party publishing to Groups in 2018 and only grants that
+API to a small number of specially-reviewed apps. All three stay copy-paste
 from the review package, permanently, not "until automated."
 
 ### What's wired vs. what Giusi still does by hand
