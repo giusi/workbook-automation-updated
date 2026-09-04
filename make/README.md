@@ -1,64 +1,101 @@
-# Make — HDH social hand-off (v1)
+# Make — HDH social hand-off (v2: one scenario, router per platform)
 
-One scenario, three modules, no approval step:
+Status (2026-09-04): **built directly in Make, not just a blueprint file.**
+Scenario **`HDH Social — Canva → FB / IG / Telegram`** (id `9724996`, team
+`11942`) — this reuses the scenario Giusi had already started as "Publish
+Done Canva Designs": same Canva connection (id `14550076`), renamed and
+restructured. It's currently **off**, with Facebook/Instagram/Telegram
+connections unset — Giusi connects those by hand before anything can run.
+
+`hdh-canva-to-social-router.json` in this folder is kept as an importable
+blueprint of the same structure (useful for recreating the scenario, or
+importing into a different team) — it mirrors what's live, not a separate
+design.
 
 ```
-Claude  →  webhook  →  Canva: esporta il design  →  Facebook Page: crea la bozza
+                                    ┌─ Facebook Page: create post (unpublished draft)
+webhook → filter → Canva: export ──┼─ [if "instagram" confirmed] → Instagram: create post  (LIVE — no draft)
+                                    └─ [if "telegram" confirmed]  → Telegram bot: send photo (LIVE — no draft)
 ```
 
-`hdh-canva-to-facebook-draft.json` — import it with **Create a new scenario →
-⋯ → Import Blueprint**. A blueprint carries structure, never credentials, so
-connections and the webhook get attached by hand after import.
+Full contract and reasoning: `.claude/skills/schedule-social-post/references/make_handoff.md`.
 
-The email-approval step is **gone** on purpose. The review that used to happen
-by email now happens where the draft lands: on the Facebook Page, where you
-look at it and decide to publish. One fewer moving part to maintain.
+## Why one scenario with a router, not one scenario per platform
 
-## What survives from the approval version
+A single execution log per post beats three separate scenario histories to
+cross-reference when debugging "did this post go out everywhere correctly."
+Each router branch keeps its own filter and can be disabled independently in
+the Make designer — no isolation is lost versus separate scenarios.
 
-A **filter on the Canva module**: the scenario only proceeds if the payload
-declares `schema_version: 1` and its `cta_keyword` no longer contains `<`. So a
-draft still carrying `<PAROLA-CHIAVE>` stops at the first module and never
-reaches Facebook. That guard cost nothing to keep, and it is the one that
-prevents an embarrassing post.
+## Why Instagram and Telegram need a second gate Facebook doesn't
 
-## Setup after import
+Facebook posts land as an **unpublished draft** — a human looks at it on the
+Page before it's ever public. Instagram and Telegram have **no draft state
+in their APIs** — the moment their module runs, it's live. So those two
+branches carry an extra filter: they only fire if the payload's
+`canali_live_confermati` array names them. `schedule-social-post` asks Giusi
+explicitly, per channel, per send — never inferred from "the post is
+approved." Facebook needs no such flag.
 
-1. **Webhook module** → **Add** → name it `hdh-social-draft` → **Save** → copy
-   the URL. Put it in the environment as `MAKE_WEBHOOK_URL` where
-   `generate-social-post` runs. **Never commit it** — anyone holding that URL
-   can push a post into your pipeline.
-2. **Canva module** → add your Canva connection. It receives `canva_design_id`
-   from the payload (e.g. `DAHUDZQXSi0`) and exports the carousel pages.
-3. **Facebook Pages module** → add your connection, then **choose the Page**.
-   Map the exported images from the Canva module into the photos field, and
-   check the module's publishing option — see the caveat below.
+## YouTube community posts and Facebook Groups — not automatable, not a Make gap
+
+Checked directly against Make's YouTube module list: video upload/update/
+delete, channel/playlist management, comment replies, and a raw API-call
+module. No community-post module exists, because the YouTube Data API has
+never exposed one publicly, for anyone.
+
+Same wall for **Facebook Groups — public or private, no exceptions.** Make
+has no "Facebook Groups" app at all (checked: no such app exists in its
+catalog, only "Facebook Pages"). This isn't a Make gap either — Meta locked
+down the Groups API for third-party publishing in 2018 and only grants it to
+a small number of specially-reviewed apps. No generic automation tool has
+it.
+
+So Facebook profile, the Podcast Group, and YouTube community posts all stay
+copy-paste from the review package. Permanently, not "until we find a way."
+
+## Setup Giusi still needs to do (Claude holds no platform credentials)
+
+1. Open scenario `HDH Social — Canva → FB / IG / Telegram` in Make.
+2. **Facebook Pages module** → add your connection → pick the Page → map the
+   exported Canva images into the photos field → check whether the module
+   exposes unpublished/scheduled (see the caveat below).
+3. **Instagram Business module** → add your connection → map the exported
+   image into the photo field. **The caption field mapping
+   (`{{1.captions.instagram.testo}}`) is Claude's best guess** — this
+   session had no schema-read access to Make's app definitions to confirm
+   it against the actual module fields, so check it lands in the right
+   place once connected.
+4. **Telegram module** (`SendMediaGroup` — sends the full carousel, not just
+   the cover image) → create a bot via @BotFather if you haven't, add the
+   connection, set the target `chat_id` (your channel), map **all** exported
+   Canva pages into the media array with the caption
+   (`{{1.captions.telegram.testo}}` — best-guess field name, unverified) on
+   the first item only — Telegram's own API only shows one caption per
+   media group, on the first item.
+5. **Leave the scenario off** until you've tested per `make/TESTING.md`.
+6. Once you're happy, tell me the webhook URL is ready to use and I'll set
+   `MAKE_WEBHOOK_URL` in the environment where `generate-social-post`/
+   `schedule-social-post` run. **Never commit it to the repo** — anyone
+   holding that URL can push a post into your pipeline.
 
 ## The caveat that decides whether this is really a "draft"
 
-"Draft" means something different on each platform, and only one supports it:
+- **Facebook Page — yes.** Meta's API supports unpublished and scheduled
+  posts, which is what makes the review step real. Confirm the module
+  exposes it; if it only publishes live, schedule it a few hours out instead.
+- **Instagram — no.** The API publishes; there is no draft state. That's
+  what `canali_live_confermati` exists to gate.
+- **Telegram — no.** Sending is delivering. Same gate.
 
-- **Facebook Page — yes.** Meta's API supports unpublished and scheduled posts,
-  which is what makes this v1 work at all. Confirm in the module whether Make
-  exposes the unpublished/scheduled option; if it only publishes live, the
-  fallback is to schedule it a few hours out, which gives you the same window
-  to review and cancel.
-- **Instagram — no.** The API publishes; there is no draft state. Drafts exist
-  only inside the app.
-- **Telegram — no.** Sending is delivering.
-
-That is why v1 is Facebook Page only. Adding Instagram or Telegram later means
-accepting that those two go **live** the moment the scenario runs — a different
-decision from this one, and yours to make deliberately.
-
-Your Facebook **personal profile**, the **Podcast Group** and **YouTube** can't
-be automated at all (no API for any of them), so those captions stay copy-paste
-from the review package.
+Your Facebook **personal profile**, the **Podcast Group** and **YouTube**
+can't be automated at all (no API for any of them), so those captions stay
+copy-paste from the review package.
 
 ## Not yet validated
 
-The blueprint passes Make's structural schema check. Module-level validation —
-that each field is right for your account — needs your numeric **teamId**, which
-this session has no tool to look up. It is in any Make URL:
-`https://eu2.make.com/<teamId>/scenarios`. Send me that number and I'll verify
-the modules before you import.
+Module-level field names for Instagram and Telegram — see point 3 and 4
+above. Facebook's `message` field is confirmed (it's what was already in
+Giusi's original Facebook module, untouched). The team ID (`11942`) that the
+old version of this doc needed is no longer a blocker — resolved this
+session via `environment_get`.

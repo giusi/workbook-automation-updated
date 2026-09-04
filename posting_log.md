@@ -53,48 +53,44 @@ the Make hand-off exists to do this automatically.
 - Stato: draft — generato in sessione di test delle skill, da rivedere prima di qualsiasi uso
 ---
 
-### DATA DA ASSEGNARE (Settembre 2026) | Non ti manca la disciplina. Ti manca il permesso di non essere sempre al 100%.
-- Fonte: podcast ("Settembre - riparti con costanza")
-- Stile: unpopular_opinion
-- Titolo design Canva: "HDH Settembre — Post 3 — Il permesso di non essere al 100%"
-- Canva design URL: https://www.canva.com/d/G5dofjsM84Hywcl
-- Sfondo: Background A (campi verdi, foto stock Canva)
-- Parola-chiave CTA: SETTEMBRE
-- Data diretta masterclass: 24 settembre (aggiunta sull'ultima slide del carosello)
-- Make webhook: not yet sent (no scenario built)
-- Stato: draft — testo e design completi (tutte le pagine, CTA con parola-chiave reale e data della diretta), in attesa solo della data di pubblicazione
----
-
-### DATA DA ASSEGNARE (Settembre 2026) | Non devi fare tutto da sola. Prenderti cura di te può essere una cosa fatta insieme.
+### 2026-09-06 10:00 | Non devi fare tutto da sola.
 - Fonte: podcast ("Settembre - riparti con costanza")
 - Stile: awareness
-- Titolo design Canva: "HDH Settembre — Post 4 — Non devi fare tutto da sola"
-- Canva design URL: https://www.canva.com/d/OmoLcqoAjrShkVM
+- Titolo design Canva: "6.9 at 10am - HDH Settembre — Post 1 — Non devi fare tutto da sola"
+- Canva design ID: DAHUIs5jJQs
+- Canva design URL: https://www.canva.com/d/sxDdLSOiRohyNyq
+- Cartella Canva: Social Media Automation (FAHUIdsKNnM)
 - Sfondo: pattern foto-solo-su-hook-e-CTA — hook e CTA masterclass: Giusi seduta all'aperto, momento di quiete (MAHIIPqv0_g); pagine centrali: Background B (chioma di foresta nella nebbia)
-- Parola-chiave CTA: SETTEMBRE
-- Data diretta masterclass: 24 settembre (aggiunta sull'ultima slide del carosello)
+- Testo rivisto da Giusi rispetto alla bozza: "i miei spazi online e offline" al posto di "Happy Daily Home" (slide 3); chiusura riscritta in prima persona ("io sono lì per dirti: vieni, riprendiamo da qui"); aggiunta un'ottava riga "PER SOSTENERTI HO CREATO LA LIVE — SETTEMBRE: RIPRENDI CON COSTANZA" sull'ultima slide.
+- CTA podcast: parola-chiave **PODCAST** — "Commenta 'PODCAST' e ricevi il link in DM" (non più link diretto nei commenti)
+- CTA masterclass: parola-chiave **SETTEMBRE** — "Scrivi 'SETTEMBRE' nei commenti e ricevi il link" — 24 settembre **ore 21**
 - Make webhook: not yet sent (no scenario built)
-- Stato: draft — testo e design completi (tutte le pagine, CTA con parola-chiave reale e data della diretta), in attesa solo della data di pubblicazione
+- Stato: approvato — programmato per il 6 settembre alle 10:00. Caption multi-canale aggiornate per riflettere il testo e le due CTA reali (PODCAST/DM + SETTEMBRE/ore 21); manca ancora il link reale dell'episodio per la variante YouTube.
 ---
 
-### DATA DA ASSEGNARE (Settembre 2026) | Essere costante non significa dare il 100%. Significa non abbandonarti quando puoi dare solo il 30%.
-- Fonte: podcast ("Settembre - riparti con costanza")
-- Stile: educational
-- Titolo design Canva: "HDH Settembre — Post 5 — Il 30% è costanza vera"
-- Canva design URL: https://www.canva.com/d/QIK29XxH0g9nGq4
-- Sfondo: pattern foto-solo-su-hook-e-CTA — hook e CTA masterclass: Giusi seduta in città, ritratto lifestyle (MAGoD4-QrOk); pagine centrali: Background B (chioma di foresta nella nebbia)
-- Parola-chiave CTA: SETTEMBRE
-- Data diretta masterclass: 24 settembre (aggiunta sull'ultima slide del carosello)
-- Make webhook: not yet sent (no scenario built)
-- Stato: draft — testo e design completi (tutte le pagine, CTA con parola-chiave reale e data della diretta), in attesa solo della data di pubblicazione
----
-
-### DATA DA ASSEGNARE (Settembre 2026) | Anche da ferma, nella tua testa stai ancora correndo.
+### 2026-09-10 21:00 | Anche da ferma, nella tua testa stai ancora correndo.
 - Fonte: podcast ("Settembre - riparti con costanza")
 - Stile: pain_point
-- Titolo design Canva: "HDH Settembre — Post 6 — Anche da ferma, stai ancora correndo"
-- Canva design URL: https://www.canva.com/d/GiuYzPlJ2A5g1pI
+- Titolo design Canva: "10.9 at 9 pm HDH Settembre — Post 2 — Anche da ferma, stai ancora correndo"
+- Canva design ID: DAHUIvLuHNM
+- Canva design URL: https://www.canva.com/d/68NWgb6i26fblNA
+- Cartella Canva: Social Media Automation (FAHUIdsKNnM)
 - Sfondo: Background A (campi verdi, foto stock Canva)
+- Design accorciato in revisione da 6 a 5 pagine: la CTA podcast è stata rimossa, resta solo la CTA masterclass. Testo valore/chiusura leggermente rivisto ("da seduta" invece di "da ferma"; "mente" invece di "testa").
+- CTA masterclass: parola-chiave **SETTEMBRE** — "Scrivi 'SETTEMBRE' nei commenti e ricevi il link" — 24 settembre 2026 (nessun orario indicato in questo design, a differenza del Post 1 che riporta "ore 21" — verificare con Giusi se è lo stesso evento)
+- Approved record: approved/social/2026-09-10-anche-da-ferma-stai-ancora-correndo.md (.json) — backfilled 2026-09-04 so the approved copy survives even though out/ is ephemeral; not a send record, nothing has gone to Make.
+- Make webhook: not yet sent (scenario built — id 9724996, "HDH Social — Canva → FB / IG / Telegram" — but Facebook/Instagram/Telegram connections not yet made; MAKE_WEBHOOK_URL not set)
+- Stato: approvato — programmato per il 10 settembre alle 21:00. Caption multi-canale aggiornate: rimosso ogni riferimento alla CTA podcast (non più presente nel design).
+---
+
+### DATA DA ASSEGNARE (Settembre 2026) | Non serve la giornata ideale per prenderti cura di te. Serve iniziare in quella che hai davvero.
+- Fonte: podcast ("Settembre - riparti con costanza")
+- Stile: awareness
+- Titolo design Canva: "HDH Settembre — Post 3 — La giornata ideale non esiste"
+- Canva design ID: DAHUIpHwuP4
+- Canva design URL: https://www.canva.com/d/v60qR7drvz6OPC8
+- Cartella Canva: Social Media Automation (FAHUIdsKNnM)
+- Sfondo: pattern foto-solo-su-hook-e-CTA — hook e CTA masterclass: Giusi seduta in città, ritratto lifestyle (MAGoD4-QrOk); pagine centrali: Background A (campi verdi, cielo velato)
 - Parola-chiave CTA: SETTEMBRE
 - Data diretta masterclass: 24 settembre (aggiunta sull'ultima slide del carosello)
 - Make webhook: not yet sent (no scenario built)
@@ -105,8 +101,10 @@ the Make hand-off exists to do this automatically.
 - Fonte: podcast ("Settembre - riparti con costanza")
 - Stile: personal_experience
 - Formato: carosello statico a 7 pagine (ripristinato dal formato Reel su richiesta di Giusi) — costruito con il brand template master "Master carousel" (EAHT9Ay4G_4)
-- Titolo design Canva: "HDH Settembre — Post 7 — Il ciclo che si chiude"
-- Canva design URL: https://www.canva.com/d/wGnPldzTAQ-qHoe
+- Titolo design Canva: "HDH Settembre — Post 4 — Il ciclo che si chiude"
+- Canva design ID: DAHUI6esOjk
+- Canva design URL: https://www.canva.com/d/Hi8DUybUwdxKdpP
+- Cartella Canva: Social Media Automation (FAHUIdsKNnM)
 - Sfondo: pattern foto-solo-su-hook-e-CTA — hook e CTA masterclass: Giusi seduta all'aperto, momento di quiete (MAHIIPqv0_g); pagine centrali: Background B (chioma di foresta nella nebbia). Testo valore1-3 ricostruito ex novo (non recuperabile dal Reel, che li aveva assorbiti in un'unica slide) — da rivedere con attenzione in più rispetto agli altri post già approvati.
 - Parola-chiave CTA: SETTEMBRE
 - Data diretta masterclass: 24 settembre (aggiunta sull'ultima slide del carosello)
@@ -114,12 +112,43 @@ the Make hand-off exists to do this automatically.
 - Stato: draft — carosello ricostruito da zero, testo valore1-3 NUOVO e non ancora approvato da Giusi, in attesa di revisione prima della data di pubblicazione
 ---
 
-### DATA DA ASSEGNARE (Settembre 2026) | Non serve la giornata ideale per prenderti cura di te. Serve iniziare in quella che hai davvero.
+### 2026-09-12 10:00 | Essere costante non è dare il 100%.
 - Fonte: podcast ("Settembre - riparti con costanza")
-- Stile: awareness
-- Titolo design Canva: "HDH Settembre — Post 9 — La giornata ideale non esiste"
-- Canva design URL: https://www.canva.com/d/IX-7oVs13llNyD6
-- Sfondo: pattern foto-solo-su-hook-e-CTA — hook e CTA masterclass: Giusi seduta in città, ritratto lifestyle (MAGoD4-QrOk); pagine centrali: Background A (campi verdi, cielo velato)
+- Stile: educational
+- Titolo design Canva: "12.9 at 10 am HDH Settembre — Post 5 — Il 30% è costanza vera"
+- Canva design ID: DAHUItopUiI
+- Canva design URL: https://www.canva.com/d/67dYzu3TQCkheAL
+- Cartella Canva: Social Media Automation (FAHUIdsKNnM)
+- Sfondo: pattern foto-solo-su-hook-e-CTA — hook e CTA masterclass: Giusi seduta in città, ritratto lifestyle (MAGoD4-QrOk); pagine centrali: Background B (chioma di foresta nella nebbia)
+- Design accorciato in revisione da 7 a 6 pagine: la CTA podcast è stata rimossa, resta solo la CTA masterclass. Hook leggermente riformulato ("non è dare il 100%" invece di "non significa dare il 100%").
+- CTA masterclass: parola-chiave **SETTEMBRE** — "Commenta 'SETTEMBRE' e ricevi il link in DM" — 24 settembre **ore 21**
+- Approved record: approved/social/2026-09-12-il-30-percento-costanza-vera.md (.json) — backfilled 2026-09-04 so the approved copy survives even though out/ is ephemeral; not a send record, nothing has gone to Make.
+- Make webhook: not yet sent (scenario built — id 9724996, "HDH Social — Canva → FB / IG / Telegram" — but Facebook/Instagram/Telegram connections not yet made; MAKE_WEBHOOK_URL not set)
+- Stato: approvato — programmato per il 12 settembre alle 10:00. Caption multi-canale aggiornate: rimosso ogni riferimento alla CTA podcast, CTA masterclass ora dice esplicitamente "in DM".
+---
+
+### 2026-09-08 13:00 | Smetti di ricominciare sempre da capo.
+- Fonte: annuncio diretto masterclass (non fa parte dei 6 post-carosello dal podcast di settembre — post promozionale standalone, trovato già presente e approvato nella cartella Canva)
+- Stile: n/d — non rientra nelle 5 categorie standard (pain_point/awareness/unpopular_opinion/educational/personal_experience); è un invito diretto all'evento, non un post costruito su una tesi editoriale. Da confermare con Giusi come classificarlo per la rotazione stile.
+- Titolo design Canva: "8.9 at 1 pm HDH Settembre "
+- Canva design ID: DAHUJs4-4us
+- Canva design URL: https://www.canva.com/d/EBvNA_RszI9Qx8m
+- Cartella Canva: Social Media Automation (FAHUIdsKNnM)
+- Testo: "Smetti di ricominciare sempre da capo." / "SETTEMBRE È QUI. L'estate ti ha fatto cambiare ritmo... è tempo di ripartire, di ritrovare la direzione della tua vita." / "Iscriviti ora alla MASTERCLASS LIVE & GRATIS 24 settembre ore 21 — SETTEMBRE: RIPARTI CON COSTANZA" / "Partecipa GRATIS commenta 'settembre' e ricevi il link in DM"
+- CTA: parola-chiave **SETTEMBRE** — "commenta 'settembre' e ricevi il link in DM" — 24 settembre ore 21
+- Review package: out/social/settembre-post7-smetti-di-ricominciare.json
+- Make webhook: not yet sent (no scenario built)
+- Stato: approvato — programmato per l'8 settembre alle 13:00. Caption multi-canale redatte (adattate al formato invito diretto, senza l'arco narrativo hook/valore/chiusura degli altri post).
+---
+
+### DATA DA ASSEGNARE (Settembre 2026) | Non ti manca la disciplina. Ti manca il permesso di non essere sempre al 100%.
+- Fonte: podcast ("Settembre - riparti con costanza")
+- Stile: unpopular_opinion
+- Titolo design Canva: "HDH Settembre — Post 6 — Il permesso di non essere al 100%"
+- Canva design ID: DAHUIqRslSc
+- Canva design URL: https://www.canva.com/d/_j6BY6WpI-409cl
+- Cartella Canva: Social Media Automation (FAHUIdsKNnM)
+- Sfondo: Background A (campi verdi, foto stock Canva)
 - Parola-chiave CTA: SETTEMBRE
 - Data diretta masterclass: 24 settembre (aggiunta sull'ultima slide del carosello)
 - Make webhook: not yet sent (no scenario built)
