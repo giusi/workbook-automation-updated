@@ -78,7 +78,8 @@ the Make hand-off exists to do this automatically.
 - Sfondo: Background A (campi verdi, foto stock Canva)
 - Design accorciato in revisione da 6 a 5 pagine: la CTA podcast è stata rimossa, resta solo la CTA masterclass. Testo valore/chiusura leggermente rivisto ("da seduta" invece di "da ferma"; "mente" invece di "testa").
 - CTA masterclass: parola-chiave **SETTEMBRE** — "Scrivi 'SETTEMBRE' nei commenti e ricevi il link" — 24 settembre 2026 (nessun orario indicato in questo design, a differenza del Post 1 che riporta "ore 21" — verificare con Giusi se è lo stesso evento)
-- Make webhook: not yet sent (no scenario built)
+- Approved record: approved/social/2026-09-10-anche-da-ferma-stai-ancora-correndo.md (.json) — backfilled 2026-09-04 so the approved copy survives even though out/ is ephemeral; not a send record, nothing has gone to Make.
+- Make webhook: not yet sent (scenario built — id 9724996, "HDH Social — Canva → FB / IG / Telegram" — but Facebook/Instagram/Telegram connections not yet made; MAKE_WEBHOOK_URL not set)
 - Stato: approvato — programmato per il 10 settembre alle 21:00. Caption multi-canale aggiornate: rimosso ogni riferimento alla CTA podcast (non più presente nel design).
 ---
 
@@ -121,7 +122,8 @@ the Make hand-off exists to do this automatically.
 - Sfondo: pattern foto-solo-su-hook-e-CTA — hook e CTA masterclass: Giusi seduta in città, ritratto lifestyle (MAGoD4-QrOk); pagine centrali: Background B (chioma di foresta nella nebbia)
 - Design accorciato in revisione da 7 a 6 pagine: la CTA podcast è stata rimossa, resta solo la CTA masterclass. Hook leggermente riformulato ("non è dare il 100%" invece di "non significa dare il 100%").
 - CTA masterclass: parola-chiave **SETTEMBRE** — "Commenta 'SETTEMBRE' e ricevi il link in DM" — 24 settembre **ore 21**
-- Make webhook: not yet sent (no scenario built)
+- Approved record: approved/social/2026-09-12-il-30-percento-costanza-vera.md (.json) — backfilled 2026-09-04 so the approved copy survives even though out/ is ephemeral; not a send record, nothing has gone to Make.
+- Make webhook: not yet sent (scenario built — id 9724996, "HDH Social — Canva → FB / IG / Telegram" — but Facebook/Instagram/Telegram connections not yet made; MAKE_WEBHOOK_URL not set)
 - Stato: approvato — programmato per il 12 settembre alle 10:00. Caption multi-canale aggiornate: rimosso ogni riferimento alla CTA podcast, CTA masterclass ora dice esplicitamente "in DM".
 ---
 
