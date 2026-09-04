@@ -134,8 +134,9 @@ the Make hand-off exists to do this automatically.
 - Cartella Canva: Social Media Automation (FAHUIdsKNnM)
 - Testo: "Smetti di ricominciare sempre da capo." / "SETTEMBRE È QUI. L'estate ti ha fatto cambiare ritmo... è tempo di ripartire, di ritrovare la direzione della tua vita." / "Iscriviti ora alla MASTERCLASS LIVE & GRATIS 24 settembre ore 21 — SETTEMBRE: RIPARTI CON COSTANZA" / "Partecipa GRATIS commenta 'settembre' e ricevi il link in DM"
 - CTA: parola-chiave **SETTEMBRE** — "commenta 'settembre' e ricevi il link in DM" — 24 settembre ore 21
+- Review package: out/social/settembre-post7-smetti-di-ricominciare.json
 - Make webhook: not yet sent (no scenario built)
-- Stato: approvato in Canva, programmato per l'8 settembre alle 13:00 — **caption multi-canale non ancora redatte**, questo post non era nel lotto originale dei 6. Serve conferma di Giusi prima di scriverle.
+- Stato: approvato — programmato per l'8 settembre alle 13:00. Caption multi-canale redatte (adattate al formato invito diretto, senza l'arco narrativo hook/valore/chiusura degli altri post).
 ---
 
 ### DATA DA ASSEGNARE (Settembre 2026) | Non ti manca la disciplina. Ti manca il permesso di non essere sempre al 100%.
