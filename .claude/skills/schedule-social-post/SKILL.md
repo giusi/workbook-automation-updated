@@ -54,6 +54,14 @@ approved — stop and ask. "The draft looks finished" is not approval. Neither i
    webhook isn't configured yet — don't guess a URL, and don't fall back to
    any other delivery route.
 
+   **`canali_live_confermati`** (see make_handoff.md) gates Instagram and
+   Telegram specifically, because unlike Facebook they have no draft state —
+   the scenario publishes the instant it runs. Never populate this array from
+   "the post is approved" alone. Ask Giusi explicitly, per channel, in this
+   step: "send live to Instagram?" / "send live to Telegram?" — only include
+   a channel she said yes to *for this send*. Facebook needs no such flag; its
+   draft/unpublished state is the review step.
+
 6. **Update `posting_log.md`**: set `Make webhook: sent <timestamp>`, point
    `Review package` at the `approved/social/` path, and set `Stato: inviato a
    Make`. Never mark a post `pubblicato` — Claude doesn't know whether it went
@@ -74,9 +82,14 @@ approved — stop and ask. "The draft looks finished" is not approval. Neither i
   solving it.
 - **Never create, modify, activate or delete anything in Giusi's Make
   account** — scenarios, webhooks, connections, folders — without asking her
-  first and getting a yes. Reading and validating are fine. This is her
-  standing instruction (2026-09-02), and it holds even when the Make write
-  tools are available.
+  first and getting a yes, **every time**, even when a prior session already
+  got a yes for a similar change. This is her standing instruction
+  (2026-09-02), and it holds regardless of which Make tools happen to be
+  available in a given session (as of 2026-09-04, `scenarios_create` /
+  `scenarios_update` do work here — capability is not the same as
+  permission). Reading and validating are always fine without asking.
+  **This skill in particular never activates the scenario** — that switch is
+  hers alone, after she's tested per `make/TESTING.md`.
 - **Never re-draft or "improve" a caption here.** If the copy needs changing,
   that is `generate-social-post`'s job, followed by a fresh approval.
 - **Never send a post twice.** Check `posting_log.md` and `approved/social/`

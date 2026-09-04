@@ -1,0 +1,179 @@
+{
+  "name": "HDH Social — Canva → FB / IG / Telegram",
+  "flow": [
+    {
+      "id": 1,
+      "module": "gateway:CustomWebHook",
+      "version": 1,
+      "parameters": {
+        "hook": 0,
+        "maxResults": 1
+      },
+      "mapper": {},
+      "metadata": {
+        "designer": {
+          "x": 0,
+          "y": 0,
+          "name": "hdh-social-draft"
+        }
+      }
+    },
+    {
+      "id": 2,
+      "module": "canva:exportDesign",
+      "version": 1,
+      "parameters": {
+        "__IMTCONN__": 0
+      },
+      "filter": {
+        "name": "Solo payload completi",
+        "conditions": [
+          [
+            {
+              "a": "{{1.schema_version}}",
+              "b": "1",
+              "o": "number:equal"
+            },
+            {
+              "a": "{{1.cta_keyword}}",
+              "b": "<",
+              "o": "text:notcontain"
+            }
+          ]
+        ]
+      },
+      "mapper": {
+        "designId": "{{1.canva_design_id}}"
+      },
+      "metadata": {
+        "designer": {
+          "x": 300,
+          "y": 0,
+          "name": "Esporta il carosello"
+        }
+      }
+    },
+    {
+      "id": 3,
+      "module": "builtin:BasicRouter",
+      "version": 1,
+      "mapper": null,
+      "metadata": {
+        "designer": {
+          "x": 600,
+          "y": 0,
+          "name": "Instrada per canale"
+        }
+      },
+      "routes": [
+        {
+          "flow": [
+            {
+              "id": 4,
+              "module": "facebook-pages:CreatePostWithPhotos",
+              "version": 6,
+              "parameters": {
+                "__IMTCONN__": 0
+              },
+              "mapper": {
+                "message": "{{1.captions.facebook_profilo.testo}}"
+              },
+              "metadata": {
+                "designer": {
+                  "x": 900,
+                  "y": -120,
+                  "name": "Bozza su Facebook"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "flow": [
+            {
+              "id": 5,
+              "module": "instagram-business:CreatePostPhoto",
+              "version": 1,
+              "parameters": {
+                "__IMTCONN__": 0
+              },
+              "filter": {
+                "name": "Instagram confermato per invio live",
+                "conditions": [
+                  [
+                    {
+                      "a": "{{1.canali_live_confermati}}",
+                      "b": "instagram",
+                      "o": "text:contain"
+                    }
+                  ]
+                ]
+              },
+              "mapper": {
+                "caption": "{{1.captions.instagram.testo}}"
+              },
+              "metadata": {
+                "designer": {
+                  "x": 900,
+                  "y": 0,
+                  "name": "Instagram (live!)"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "flow": [
+            {
+              "id": 6,
+              "module": "telegram:SendPhoto",
+              "version": 1,
+              "parameters": {
+                "__IMTCONN__": 0
+              },
+              "filter": {
+                "name": "Telegram confermato per invio live",
+                "conditions": [
+                  [
+                    {
+                      "a": "{{1.canali_live_confermati}}",
+                      "b": "telegram",
+                      "o": "text:contain"
+                    }
+                  ]
+                ]
+              },
+              "mapper": {
+                "caption": "{{1.captions.telegram.testo}}"
+              },
+              "metadata": {
+                "designer": {
+                  "x": 900,
+                  "y": 120,
+                  "name": "Telegram (live!)"
+                }
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "metadata": {
+    "instant": true,
+    "version": 1,
+    "scenario": {
+      "roundtrips": 1,
+      "maxErrors": 3,
+      "autoCommit": true,
+      "autoCommitTriggerLast": true,
+      "sequential": true,
+      "confidential": false,
+      "dataloss": false,
+      "dlq": false
+    },
+    "designer": {
+      "orphans": []
+    }
+  }
+}
