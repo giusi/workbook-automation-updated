@@ -37,6 +37,16 @@ does anyone invoke `schedule-social-post`, which is what talks to Make.
    so in your report — the plan is Giusi's call, not yours to silently
    override.
 
+   This step is also where you pick up Giusi's live voice calibration, per
+   `hdh-social-copy`'s "Before writing anything": check `approved/social/`
+   for her actual approved copy, and check whether any recent
+   `posting_log.md` entry marked `approvato`/`inviato a Make` points at a
+   Canva design that was edited after drafting (a scheduling-date prefix in
+   the title, e.g. `6.9 at 10am - ...`, is the tell). If so, re-read that
+   design before drafting the new post — her edits are the current source of
+   truth for phrasing and CTA mechanics, not the brand-voice docs or your own
+   prior draft.
+
 1. **Resolve the week's plan — and write it if it's missing.** Read
    `social_content_plan.toml` for the target date to get `fonte` (`podcast`
    or `workbook`) and `stile` (one of `pain_point`, `awareness`,
