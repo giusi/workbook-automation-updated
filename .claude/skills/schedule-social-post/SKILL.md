@@ -50,9 +50,10 @@ approved — stop and ask. "The draft looks finished" is not approval. Neither i
 
 5. **POST to Make.** Send the payload described in
    [`references/make_handoff.md`](references/make_handoff.md) to the URL in
-   `MAKE_WEBHOOK_URL`. If that variable isn't set, stop and tell Giusi the
-   webhook isn't configured yet — don't guess a URL, and don't fall back to
-   any other delivery route.
+   `MAKE_WEBHOOK_URL`, with an `x-make-apikey: $MAKE_WEBHOOK_API_KEY` header
+   (added 2026-09-04 — the webhook rejects requests missing it). If either
+   variable isn't set, stop and tell Giusi the webhook isn't configured yet
+   — don't guess a value, and don't fall back to any other delivery route.
 
    **`canali_live_confermati`** (see make_handoff.md) gates Instagram and
    Telegram specifically, because unlike Facebook they have no draft state —

@@ -74,10 +74,18 @@ copy-paste from the review package. Permanently, not "until we find a way."
    the first item only — Telegram's own API only shows one caption per
    media group, on the first item.
 5. **Leave the scenario off** until you've tested per `make/TESTING.md`.
-6. Once you're happy, tell me the webhook URL is ready to use and I'll set
-   `MAKE_WEBHOOK_URL` in the environment where `generate-social-post`/
-   `schedule-social-post` run. **Never commit it to the repo** — anyone
-   holding that URL can push a post into your pipeline.
+6. Once you're happy, tell me and I'll set `MAKE_WEBHOOK_URL` and
+   `MAKE_WEBHOOK_API_KEY` in the environment where `generate-social-post`/
+   `schedule-social-post` run. **Never commit either to the repo** — anyone
+   holding both could push a post into your pipeline.
+
+## Webhook authentication (added 2026-09-04)
+
+The webhook now requires an `x-make-apikey` header (Make's own webhook
+API-key feature — locked header name, key value is whatever you added in
+the module). A leaked URL alone is no longer enough to trigger the
+scenario; the caller also needs the key. Every payload Claude sends,
+including test curls, carries this header — never just the URL.
 
 ## The caveat that decides whether this is really a "draft"
 

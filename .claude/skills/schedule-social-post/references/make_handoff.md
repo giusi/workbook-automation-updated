@@ -40,9 +40,12 @@ Consequences that follow from it, and that any future change must preserve:
 ## Payload contract (Claude → Make)
 
 One POST per drafted post, `Content-Type: application/json`, to the webhook URL
-held in the `MAKE_WEBHOOK_URL` environment variable. Never hardcode the URL in
-the repo — a Make webhook URL is a credential: anyone holding it can inject a
-post into the review queue.
+held in the `MAKE_WEBHOOK_URL` environment variable, with an
+`x-make-apikey: <MAKE_WEBHOOK_API_KEY>` header (added 2026-09-04 — the
+webhook rejects any request missing or mismatching this). Never hardcode
+either value in the repo — together they're the credential: anyone holding
+both can inject a post into the review queue; the API key means the URL
+alone (e.g. leaked in a chat transcript) is no longer sufficient by itself.
 
 ```json
 {

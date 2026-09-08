@@ -7,6 +7,10 @@ their branches publish live the instant they run.** Work through this in
 order: the point is you see each step do its job before the next, riskier
 one is allowed to.
 
+**The webhook now requires an API key** (added 2026-09-04, `x-make-apikey`
+header) on top of the URL — every `curl` below needs it or Make rejects the
+call before the scenario even sees it.
+
 ## 0. Two habits that keep it safe
 
 - **Leave the scenario OFF** (the toggle on the scenario page) and use
@@ -35,6 +39,7 @@ send this, with `cta_keyword` deliberately left as a placeholder:
 ```bash
 curl -X POST '<YOUR_WEBHOOK_URL>' \
   -H 'Content-Type: application/json' \
+  -H 'x-make-apikey: <YOUR_API_KEY>' \
   -d '{
     "schema_version": 1,
     "post_id": "TEST-guard",
@@ -58,6 +63,7 @@ before you go any further.
 ```bash
 curl -X POST '<YOUR_WEBHOOK_URL>' \
   -H 'Content-Type: application/json' \
+  -H 'x-make-apikey: <YOUR_API_KEY>' \
   -d '{
     "schema_version": 1,
     "post_id": "TEST-2026-08-15",

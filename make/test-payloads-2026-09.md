@@ -7,9 +7,14 @@ once you're back in Make and ready to run `make/TESTING.md`'s steps 2-3
 (guard filter, then happy path with every platform module still disabled —
 neither step needs Facebook/Instagram/Telegram connected).
 
-Replace `<YOUR_WEBHOOK_URL>` with the scenario's webhook address (visible on
-the first module once you open it in Make, or ask Claude — it's not written
-into this repo on purpose).
+Replace `<YOUR_WEBHOOK_URL>` with the scenario's webhook address, and
+`<YOUR_API_KEY>` with the API key added to it (2026-09-04, `x-make-apikey`
+header authentication) — neither is written into this repo on purpose.
+Every request needs both now; a request missing or mismatching the header
+gets rejected before the scenario ever sees it.
+
+Each `Run once` click only arms the scenario for exactly one incoming call
+— if you've clicked it before adding the key, click it again before sending.
 
 ## Post 2 — "Anche da ferma, nella tua testa stai ancora correndo."
 
@@ -18,6 +23,7 @@ into this repo on purpose).
 ```bash
 curl -X POST '<YOUR_WEBHOOK_URL>' \
   -H 'Content-Type: application/json' \
+  -H 'x-make-apikey: <YOUR_API_KEY>' \
   -d '{
     "schema_version": 1,
     "post_id": "TEST-guard-post2",
@@ -33,6 +39,7 @@ curl -X POST '<YOUR_WEBHOOK_URL>' \
 ```bash
 curl -X POST '<YOUR_WEBHOOK_URL>' \
   -H 'Content-Type: application/json' \
+  -H 'x-make-apikey: <YOUR_API_KEY>' \
   -d '{
     "schema_version": 1,
     "post_id": "2026-09-10-anche-da-ferma-stai-ancora-correndo",
@@ -60,6 +67,7 @@ module's output should show that, not the original 6-page draft.
 ```bash
 curl -X POST '<YOUR_WEBHOOK_URL>' \
   -H 'Content-Type: application/json' \
+  -H 'x-make-apikey: <YOUR_API_KEY>' \
   -d '{
     "schema_version": 1,
     "post_id": "TEST-guard-post5",
@@ -75,6 +83,7 @@ curl -X POST '<YOUR_WEBHOOK_URL>' \
 ```bash
 curl -X POST '<YOUR_WEBHOOK_URL>' \
   -H 'Content-Type: application/json' \
+  -H 'x-make-apikey: <YOUR_API_KEY>' \
   -d '{
     "schema_version": 1,
     "post_id": "2026-09-12-il-30-percento-costanza-vera",
