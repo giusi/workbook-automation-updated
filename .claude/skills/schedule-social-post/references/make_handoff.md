@@ -119,33 +119,39 @@ locked down third-party publishing to Groups in 2018 and only grants that
 API to a small number of specially-reviewed apps. All three stay copy-paste
 from the review package, permanently, not "until automated."
 
-### What's wired vs. what Giusi still does by hand
+### What's wired vs. what's still open (status 2026-09-08)
 
-Wired already (reusing her existing Canva connection, id `14550076`):
-- Webhook trigger, the "Solo payload completi" guard filter, Canva export by
-  `canva_design_id`.
-- Router with 3 branches, each already filtered/named.
-- Facebook and Instagram/Telegram caption text mapped from the payload
-  (`{{1.captions.facebook_profilo.testo}}`, etc.).
-- The `canali_live_confermati` gate on the Instagram and Telegram branches.
+Wired and confirmed working (guard-filter and happy-path tests both
+passed):
+- Webhook trigger (with `x-make-apikey` auth), the "Solo payload completi"
+  guard filter, Canva export by `canva_design_id` — now exporting **one
+  image per page** (`format: {type: png, as_single_image: false}`; this
+  was the fix for a real `pagesToArray` error hit during testing, not a
+  preemptive guess).
+- Router with 3 branches, each independently filtered — all three
+  currently carry an extra hardcoded "always false" condition (added by
+  Giusi/Thais in the Make UI) as a harder safety block than just disabling
+  the module, on top of the `canali_live_confermati` gate on
+  Instagram/Telegram.
+- **Facebook Pages, Instagram Business, and Telegram Bot connections are
+  all made** — real Page/account/chat IDs wired in (this happened in the
+  Make UI, not via Claude, which never holds these credentials).
+- Facebook and Instagram captions, plus their single cover image
+  (`{{2.url[1]}}`, pinned to page 1 to preserve their working single-image
+  behavior after the Canva export started returning an array).
 
-Still needs Giusi, in the Make UI (Claude holds no platform credentials, see
-the hard constraint):
-1. **Connect Facebook Pages, Instagram Business, and Telegram Bot** — none of
-   these three connections exist yet on this scenario.
-2. **Map the exported Canva images into each branch's photo field** — the
-   Canva-export module's output was never wired into any of the three
-   platform modules' image fields. This is a manual drag in the Make UI in
-   each module (same as the original single-scenario plan already noted).
-3. **Verify the Instagram and Telegram caption field names.** This session
-   had no `apps:read` scope, so those two mappings (`caption`) are
-   Claude's best-effort guess from each platform's own API docs, not
-   confirmed against Make's actual module schema — check they land in the
-   right field once the modules are connected; Facebook's `message` field
-   *is* confirmed (it's the field already used in Giusi's original,
-   untouched Facebook module).
-4. **Facebook: pick the Page and set the post to unpublished/scheduled** —
-   same caveat as before on whether Make exposes that option; see below.
+Still open, in the Make UI:
+1. **Telegram's `media` array** — needs all of Canva's exported pages
+   mapped in (`{{2.url}}`, now a collection), not just one. This is the
+   one field Claude didn't hand-author blind: no `apps:read` scope to see
+   `SendMediaGroup`'s real shape, and an earlier guess on a different
+   module already caused a live error once — safer as a UI drag where the
+   real field structure is visible.
+2. **Remove the "always false" safety filters** on all three branches
+   before any real send — they currently block every branch unconditionally,
+   which is correct for testing, wrong for going live.
+3. **Facebook: confirm unpublished/scheduled is actually set** — same open
+   question as before on whether Make's module exposes it.
 
 ## The caveat that decides whether this is really a "draft"
 

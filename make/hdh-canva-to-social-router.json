@@ -43,13 +43,17 @@
         ]
       },
       "mapper": {
-        "designId": "{{1.canva_design_id}}"
+        "designId": "{{1.canva_design_id}}",
+        "format": {
+          "type": "png",
+          "as_single_image": false
+        }
       },
       "metadata": {
         "designer": {
           "x": 300,
           "y": 0,
-          "name": "Esporta il carosello"
+          "name": "Esporta il carosello (tutte le pagine)"
         }
       }
     },
@@ -75,8 +79,27 @@
               "parameters": {
                 "__IMTCONN__": 0
               },
+              "filter": {
+                "name": "Facebook temporarily disabled",
+                "conditions": [
+                  [
+                    {
+                      "a": "0",
+                      "b": "1",
+                      "o": "number:equal"
+                    }
+                  ]
+                ]
+              },
               "mapper": {
-                "message": "{{1.captions.facebook_profilo.testo}}"
+                "photos": [
+                  {
+                    "url": "{{2.url[1]}}",
+                    "type": "url"
+                  }
+                ],
+                "message": "{{1.captions.facebook_profilo.testo}}",
+                "page_id": "357657111390116"
               },
               "metadata": {
                 "designer": {
@@ -98,19 +121,26 @@
                 "__IMTCONN__": 0
               },
               "filter": {
-                "name": "Instagram confermato per invio live",
+                "name": "Instagram temporarily disabled",
                 "conditions": [
                   [
                     {
                       "a": "{{1.canali_live_confermati}}",
                       "b": "instagram",
                       "o": "text:contain"
+                    },
+                    {
+                      "a": "0",
+                      "b": "1",
+                      "o": "number:equal"
                     }
                   ]
                 ]
               },
               "mapper": {
-                "caption": "{{1.captions.instagram.testo}}"
+                "caption": "{{1.captions.instagram.testo}}",
+                "accountId": "17841400594570745",
+                "image_url": "{{2.url[1]}}"
               },
               "metadata": {
                 "designer": {
@@ -132,18 +162,25 @@
                 "__IMTCONN__": 0
               },
               "filter": {
-                "name": "Telegram confermato per invio live",
+                "name": "Telegram temporarily disabled",
                 "conditions": [
                   [
                     {
                       "a": "{{1.canali_live_confermati}}",
                       "b": "telegram",
                       "o": "text:contain"
+                    },
+                    {
+                      "a": "0",
+                      "b": "1",
+                      "o": "number:equal"
                     }
                   ]
                 ]
               },
-              "mapper": {},
+              "mapper": {
+                "chatId": "@giusihappydaily"
+              },
               "metadata": {
                 "designer": {
                   "x": 900,

@@ -161,15 +161,19 @@ why it's asked fresh every time, never inferred.
 - **Does Make's Facebook module expose "unpublished"?** If it only posts
   live, scheduling is the workaround. Tell me what you find and I'll adjust
   the blueprint.
-- **Instagram/Telegram caption field names** — Claude's best guess
-  (`caption` on both), unconfirmed against Make's actual module schema this
-  session (no `apps:read` scope). Verify once connected; tell me if either
-  needs correcting and I'll fix the blueprint and the live scenario.
-- **Telegram's media-array shape** — the `SendMediaGroup` module's `media`
-  field is left entirely unmapped (empty), same as Facebook/Instagram's
-  photo fields. You'll map all of Canva's exported pages into it in the
-  Make UI once connected — Claude has no verified schema for its exact
-  array shape this session.
+- **Telegram's `media` field is still unmapped.** The Canva export now
+  produces one image per page (`format: {type: png, as_single_image:
+  false}`, fixed 2026-09-08 — this is what caused the earlier
+  `pagesToArray` error, and confirmed real via Make's own stored module
+  schema, not a guess). Facebook and Instagram were re-pinned to page 1
+  (`{{2.url[1]}}`) to keep their already-working single-image behavior
+  unchanged. Telegram's `SendMediaGroup.media` array — which needs **all**
+  pages, not just one — is the one piece Claude can't safely hand-author
+  blind (no `apps:read` scope to see its real field shape, and one earlier
+  guess already caused a live scenario error). Map `{{2.url}}` (now an
+  array) into the `media` field in the Make UI once you're in there — it
+  should be a straightforward collection-to-collection drag since both
+  sides are arrays.
 - **The other channels** — Facebook profile, the Podcast Group, and YouTube
   community posts have no API at all (confirmed against Make's own module
   lists — Facebook Groups specifically has no app in Make's catalog, public
