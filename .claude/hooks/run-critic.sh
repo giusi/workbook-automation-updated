@@ -88,6 +88,34 @@ if [[ -z "$draft" ]] || [[ "$draft" != *"---DRAFT READY---"* ]]; then
 fi
 
 iteration_file="/tmp/critic_iter_${session_id}"
+lock_file="${iteration_file}.lock"
+
+# Opportunistic garbage collection: a session that never reaches a pass or
+# the 3-attempt cap (abandoned mid-loop, or the conversation just moves on)
+# would otherwise leave its counter file in /tmp forever. Sweep anything
+# from this hook older than a day on every run instead of needing a
+# separate cron job — scoped tightly to this hook's own filename prefix
+# and one directory level, never a broader /tmp clean.
+find /tmp -maxdepth 1 -name 'critic_iter_*' -mmin +1440 -delete 2>/dev/null
+
+# Serialize the read-decide-write sequence below against a concurrent
+# invocation for the same session (e.g. two Stop events firing close
+# together) — without this, two readers could both see count=2 and both
+# write 3, silently losing an attempt instead of ever reaching the cap.
+# Best-effort: flock ships on Linux but not on a bare macOS install, so
+# fall back to running unlocked rather than failing this optional QA gate
+# outright over a missing binary.
+if command -v flock >/dev/null 2>&1; then
+  exec 200>"$lock_file"
+  if ! flock -w 10 200; then
+    # Another invocation is already mid-critic-call for this session (a
+    # single call can take several seconds); don't pile a second one on
+    # top of it or risk a corrupted counter. The next Stop event picks up
+    # whatever that one leaves behind.
+    exit 0
+  fi
+fi
+
 count=$(cat "$iteration_file" 2>/dev/null || echo 0)
 [[ "$count" =~ ^[0-9]+$ ]] || count=0
 
