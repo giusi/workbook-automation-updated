@@ -154,3 +154,34 @@ the Make hand-off exists to do this automatically.
 - Make webhook: not yet sent (no scenario built)
 - Stato: draft — testo e design completi (tutte le pagine, CTA con parola-chiave reale e data della diretta), in attesa solo della data di pubblicazione
 ---
+
+### 2026-09-15 | Non ti manca la disciplina. Ti manca un posto dove tornare.
+- Fonte: podcast ("19.9 pre-masterclass" episode script)
+- Stile: unpopular_opinion
+- Titolo design Canva: "HDH Settembre — Post 7 — Un posto dove tornare"
+- Canva design ID: DAHUtRPmpG4
+- Canva design URL: https://www.canva.com/d/_tZRBPPOq_qv1e0
+- Cartella Canva: Social Media Automation / SETTEMBRE-2026 (FAHUsRMvNqA)
+- Formato: carosello statico a 5 pagine (hook + 2 valore + chiusura + CTA masterclass; niente CTA podcast) — testo consegnato già scritto da Giusi, non generato da questa skill
+- Sfondo: Background B (chioma di foresta nella nebbia, MAHUIYnuU7Y) su tutte le pagine, nessuna foto di Giusi (pattern landscape puro)
+- CTA masterclass: header "MASTERCLASS LIVE / 24 SETTEMBRE" + parola-chiave **SETTEMBRE** ("Scrivi «SETTEMBRE» nei commenti e ricevi il link gratis") — la frase estesa della slide 5 originale ("Non un'altra lista. Non un altro metodo da provare e poi abbandonare...") non entra nel campo header/azione del template ed è stata condensata: Giusi può rivedere il wording direttamente in Canva
+- Caption Instagram: aggiunta come commento nativo sul design Canva (thread KAHUtgraZ5s)
+- Make webhook: not yet sent (no scenario built for this design)
+- Stato: draft — testo e design completi, in attesa di revisione di Giusi
+---
+
+### 2026-09-17 | Non ti manca l'informazione. Ti manca una guida.
+- Fonte: podcast ("26.9 post-masterclass" episode script)
+- Stile: educational
+- Titolo design Canva: "HDH Settembre — Post 8 — Non ti manca l'informazione"
+- Canva design ID: DAHUtR4bWkM
+- Canva design URL: https://www.canva.com/d/_ltk2MHid6JkTtc
+- Cartella Canva: Social Media Automation / SETTEMBRE-2026 (FAHUsRMvNqA)
+- Formato: carosello statico a 5 pagine (hook + 2 valore + chiusura + CTA masterclass; niente CTA podcast) — testo consegnato già scritto da Giusi, non generato da questa skill
+- Sfondo: pattern foto-solo-su-hook-e-CTA — hook e CTA masterclass: Giusi che sorride mentre scrive sul suo journal (MAEUagStiCE, cartella "Casual Dez20 e Journal"); pagine centrali: Background A (campi verdi, cielo velato, MAEH0gshJfI)
+- CTA masterclass: header "MASTERCLASS LIVE / 24 SETTEMBRE" + parola-chiave **SETTEMBRE** ("Scrivi «SETTEMBRE» nei commenti e ricevi il link gratis") — stessa nota di condensazione della slide 5 del Post 7
+- Caption Instagram: aggiunta come commento nativo sul design Canva (thread KAHUtiwwBxQ)
+- Facebook profilo / Facebook Gruppo Podcast / YouTube / Telegram: varianti già scritte da Giusi nel brief, non ancora caricate da nessuna parte (nessun campo dedicato sul design carosello) — restano da consegnare separatamente quando si programma il post
+- Make webhook: not yet sent (no scenario built for this design)
+- Stato: draft — testo e design completi, in attesa di revisione di Giusi
+---
