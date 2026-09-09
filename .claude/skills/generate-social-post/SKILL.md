@@ -232,7 +232,27 @@ does anyone invoke `schedule-social-post`, which is what talks to Make.
    If a batch run gets interrupted partway, the log must reflect the real
    state of each design, not the intended end state.
 
-10. **Stop here. Do not send anything to Make.** Give Giusi the Canva edit URL
+10. **Print the full draft inline, then the ready marker.** Before the closing
+   report, paste the actual drafted text into the chat message itself — not
+   just a pointer to `out/social/`: the hook/valore1-3/chiusura fields, the
+   CTA slide text(s) actually included, and at minimum the Instagram caption
+   (all five platform variants if it's not too long to be useful). This is
+   what lets `social-critic` (see the generator–critic loop wired via the
+   repo's Stop hook, if enabled) actually evaluate the post — a critic
+   reading only a file path or a Canva URL has no text to score.
+
+   Then end your message with this exact line, alone, as the very last line:
+
+   ```
+   ---DRAFT READY---
+   ```
+
+   Never print this marker on a turn that isn't a finished, self-reviewed
+   draft (a question to Giusi, a mid-draft check-in, a request for the CTA
+   keyword) — it's a signal, not decoration, and a false positive here
+   triggers an unnecessary critic pass on non-post text.
+
+11. **Stop here. Do not send anything to Make.** Give Giusi the Canva edit URL
    and the review package path, and say plainly that this is a draft for her to
    iterate on. Scheduling is a **separate skill** (`schedule-social-post`) that
    a human invokes once the design and captions are actually approved — the
@@ -241,3 +261,19 @@ does anyone invoke `schedule-social-post`, which is what talks to Make.
    Never POST to a webhook, never touch Make, and never publish to a platform
    from this skill. Producing good copy and deciding to publish it are two
    different decisions, and only the second one is Giusi's to make here.
+
+## Generator–critic loop (optional, requires the Stop hook to be enabled)
+
+If `.claude/hooks/run-critic.sh` is registered as a `Stop` hook in
+`.claude/settings.json` (see `.claude/agents/social-critic.md` for the rubric
+and `posting_log.md`/repo README for setup status), every draft ending in the
+`---DRAFT READY---` marker from step 10 is automatically scored by the
+`social-critic` subagent. A failing score (any criterion below 4/5) blocks
+the turn and hands back specific fixes, up to 3 automatic revision attempts
+— after that it stands down and asks for human review instead of looping
+forever. This runs whether you invoke this skill directly or drive it
+hands-free with `/goal generate a [platform] post for [brief], and don't
+return control to me until the social-critic subagent's last verdict shows
+overall_pass: true, or 3 attempts have been logged`. Either way, revise per
+the critic's `specific_fixes` — don't just re-print the same draft hoping for
+a different score.
