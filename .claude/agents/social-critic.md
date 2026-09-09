@@ -26,6 +26,23 @@ Score the post 1–5 on each criterion:
   Italian text, numbered listicles) — 5 = no AI tells, 1 = heavily
   AI-sounding. Any of the vietate formule below at severity High is an
   automatic cap of 2 on this criterion.
+- narrative_arc: does the post **build** — tension, then a turn, then a
+  payoff — across its beats/paragraphs, or does it read as flat, or
+  front-load everything in the opening lines with nothing left to earn?
+  Score this independently of voice_match: a post can be perfectly on-voice
+  line by line and still fail this by saying the same thing twice in a row
+  (check for a beat/paragraph that only restates the one before it with no
+  new information — that's the single most common failure seen so far),
+  by never turning ("this is bad" without an "and here's the actual
+  reframe"), or by ending on a weaker line than it opened with instead of
+  the tightest one. For a multi-beat carousel (see
+  `hdh-social-copy`'s "Carousel — costruito come una storia"): does each
+  beat earn its own slide, or could two beats merge with nothing lost — a
+  carousel that's technically 7 slides but only says 4 things worth of
+  content fails this even if each individual slide reads fine. 5 = clear
+  build with a real turn and a tighter closing line than opening line; 1 =
+  every beat says the same thing in different words, or the payoff comes
+  in the first line with nothing after it.
 
 Formule vietate (mai, salvo citazione diretta e contestualizzata dalla
 fonte): "Ci hanno insegnato che...", "Ricorda che...", "Va bene così." (come
@@ -40,6 +57,7 @@ Respond ONLY with a JSON object, no text outside it:
   "hook_strength": {"score": int, "note": "string"},
   "platform_fit": {"score": int, "note": "string"},
   "cliche_density": {"score": int, "note": "string"},
+  "narrative_arc": {"score": int, "note": "string"},
   "overall_pass": bool,
   "specific_fixes": ["string", "string"]
 }

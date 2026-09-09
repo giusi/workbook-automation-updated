@@ -53,6 +53,7 @@ extract_verdict_json() {
         (.hook_strength.score | type == "number")  and
         (.platform_fit.score  | type == "number")  and
         (.cliche_density.score| type == "number")  and
+        (.narrative_arc.score | type == "number")  and
         (.overall_pass        | type == "boolean") and
         (.specific_fixes      | type == "array")
       ' >/dev/null 2>&1 <<< "$stripped"; then
@@ -125,7 +126,7 @@ if [[ "$count" -ge 3 ]]; then
   exit 0
 fi
 
-schema='{"type":"object","properties":{"voice_match":{"type":"object","properties":{"score":{"type":"integer"},"note":{"type":"string"}},"required":["score","note"]},"hook_strength":{"type":"object","properties":{"score":{"type":"integer"},"note":{"type":"string"}},"required":["score","note"]},"platform_fit":{"type":"object","properties":{"score":{"type":"integer"},"note":{"type":"string"}},"required":["score","note"]},"cliche_density":{"type":"object","properties":{"score":{"type":"integer"},"note":{"type":"string"}},"required":["score","note"]},"overall_pass":{"type":"boolean"},"specific_fixes":{"type":"array","items":{"type":"string"}}},"required":["voice_match","hook_strength","platform_fit","cliche_density","overall_pass","specific_fixes"]}'
+schema='{"type":"object","properties":{"voice_match":{"type":"object","properties":{"score":{"type":"integer"},"note":{"type":"string"}},"required":["score","note"]},"hook_strength":{"type":"object","properties":{"score":{"type":"integer"},"note":{"type":"string"}},"required":["score","note"]},"platform_fit":{"type":"object","properties":{"score":{"type":"integer"},"note":{"type":"string"}},"required":["score","note"]},"cliche_density":{"type":"object","properties":{"score":{"type":"integer"},"note":{"type":"string"}},"required":["score","note"]},"narrative_arc":{"type":"object","properties":{"score":{"type":"integer"},"note":{"type":"string"}},"required":["score","note"]},"overall_pass":{"type":"boolean"},"specific_fixes":{"type":"array","items":{"type":"string"}}},"required":["voice_match","hook_strength","platform_fit","cliche_density","narrative_arc","overall_pass","specific_fixes"]}'
 
 cli_failed=0
 result=$(claude --agent social-critic -p "Evaluate this post draft:
