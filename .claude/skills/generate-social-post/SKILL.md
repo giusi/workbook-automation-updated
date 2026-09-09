@@ -323,12 +323,16 @@ does anyone invoke `schedule-social-post`, which is what talks to Make.
    from this skill. Producing good copy and deciding to publish it are two
    different decisions, and only the second one is Giusi's to make here.
 
-## Generator–critic loop (optional, requires the Stop hook to be enabled)
+## Generator–critic loop (active — registered in `.claude/settings.json`
+as of 2026-09-09)
 
-If `.claude/hooks/run-critic.sh` is registered as a `Stop` hook in
-`.claude/settings.json` (see `.claude/agents/social-critic.md` for the rubric
-and `posting_log.md`/repo README for setup status), every draft ending in the
-`---DRAFT READY---` marker from **step 7** is automatically scored by the
+`.claude/hooks/run-critic.sh` is registered as a `Stop` hook in
+`.claude/settings.json` (see `.claude/agents/social-critic.md` for the
+rubric). If that file is ever missing or the entry removed, this loop is
+silent and inactive — check there first if a draft that should have been
+blocked went through unblocked. As long as it's registered, every draft
+ending in the `---DRAFT READY---` marker from **step 7** is automatically
+scored by the
 `social-critic` subagent. This runs deliberately early — before step 8's
 background generation and step 9's Canva fill — so a failing score costs a
 text rewrite, not a discarded Canva design. A failing score (any criterion
