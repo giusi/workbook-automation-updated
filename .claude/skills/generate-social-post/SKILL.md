@@ -35,16 +35,28 @@ does anyone invoke `schedule-social-post`, which is what talks to Make.
    current sources, instead of a hand-curated snapshot that goes stale the
    moment a new post gets approved.
 
-   Go through the `Social Media Automation` Canva folder (`FAHUIdsKNnM`) and
-   every monthly subfolder inside it (`list-folder-items`), and read every
-   design's title. A **date in the title** — Giusi's scheduling-date prefix,
-   e.g. `6.9 at 10am - ...`, `10.9 at 9 pm ...`, `12.9 at 10 am ...` — is the
-   tell that she opened the design herself and dated it for posting; per the
-   convention already in use across `posting_log.md`, that act *is* her
-   review, the same signal `schedule-social-post` treats as approval when she
-   confirms it in conversation. Treat every dated design as reviewed and
-   approved-to-post. A title with no date is still a draft — never sync one
-   of those in.
+   **Scope the scan to the current and previous calendar month's subfolders
+   only** — `<MESE-CORRENTE>-<ANNO>` and `<MESE-PRECEDENTE>-<ANNO>` inside
+   `Social Media Automation` (`FAHUIdsKNnM`), by today's date, not the
+   target post date. Giusi reviews and dates a design close to when it's
+   actually going to post, so this window catches everything that matters
+   without an unbounded `list-folder-items` walk over every month the
+   folder has ever held — that's what actually drives this step's latency,
+   since it grows every month forever otherwise. Read every design's title
+   in those two subfolders. A **date in the title** — Giusi's
+   scheduling-date prefix, e.g. `6.9 at 10am - ...`, `10.9 at 9 pm ...`,
+   `12.9 at 10 am ...` — is the tell that she opened the design herself and
+   dated it for posting; per the convention already in use across
+   `posting_log.md`, that act *is* her review, the same signal
+   `schedule-social-post` treats as approval when she confirms it in
+   conversation. Treat every dated design as reviewed and approved-to-post.
+   A title with no date is still a draft — never sync one of those in.
+
+   This two-month window can miss an older post Giusi dated late or
+   revisited well after the fact. That's an accepted gap, not a silent
+   one: if a specific post from further back needs (re)syncing, do it as a
+   one-off — read that month's subfolder directly — rather than widening
+   this step's default scan for everyone, every run.
 
    For each dated design with no matching pair in `approved/social/`
    (`<date>-<slug>.md` + `.json`), or whose title date is newer than its
