@@ -18,3 +18,33 @@
 # ["2026-09-06"]
 # fonte = "podcast"
 # stile = "pain_point"
+
+["2026-09-15"]
+fonte = "podcast"
+stile = "unpopular_opinion"
+# Sourced from the "19.9 pre-masterclass" episode script (not yet recorded —
+# Google Doc draft), hooked on the September 2026 survey's most-repeated
+# finding ("non riesco a essere costante") — cited qualitatively ("in tante,
+# come te"), never as a headline number. Edgier register: pushes back on
+# self-blame ("non ti manca la disciplina") in favour of structure. CTA:
+# masterclass (SETTEMBRE). Avatar: Giulia.
+
+["2026-09-17"]
+fonte = "podcast"
+stile = "educational"
+# Sourced from the "26.9 post-masterclass" episode script (same doc,
+# informazione/struttura/supporto framework), hooked on survey "di cosa
+# avresti bisogno" answers (tempo, chiarezza, "una guida") — cited as "in
+# tante, come te", no number. CTA: masterclass (SETTEMBRE). Avatar: Rossella.
+
+["2026-09-19"]
+fonte = "podcast"
+stile = "pain_point"
+# Same source doc, "non sei l'unica" angle — reworked to avoid duplicating
+# Post 1's (2026-09-06) "Non devi fare tutto da sola" thesis. CTA switched
+# from masterclass to the new Happy Daily episode releasing this same day
+# (the doc's "19.9 pre-masterclass" script) — keyword PODCAST proposed,
+# pending Giusi's confirmation per the skill's rule (never assume), and the
+# public episode title still needs confirming (doc only gives working
+# subtitles: "Come non perderti di nuovo" / "Come non ricominciare sempre da
+# capo"). Avatar: Giulia.

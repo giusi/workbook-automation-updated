@@ -13,6 +13,7 @@ the workbook sounds like Giusi — not like generic AI. Add real material here.
 | `past-workbooks/` | Exported past workbooks (PDF/text) — structure, rhythm, exercise style |
 | `podcast-transcripts/` | Transcripts of recent episodes — her spoken voice and phrasing |
 | `social-captions.md` | A handful of strong, on-brand captions |
+| `audience-survey-<YYYY-MM>.md` | Synthesis of a member/audience survey — real vocabulary for pain points, needs, and desired outcomes, quoted low-sensitivity and paraphrased where identifiable. Feeds the avatar "Hook words" in `tone_guide.md`. Keep the raw response export (CSV/Sheet) local, not committed — see Privacy below |
 | Anything else on-voice | Newsletters, landing-page copy, etc. |
 
 ## Google Docs + snapshot (hybrid model)

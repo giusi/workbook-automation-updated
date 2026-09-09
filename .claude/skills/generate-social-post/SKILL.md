@@ -25,11 +25,54 @@ does anyone invoke `schedule-social-post`, which is what talks to Make.
   nearest upcoming entry in `social_content_plan.toml`.
 - Optional `--fonte` / `--stile` — explicit overrides for an **ad-hoc run**
   (Giusi asking for a one-off post, or a test run). These are the only way
-  to draft without a plan entry; see step 1.
+  to draft without a plan entry; see step 2.
 
 ## Steps
 
-0. **Read `posting_log.md` first.** It's what prevents duplicates: check the
+0. **Sync `approved/social/` from Canva before anything else.** This is what
+   keeps both this skill's voice calibration (below) and the `social-critic`
+   subagent (see the generator–critic loop later in this file) working from
+   current sources, instead of a hand-curated snapshot that goes stale the
+   moment a new post gets approved.
+
+   **Scope the scan to the current and previous calendar month's subfolders
+   only** — `<MESE-CORRENTE>-<ANNO>` and `<MESE-PRECEDENTE>-<ANNO>` inside
+   `Social Media Automation` (`FAHUIdsKNnM`), by today's date, not the
+   target post date. Giusi reviews and dates a design close to when it's
+   actually going to post, so this window catches everything that matters
+   without an unbounded `list-folder-items` walk over every month the
+   folder has ever held — that's what actually drives this step's latency,
+   since it grows every month forever otherwise. Read every design's title
+   in those two subfolders. A **date in the title** — Giusi's
+   scheduling-date prefix, e.g. `6.9 at 10am - ...`, `10.9 at 9 pm ...`,
+   `12.9 at 10 am ...` — is the tell that she opened the design herself and
+   dated it for posting; per the convention already in use across
+   `posting_log.md`, that act *is* her review, the same signal
+   `schedule-social-post` treats as approval when she confirms it in
+   conversation. Treat every dated design as reviewed and approved-to-post.
+   A title with no date is still a draft — never sync one of those in.
+
+   This two-month window can miss an older post Giusi dated late or
+   revisited well after the fact. That's an accepted gap, not a silent
+   one: if a specific post from further back needs (re)syncing, do it as a
+   one-off — read that month's subfolder directly — rather than widening
+   this step's default scan for everyone, every run.
+
+   For each dated design with no matching pair in `approved/social/`
+   (`<date>-<slug>.md` + `.json`), or whose title date is newer than its
+   existing record, `read-design` it and write/overwrite the pair from its
+   *current* content: every platform caption verbatim, the CTA keyword(s) as
+   they actually appear, and the fonte/stile/avatar from its `posting_log.md`
+   entry if one exists — same fields and format as `schedule-social-post`
+   step 4. Skip a dated design already recorded and unchanged.
+
+   This sync is **read-only against Canva and read/write only inside this
+   repo** — it never POSTs to Make, never needs a spoken "yes" in this
+   session, and never substitutes for `schedule-social-post`'s own approval
+   gate before a post actually goes out. It only keeps the record of what's
+   already visibly finalized in Canva from lagging behind reality.
+
+1. **Read `posting_log.md`.** It's what prevents duplicates: check the
    last few entries so you don't reuse a thesis, hook, or source episode
    that's already been drafted, and so you honour `hdh-social-copy`'s rule
    that two consecutive posts never share the same `stile`/structure. If the
@@ -39,15 +82,12 @@ does anyone invoke `schedule-social-post`, which is what talks to Make.
 
    This step is also where you pick up Giusi's live voice calibration, per
    `hdh-social-copy`'s "Before writing anything": check `approved/social/`
-   for her actual approved copy, and check whether any recent
-   `posting_log.md` entry marked `approvato`/`inviato a Make` points at a
-   Canva design that was edited after drafting (a scheduling-date prefix in
-   the title, e.g. `6.9 at 10am - ...`, is the tell). If so, re-read that
-   design before drafting the new post — her edits are the current source of
-   truth for phrasing and CTA mechanics, not the brand-voice docs or your own
-   prior draft.
+   — just synced in step 0, so it reflects every dated Canva design, not only
+   whichever ones someone remembered to backfill — for her actual approved
+   copy. Her edits there are the current source of truth for phrasing and CTA
+   mechanics, not the brand-voice docs or your own prior draft.
 
-1. **Resolve the week's plan — and write it if it's missing.** Read
+2. **Resolve the week's plan — and write it if it's missing.** Read
    `social_content_plan.toml` for the target date to get `fonte` (`podcast`
    or `workbook`) and `stile` (one of `pain_point`, `awareness`,
    `unpopular_opinion`, `educational`, `personal_experience`). An existing
@@ -76,7 +116,7 @@ does anyone invoke `schedule-social-post`, which is what talks to Make.
    `content_plan.toml` has no entry for the target month, stop and ask,
    exactly as `generate-workbook` does.
 
-2. **Gather source material.**
+3. **Gather source material.**
    - `fonte = podcast`: use the Castmagic MCP connector, `Happy Daily
      Podcast` space. **Don't just take the newest recording** — the space
      also holds test clips, work files and third-party English podcasts, and
@@ -96,15 +136,23 @@ does anyone invoke `schedule-social-post`, which is what talks to Make.
      you used. Never invent a workbook section, exercise, mantra or intention
      you haven't actually read.
 
-3. **Load voice and format rules.** Invoke the `hdh-social-copy` skill
+4. **Load voice and format rules.** Invoke the `hdh-social-copy` skill
    before drafting anything — it loads `brand_voice/tone_guide.md` and the
    brand-voice Google Doc snapshots, and defines the format playbook and the
    5 content styles referenced above.
 
-4. **Draft the text fields**, per `hdh-social-copy`'s rules, matching
-   `stile`:
-   - `hook_testo`, `valore1_testo`, `valore2_testo`, `valore3_testo`,
-     `chiusura_testo` — the narrative arc.
+5. **Draft the text fields**, per `hdh-social-copy`'s rules, matching
+   `stile`, **as a story arc, not a set of disconnected value points** —
+   see `hdh-social-copy`'s "Carousel — costruito come una storia" section
+   for the beat structure this now follows:
+   - `hook_testo` — the opening beat, a tesi that creates real curiosity.
+   - A variable number of narrative beats (`valore1_testo`, `valore2_testo`,
+     ... — **typically 6-7**, not a fixed 3), each one short — often a
+     single sentence, sometimes 4-5 words — building tension, then turning
+     it, then paying it off. Don't pad to hit a slide count: cut a beat that
+     doesn't advance the story rather than keep it for length.
+   - `chiusura_testo` — the manifesto-style line the whole arc was building
+     toward.
    - **Confirm with Giusi which CTA slide(s) this post needs — every run,
      don't assume.** Two CTA slides (podcast, then masterclass) is the
      common case, but a post can legitimately need only one, or in principle
@@ -131,26 +179,60 @@ does anyone invoke `schedule-social-post`, which is what talks to Make.
      a Giusi con la bozza".
    - Per-platform caption variants (Instagram, Facebook profilo, Facebook
      Gruppo Podcast, YouTube community post, Telegram) — see
-     `hdh-social-copy`'s "Adattamento per piattaforma" section. Same core
-     asset, tailored copy per platform. Instagram and Facebook profilo get a
+     `hdh-social-copy`'s "Adattamento per piattaforma" section, and its
+     "Caption — stessa cadenza" section for writing these line-by-line, in
+     short beats that build like the carousel does, not as one dense
+     paragraph that says everything at once. Same core asset, tailored copy
+     per platform. Instagram and Facebook profilo get a
      3-5 hashtag block (specific to this post's theme, not generic/repeated
      every week); the other three platforms don't. The YouTube variant leads
      with the episode link — the repo holds **no canonical episode URL**, so
      leave an explicit placeholder (`<LINK EPISODIO>`) and ask Giusi for it;
      never fabricate a URL, a handle, or a domain.
 
-5. **Self-review before Giusi ever sees it.** Follow `hdh-social-copy`'s
+6. **Self-review before Giusi ever sees it.** Follow `hdh-social-copy`'s
    "Self-review prima di consegnare a Giusi" procedure: run a `brand-review`-
    style pass against `brand_voice/tone_guide.md` and the forbidden-phrase
    list (with its noted exceptions), fix anything High/Medium severity
    yourself, and iterate until clean. Don't guess when something depends on
    an unconfirmed fact (an unshared value proposition, an unconfirmed style
    preference) — surface that as a real question instead. When you report
-   back in step 9, include only a compact summary of what was caught and
+   back in step 7, include only a compact summary of what was caught and
    auto-fixed, not the full review table — Giusi should see a draft that's
    already been through this pass, plus any genuinely open questions.
 
-6. **Decide the photo pattern, then generate background candidates.** First
+7. **Print the full draft inline, then the ready marker — before any Canva
+   work starts.** This checkpoint sits here, ahead of image generation and
+   the Canva fill, on purpose: a problem caught now costs a rewrite; the
+   same problem caught after step 9 costs a filled Canva design and
+   generated backgrounds thrown away. Paste the actual drafted text into
+   the chat message itself — not just a pointer to `out/social/`: every
+   beat (hook through closing), the CTA slide text(s) actually included,
+   and at minimum the Instagram caption (all five platform variants if
+   it's not too long to be useful). This is what lets `social-critic` (see
+   the generator–critic loop below, if the Stop hook is enabled) actually
+   evaluate the post — a critic reading only a file path or a Canva URL has
+   no text to score, and one reading a design that's already built has
+   nothing cheap left to fix.
+
+   Then end your message with this exact line, alone, as the very last line:
+
+   ```
+   ---DRAFT READY---
+   ```
+
+   Never print this marker on a turn that isn't a finished, self-reviewed
+   draft (a question to Giusi, a mid-draft check-in, a request for the CTA
+   keyword) — it's a signal, not decoration, and a false positive here
+   triggers an unnecessary critic pass on non-post text.
+
+   **Don't start step 8 until the draft is confirmed** — either
+   `social-critic` returns `overall_pass: true`, or (if the Stop hook isn't
+   registered) Giusi reviews the text herself and gives a go-ahead. Revise
+   per the critic's `specific_fixes` or Giusi's notes and re-print the
+   marker rather than moving on with an unconfirmed draft.
+
+8. **Decide the photo pattern, then generate background candidates.** First
    decide whether *this* post gets Giusi's photo or stays pure landscape —
    see `social_carousel_template.md`'s "Giusi's photo pattern": across a
    batch generated together, split it **exactly half and half**; for a
@@ -175,13 +257,13 @@ does anyone invoke `schedule-social-post`, which is what talks to Make.
      neither established one fits. The photo goes on the hook page and the
      post's actual last slide only (masterclass CTA if this post has one,
      otherwise the podcast CTA, otherwise `chiusura` — per the CTA
-     confirmation in step 4); every page in between uses the landscape.
+     confirmation in step 5); every page in between uses the landscape.
 
-7. **Fill the Canva template.** `create-design-from-brand-template` with
+9. **Fill the Canva template.** `create-design-from-brand-template` with
    `EAHT9Ay4G_4` → `read-design` (open transaction) to get locator_ids →
    `edit-design` with `replace_text` for each text field and `update_fill`
-   for the image fields per the pattern decided in step 6 → commit. Leave
-   any CTA page Giusi didn't confirm (step 4) untouched so it prunes on
+   for the image fields per the pattern decided in step 8 → commit. Leave
+   any CTA page Giusi didn't confirm (step 5) untouched so it prunes on
    commit — don't fill it with a CTA that doesn't apply to this post.
 
    Before committing, re-read the design content and confirm **every page
@@ -200,18 +282,30 @@ does anyone invoke `schedule-social-post`, which is what talks to Make.
    finished — never hand Giusi an edit URL with the old title still
    showing.
 
-8. **Write the review package** to `out/social/<date>-<slug>.json`: the
-   Canva edit URL, every caption variant, `fonte`/`stile` used, the CTA
-   keyword(s), and every drafted field's exact text (hook, valore1-3,
-   chiusura — not just the hook). `out/` is gitignored, so this file won't
-   survive a fresh clone or a new container — that's fine for the working
-   session, but it means `posting_log.md` (step 9) is the only copy that
-   persists. If the design's structure is ever changed later in a way that
-   could lose text (e.g. converting to a different format), that loss is
-   real and irreversible unless the text was captured somewhere durable
-   first.
+   **File it into the correct monthly folder.** Canva's `Social Media
+   Automation` folder (id `FAHUIdsKNnM`) is organized into one subfolder per
+   month, named `<MESE>-<ANNO>` in uppercase Italian (e.g. `SETTEMBRE-2026`,
+   `OTTOBRE-2026`) — derived from the target post date, not from today. Use
+   `search-folders` (or `list-folder-items` on `FAHUIdsKNnM`) to find the
+   subfolder for the target month; if it doesn't exist yet, create it with
+   `create-folder` (`parent_folder_id: FAHUIdsKNnM`). Then
+   `move-item-to-folder` the newly created design into that subfolder. Never
+   leave a new design sitting at the root of `Social Media Automation` —
+   that's exactly what this convention exists to prevent, and it's cheap to
+   do right after the rename, before the design gets buried under later
+   generations.
 
-9. **Log it.** Append an entry to `posting_log.md` (date, hook/title,
+10. **Write the review package** to `out/social/<date>-<slug>.json`: the
+   Canva edit URL, every caption variant, `fonte`/`stile` used, the CTA
+   keyword(s), and every drafted field's exact text (every beat, not just
+   the hook). `out/` is gitignored, so this file won't survive a fresh
+   clone or a new container — that's fine for the working session, but it
+   means `posting_log.md` (step 11) is the only copy that persists. If the
+   design's structure is ever changed later in a way that could lose text
+   (e.g. converting to a different format), that loss is real and
+   irreversible unless the text was captured somewhere durable first.
+
+11. **Log it.** Append an entry to `posting_log.md` (date, hook/title,
    fonte, stile, Canva URL, review package path, background/photo pattern
    used, status `draft`). **Only write a "complete"/finished status once the
    Canva commit has actually succeeded and you've checked the after-
@@ -219,7 +313,7 @@ does anyone invoke `schedule-social-post`, which is what talks to Make.
    If a batch run gets interrupted partway, the log must reflect the real
    state of each design, not the intended end state.
 
-10. **Stop here. Do not send anything to Make.** Give Giusi the Canva edit URL
+12. **Stop here. Do not send anything to Make.** Give Giusi the Canva edit URL
    and the review package path, and say plainly that this is a draft for her to
    iterate on. Scheduling is a **separate skill** (`schedule-social-post`) that
    a human invokes once the design and captions are actually approved — the
@@ -228,3 +322,27 @@ does anyone invoke `schedule-social-post`, which is what talks to Make.
    Never POST to a webhook, never touch Make, and never publish to a platform
    from this skill. Producing good copy and deciding to publish it are two
    different decisions, and only the second one is Giusi's to make here.
+
+## Generator–critic loop (active — registered in `.claude/settings.json`
+as of 2026-09-09)
+
+`.claude/hooks/run-critic.sh` is registered as a `Stop` hook in
+`.claude/settings.json` (see `.claude/agents/social-critic.md` for the
+rubric). If that file is ever missing or the entry removed, this loop is
+silent and inactive — check there first if a draft that should have been
+blocked went through unblocked. As long as it's registered, every draft
+ending in the `---DRAFT READY---` marker from **step 7** is automatically
+scored by the
+`social-critic` subagent. This runs deliberately early — before step 8's
+background generation and step 9's Canva fill — so a failing score costs a
+text rewrite, not a discarded Canva design. A failing score (any criterion
+below 4/5) blocks the turn and hands back specific fixes, up to 3 automatic
+revision attempts — after that it stands down and asks for human review
+instead of looping forever. This runs whether you invoke this skill
+directly or drive it hands-free with `/goal generate a [platform] post for
+[brief], and don't return control to me until the social-critic subagent's
+last verdict shows overall_pass: true, or 3 attempts have been logged`.
+Either way, revise per the critic's `specific_fixes` — don't just re-print
+the same draft hoping for a different score. Only once the draft clears
+this gate does the skill move on to sourcing images and building the
+actual Canva design.

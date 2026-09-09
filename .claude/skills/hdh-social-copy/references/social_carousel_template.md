@@ -15,25 +15,41 @@ the two image fields → commit.
 
 ## Fields
 
-| Page | Field | Type | Notes |
+Page numbers below assume the original 4-slide narrative arc (hook + 3 +
+closing). With the standing default now 6-7 `valoreN_testo` beats (see
+below), every page from the closing slide onward shifts right by however
+many extra beats were added — e.g. 6 beats instead of 3 pushes the closing
+slide to page 8 and the CTA pages to 9(–10). Always re-read the design's
+actual `page_metadata` before editing rather than trusting a hardcoded page
+number from this table.
+
+| Page (4-beat baseline) | Field | Type | Notes |
 |---|---|---|---|
 | 1 | `hook_testo` | text | Hook slide — must stand alone, no stakkato (see hdh-social-copy SKILL.md) |
-| 1–5 | `sfondo_narrativo` | image | Same field *label* on all 5 narrative pages, but **each page's fill is set independently** (each has its own locator_id even though the label repeats) — normally one photo fills all 5 for consistency, but this is also how the hook page can carry a different image (Giusi's photo) than pages 2–5 (landscape). See "Giusi's photo pattern" below. |
-| 2 | `valore1_testo` | text | Value slide 1 |
-| 3 | `valore2_testo` | text | Value slide 2 |
-| 4 | `valore3_testo` | text | Value slide 3 |
+| 1–5 | `sfondo_narrativo` | image | Same field *label* on every narrative page, but **each page's fill is set independently** (each has its own locator_id even though the label repeats) — normally one photo fills all of them for consistency, but this is also how the hook page can carry a different image (Giusi's photo) than the rest (landscape). See "Giusi's photo pattern" below. |
+| 2 | `valore1_testo` | text | Beat 1 |
+| 3 | `valore2_testo` | text | Beat 2 |
+| 4 | `valore3_testo` | text | Beat 3 — add `valore4_testo`, `valore5_testo`, etc. on additional duplicated pages to reach the standing 6-7 beat default |
 | 5 | `chiusura_testo` | text | Closing thought, before the CTA slides |
 | 6 | `cta_podcast_titolo` | text | Episode title |
 | 6 | `cta_podcast_azione` | text | The comment-keyword line, e.g. `Scrivi "podcast" nei commenti e ascolta l'ultimo episodio` — reuse Giusi's existing keyword system (see business context notes: MEDITARE, MATTINA, PODCAST, CASA, RITIRO) |
-| 6–7 | `sfondo_cta` | image | Same field *label* on both CTA pages, but — like `sfondo_narrativo` above — **each page's fill is independently settable**. Page 6 (podcast CTA) normally stays pure landscape; page 7 (masterclass CTA) is the second photo slot on a "photo post". Don't assume setting one fills both. |
+| 6–7 | `sfondo_cta` | image | Same field *label* on both CTA pages, but — like `sfondo_narrativo` above — **each page's fill is independently settable**. The podcast CTA page normally stays pure landscape; the masterclass CTA page is the second photo slot on a "photo post". Don't assume setting one fills both. |
 | 7 | `cta_masterclass_header` | text | New — e.g. "MASTERCLASS GRATUITA". If Giusi gives a live/event date, add it here as a second line (`MASTERCLASS GRATUITA\n24 SETTEMBRE`) rather than editing the azione line — see "Editing gotchas" below for the safe wrap pattern. |
 | 7 | `cta_masterclass_azione` | text | New — e.g. `Scrivi "MASTERCLASS" nei commenti` (new keyword, once the masterclass funnel exists) |
 | 7 | `mese_anno_tag` | text | **Dynamic month tag** — generate from the run date (e.g. "Settembre 2026"), never hardcode |
 
-Only 4 value slides total (hook + 3 + closing) in this v1 — Giusi's real
-carousels run longer (8-9 narrative beats), so extending this is just
-duplicating the pattern (add a page, tag `valoreN_testo` + `sfondo_narrativo`
-on it) — not a redesign.
+**The template shipped with 4 value slides (hook + 3 + closing) as a v1
+placeholder — that is no longer the target.** A test run (2026-09-09)
+confirmed the compressed 4-slide version reads as flat even when the
+content is correct: it compresses the story instead of building it. The
+standing default is now **6-7 `valoreN_testo` beats** (8-9 narrative beats
+total including hook and closing), matching what Giusi's real carousels
+actually run — see `hdh-social-copy`'s "Carousel — costruito come una
+storia" for the beat structure and why each beat should be short rather
+than long. Extending past the original 4 is just duplicating the pattern
+(add a page, tag `valoreN_testo` + `sfondo_narrativo` on it) — not a
+redesign. Cut a beat that doesn't earn its place rather than padding to
+hit a count; 7 real beats beat 9 with filler.
 
 **Don't assume both CTA slides belong on every post — confirm with Giusi
 which one(s) this post needs**, every run. The template defaults to 2 CTA
@@ -91,7 +107,7 @@ run), split it **exactly half and half**:
   `generate-workbook/references/media_library.md` — the "Casual Dez20 e
   Journal" and "Retreat Maggio 2024" subfolders have read well for this so
   far) **only on the hook page (page 1, `sfondo_narrativo`) and the post's
-  actual last slide** — normally the masterclass CTA (page 7), but if this
+  actual last slide** — normally the masterclass CTA page, but if this
   post doesn't have one (see "confirm which CTA slide(s)" above), use
   whichever slide ends up last instead: the podcast CTA if that's the only
   CTA slide, or the `chiusura` slide if there's no CTA at all. Every other
