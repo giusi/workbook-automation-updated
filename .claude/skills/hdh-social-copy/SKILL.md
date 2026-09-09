@@ -30,10 +30,28 @@ Load, in this order:
    already uses).
 3. `brand_voice/google_docs/claude-skill-onboarding-giusis-business.md` —
    audience avatars, HDH product context, channel list.
+4. `approved/social/` — the 2-3 most recent `.md` records, if any exist.
+   This is Giusi's actual final-approved copy, not a style guideline about
+   it — when it disagrees with `tone_guide.md` on a specific phrase or CTA
+   mechanic, the approved copy wins, and the guide should get updated to
+   match (say so in your report; don't silently follow the stale guide).
+   If the directory is empty (no post has been through `schedule-social-post`
+   yet), say so and fall back to the docs above — don't skip the check
+   silently.
 
 Never draft from a blank slate or from generic wellness/coaching instincts —
-these three files are what make the output sound like Giusi instead of
-generic AI.
+these files are what make the output sound like Giusi instead of generic AI.
+
+**A caveat specific to this pipeline:** posts are sometimes finalized by
+Giusi editing the Canva design directly, not by running
+`schedule-social-post` — when that happens `approved/social/` never gets
+written and lags behind reality. If a design in the `Social Media
+Automation` Canva folder carries a scheduling date in its title (a
+`D.M at H` prefix) or otherwise reads as edited since drafting, treat its
+current on-canvas text as the higher-priority signal over anything in
+`approved/social/` or your own prior draft — then log what changed in
+`posting_log.md` so the next run doesn't have to rediscover it by re-reading
+Canva from scratch.
 
 ## The 4 pillars
 

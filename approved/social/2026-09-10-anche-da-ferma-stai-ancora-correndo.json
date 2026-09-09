@@ -1,0 +1,27 @@
+{
+  "schema_version": 1,
+  "post_id": "2026-09-10-anche-da-ferma-stai-ancora-correndo",
+  "data_post": "2026-09-10",
+  "ora_post": "21:00",
+  "fonte": "podcast (\"Settembre - riparti con costanza\")",
+  "stile": "pain_point",
+  "tesi": "Anche da ferma, nella tua testa stai ancora correndo.",
+  "avatar": "Giulia",
+  "canva_design_url": "https://www.canva.com/d/68NWgb6i26fblNA",
+  "canva_design_id": "DAHUIvLuHNM",
+  "mese_anno_tag": "Settembre 2026",
+  "cta_keyword": "SETTEMBRE",
+  "canali_live_confermati": [],
+  "captions": {
+    "instagram": { "testo": "Anche da ferma, nella tua testa stai ancora correndo.\n\nDevo ricordare. Devo rispondere. Devo sistemare. Un carosello di pensieri che non si ferma mai.\n\nMagari sei fisicamente ferma, a casa. Potresti riposarti. Ma la tua mente continua a correre.\n\nNon è pigrizia se sei stanca anche da seduta. È che nella tua mente non ti sei mai fermata.\n\nIl 24 settembre c'è la masterclass gratuita: scrivi SETTEMBRE nei commenti e ricevi il link.", "hashtag": ["#mentesempreaccesa", "#staremaipresenti", "#happydailyhome", "#settembre2026"] },
+    "facebook_profilo": { "testo": "Anche da ferma, nella tua testa stai ancora correndo.\n\nDevo ricordare, devo rispondere, devo sistemare — un carosello di pensieri che non si ferma mai, anche quando il corpo è fermo.\n\nNon è pigrizia se sei stanca anche da seduta. È che nella tua mente non ti sei mai fermata.\n\nIl 24 settembre, masterclass gratuita: scrivi SETTEMBRE nei commenti e ricevi il link.", "hashtag": ["#mentesempreaccesa", "#staremaipresenti", "#happydailyhome", "#settembre2026"] },
+    "facebook_gruppo": { "testo": "Ti è mai capitato di essere ferma fisicamente ma con la testa che continua a correre — liste, pensieri, cose da non dimenticare?\n\nNon è pigrizia essere stanca pur non facendo nulla: è che dentro non ti sei mai davvero fermata.\n\nDimmi nei commenti: quando ti succede di più, la sera o appena sveglia?", "hashtag": [] },
+    "youtube": { "testo": "Anche da ferma, nella tua testa stai ancora correndo.\nNon è pigrizia essere stanca anche ferma: è che nella tua mente non ti sei mai fermata.\nIl 24 settembre, masterclass gratuita: commenta SETTEMBRE per il link.", "hashtag": [], "link_episodio": null },
+    "telegram": { "testo": "Anche da ferma, nella tua testa stai ancora correndo.\nNon è pigrizia se sei stanca pur non facendo nulla — è che dentro non ti sei mai davvero fermata.\nIl 24/9 c'è la masterclass gratuita: scrivi SETTEMBRE e ti mando il link.", "hashtag": [] }
+  },
+  "aperti": [
+    "Masterclass senza orario in questo design ('24 settembre 2026') mentre Post 1 e Post 5 dicono 'ore 21' per quello che sembra lo stesso evento — confermare se è lo stesso."
+  ],
+  "review_package_path": "out/social/settembre-post2-anche-da-ferma.json",
+  "stato": "pronto — NON ancora inviato a Make (scenario costruito ma Facebook/Instagram/Telegram non ancora collegati)"
+}

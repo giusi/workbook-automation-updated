@@ -1,0 +1,25 @@
+{
+  "schema_version": 1,
+  "post_id": "2026-09-12-il-30-percento-costanza-vera",
+  "data_post": "2026-09-12",
+  "ora_post": "10:00",
+  "fonte": "podcast (\"Settembre - riparti con costanza\")",
+  "stile": "educational",
+  "tesi": "Essere costante non è dare il 100%.",
+  "avatar": "Giulia e Rossella",
+  "canva_design_url": "https://www.canva.com/d/67dYzu3TQCkheAL",
+  "canva_design_id": "DAHUItopUiI",
+  "mese_anno_tag": "Settembre 2026",
+  "cta_keyword": "SETTEMBRE",
+  "canali_live_confermati": [],
+  "captions": {
+    "instagram": { "testo": "Essere costante non è dare il 100%. Significa non abbandonarti quando puoi dare solo il 30%.\n\nMolte vivono nel meccanismo del tutto o niente: se non posso fare un'ora, non faccio niente. Se ho saltato due volte, ho perso il ritmo.\n\nProva questo: invece di chiederti \"ce la faccio al 100%\", chiediti \"cosa posso fare per me, oggi\". Anche solo 10 minuti, o meno.\n\nSe salti, non serve aspettare lunedì, il mese prossimo o gennaio. Riprendi il momento dopo, senza pensare al momento perfetto.\n\nIl 30% che dai oggi non è meno costanza. È costanza vera.\n\nCommenta SETTEMBRE e ti mando in DM il link della masterclass gratuita del 24 settembre, ore 21.", "hashtag": ["#costanzavera", "#happydailyhome", "#settembre2026", "#ripartirenelmomentodopo"] },
+    "facebook_profilo": { "testo": "Essere costante non è dare il 100%. Significa non abbandonarti quando puoi dare solo il 30%.\n\nMolte vivono nel meccanismo del tutto o niente. Prova questo: invece di \"ce la faccio al 100%\", chiediti \"cosa posso fare per me, oggi\". Anche 10 minuti.\n\nIl 30% che dai oggi non è meno costanza. È costanza vera.\n\nCommenta SETTEMBRE e ti mando in DM il link della masterclass gratuita del 24 settembre, ore 21.", "hashtag": ["#costanzavera", "#happydailyhome", "#settembre2026", "#ripartirenelmomentodopo"] },
+    "facebook_gruppo": { "testo": "Ti riconosci nel meccanismo del tutto o niente — se non posso fare un'ora, non faccio niente?\n\nÈ un'idea semplice ma che cambia tutto: il 30% che dai oggi non è meno costanza, è costanza vera.\n\nDimmi nei commenti: quando salti, di solito aspetti il \"momento perfetto\" per ricominciare?", "hashtag": [] },
+    "youtube": { "testo": "Il 30% è costanza vera.\nNon serve dare il 100% per essere costante. Serve non abbandonarti quando puoi dare solo il 30%.\nCommenta SETTEMBRE: ti mando in DM il link della masterclass gratuita del 24 settembre, ore 21.", "hashtag": [], "link_episodio": null },
+    "telegram": { "testo": "Essere costante non è dare il 100%.\nSignifica non abbandonarti quando puoi dare solo il 30%. Un esercizio semplice da provare oggi: invece di \"ce la faccio al 100%\", chiediti \"cosa posso fare per me, ora\".\nCommenta SETTEMBRE: ti mando in DM il link della masterclass gratuita del 24 settembre, ore 21.", "hashtag": [] }
+  },
+  "aperti": [],
+  "review_package_path": "out/social/settembre-post5-il-30-percento.json",
+  "stato": "pronto — NON ancora inviato a Make (scenario costruito ma Facebook/Instagram/Telegram non ancora collegati)"
+}

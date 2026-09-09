@@ -1,0 +1,279 @@
+{
+  "name": "HDH Social — Canva → FB / IG / Telegram",
+  "flow": [
+    {
+      "id": 1,
+      "module": "gateway:CustomWebHook",
+      "version": 1,
+      "parameters": {
+        "hook": 0,
+        "maxResults": 1
+      },
+      "mapper": {},
+      "metadata": {
+        "designer": {
+          "x": 0,
+          "y": 300,
+          "name": "hdh-social-draft"
+        }
+      }
+    },
+    {
+      "id": 2,
+      "module": "canva:exportDesign",
+      "version": 1,
+      "parameters": {
+        "__IMTCONN__": 0
+      },
+      "filter": {
+        "name": "Solo payload completi",
+        "conditions": [
+          [
+            {
+              "a": "{{1.schema_version}}",
+              "b": "1",
+              "o": "number:equal"
+            },
+            {
+              "a": "{{1.cta_keyword}}",
+              "b": "<",
+              "o": "text:notcontain"
+            }
+          ]
+        ]
+      },
+      "mapper": {
+        "design_id": "{{1.canva_design_id}}",
+        "folderId": "FAHUIdsKNnM",
+        "format": {
+          "type": "jpg",
+          "quality": 100
+        }
+      },
+      "metadata": {
+        "designer": {
+          "x": 300,
+          "y": 300,
+          "name": "Esporta il carosello"
+        }
+      }
+    },
+    {
+      "id": 7,
+      "module": "builtin:BasicAggregator",
+      "version": 1,
+      "parameters": {
+        "feeder": 2,
+        "target": "4.photos"
+      },
+      "filter": null,
+      "flags": {
+        "stopIfEmpty": true
+      },
+      "mapper": {
+        "url": "{{2.url}}",
+        "type": "url"
+      },
+      "metadata": {
+        "designer": {
+          "x": 600,
+          "y": 300,
+          "name": "Collect Canva pages"
+        }
+      }
+    },
+    {
+      "id": 3,
+      "module": "builtin:BasicRouter",
+      "version": 1,
+      "mapper": null,
+      "metadata": {
+        "designer": {
+          "x": 900,
+          "y": 300,
+          "name": "Instrada per canale"
+        }
+      },
+      "routes": [
+        {
+          "flow": [
+            {
+              "id": 4,
+              "module": "facebook-pages:CreatePostWithPhotos",
+              "version": 6,
+              "parameters": {
+                "__IMTCONN__": 0
+              },
+              "filter": {
+                "name": "Facebook temporarily disabled",
+                "conditions": [
+                  [
+                    {
+                      "a": "0",
+                      "b": "1",
+                      "o": "number:equal"
+                    }
+                  ]
+                ]
+              },
+              "mapper": {
+                "photos": "{{7.array}}",
+                "message": "{{1.captions.facebook_profilo.testo}}",
+                "page_id": "357657111390116"
+              },
+              "metadata": {
+                "designer": {
+                  "x": 1200,
+                  "y": 0,
+                  "name": "Bozza su Facebook"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "flow": [
+            {
+              "id": 5,
+              "module": "instagram-business:CreatePostPhoto",
+              "version": 1,
+              "parameters": {
+                "__IMTCONN__": 0
+              },
+              "filter": {
+                "name": "Instagram temporarily disabled",
+                "conditions": [
+                  [
+                    {
+                      "a": "{{1.canali_live_confermati}}",
+                      "b": "instagram",
+                      "o": "text:contain"
+                    },
+                    {
+                      "a": "0",
+                      "b": "1",
+                      "o": "number:equal"
+                    }
+                  ]
+                ]
+              },
+              "mapper": {
+                "caption": "{{1.captions.instagram.testo}}",
+                "accountId": "17841400594570745",
+                "image_url": "{{7.array[1].url}}"
+              },
+              "metadata": {
+                "designer": {
+                  "x": 1200,
+                  "y": 300,
+                  "name": "Instagram (live!)"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "flow": [
+            {
+              "id": 9,
+              "module": "builtin:BasicFeeder",
+              "version": 1,
+              "parameters": {},
+              "filter": null,
+              "mapper": {
+                "array": "{{7.array}}"
+              },
+              "metadata": {
+                "designer": {
+                  "x": 1200,
+                  "y": 600,
+                  "name": "Split Telegram pages"
+                }
+              }
+            },
+            {
+              "id": 10,
+              "module": "builtin:BasicAggregator",
+              "version": 1,
+              "parameters": {
+                "feeder": 9
+              },
+              "filter": null,
+              "flags": {
+                "stopIfEmpty": true
+              },
+              "mapper": {
+                "__IMTTARGET__": {
+                  "type": "photo",
+                  "caption": "{{if(9.__IMTINDEX__ = 1; 1.captions.telegram.testo; emptystring)}}",
+                  "httpUrl": "{{9.url}}",
+                  "sendType": "send_byurl"
+                }
+              },
+              "metadata": {
+                "designer": {
+                  "x": 1500,
+                  "y": 600,
+                  "name": "Build Telegram media"
+                }
+              }
+            },
+            {
+              "id": 8,
+              "module": "telegram:SendMediaGroup",
+              "version": 1,
+              "parameters": {
+                "__IMTCONN__": 0
+              },
+              "filter": {
+                "name": "Telegram temporarily disabled",
+                "conditions": [
+                  [
+                    {
+                      "a": "{{1.canali_live_confermati}}",
+                      "b": "telegram",
+                      "o": "text:contain"
+                    },
+                    {
+                      "a": "0",
+                      "b": "1",
+                      "o": "number:equal"
+                    }
+                  ]
+                ]
+              },
+              "mapper": {
+                "media": "{{10.array}}",
+                "chatId": "@giusihappydaily"
+              },
+              "metadata": {
+                "designer": {
+                  "x": 1800,
+                  "y": 600,
+                  "name": "Telegram album"
+                }
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "metadata": {
+    "instant": true,
+    "version": 1,
+    "scenario": {
+      "roundtrips": 1,
+      "maxErrors": 3,
+      "autoCommit": true,
+      "autoCommitTriggerLast": true,
+      "sequential": true,
+      "confidential": false,
+      "dataloss": false,
+      "dlq": false
+    },
+    "designer": {
+      "orphans": []
+    }
+  }
+}
