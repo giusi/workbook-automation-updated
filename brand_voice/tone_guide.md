@@ -2,8 +2,11 @@
 
 > Populated from `google_docs/guida-editoriale-giusi-valentini.md` and
 > `google_docs/claude-skill-onboarding-giusis-business.md` (2026-08-23
-> snapshots). Reference examples are placeholders pending Giusi's real
-> carousel examples and Instagram audit — swap them in once she shares those.
+> snapshots). The Instagram audit happened 2026-09-09 — see
+> `.claude/agents/social-critic.md`'s Esempi 3-9 for the full set of real
+> top-performing posts with Insights metrics. Avatar hook words below are
+> now also grounded in a real audience survey (234 responses, 2026-09) —
+> see `audience-survey-2026-09.md` in this folder for the full breakdown.
 
 ## Who it's for
 
@@ -15,10 +18,16 @@ Two avatars, both women, Italian-speaking, 30–60:
   difficile (fine di una relazione, ansia cronica, lutto, perimenopausa).
   Hook words: autostima, emozioni, corpo, sbloccarsi, cambiare, insoddisfatta,
   pace interiore, confini, perdonare, scegliersi, voce autentica, stare con
-  sé stesse.
+  sé stesse. **Confermate dal sondaggio settembre 2026** (parole reali, non
+  presunte): stanca, scarica, confusa, sopraffatta, "sempre uguale", ansia,
+  "non riesco a essere costante", chiarezza, "mi serve una guida".
 - **"Rossella"** (aspirational/ideal member, 40–60) — già stabile e
   consapevole, ha già fatto un percorso su di sé, cerca ora un salto di
   qualità: non più uscire dal dolore, ma espandersi, fiorire, evolversi.
+  Hook words (nuove, dal sondaggio settembre 2026 — prima non c'era un
+  elenco per lei): leggerezza, centratura, costanza, presenza, equilibrio,
+  stabilità emotiva, "prendermi cura di me", routine, "un salto di
+  qualità", fiducia in sé.
 
 Not therapy, not motivational coaching. Giusi is not a guru — "una donna che
 ha fatto strada."
@@ -91,5 +100,6 @@ chi sei. Crea la vita che vuoi.**
 - "Non tutto ciò che è giusto per te ti farà stare bene."
 - "Quanta parte della tua vita stai perdendo mentre controlli come appari?"
 
-> Pending: Giusi's actual carousel examples and Instagram audit — add 2–4
-> real excerpts here once shared, to sharpen this further.
+> Il set completo (9 post interi, con metriche Instagram Insights reali) vive
+> in `.claude/agents/social-critic.md`, Esempi 1-9 — questa lista qui resta
+> solo come riferimento rapido dei tre hook più citati altrove nel repo.
