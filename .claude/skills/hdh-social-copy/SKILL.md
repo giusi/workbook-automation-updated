@@ -208,39 +208,83 @@ eccezioni, e per cosa funziona bene.
 
 ## Format playbook
 
-### Caption
+### Carousel — costruito come una storia, non come un elenco di punti
+(aggiornato 2026-09-09, dopo un test reale che ha mostrato la differenza)
+
+Il template Canva esiste (`EAHT9Ay4G_4`, vedi `social_carousel_template.md`)
+e supporta tante pagine `valoreN_testo` quante ne servono — **non fermarsi
+a 3 per abitudine**. I caroselli reali di Giusi corrono su **8-9 beat
+narrativi** (hook + 6-7 beat + chiusura) prima della/e slide CTA. Una
+versione a 4-5 slide totali suona compressa e piatta — comprime la tensione
+invece di costruirla, anche quando il contenuto è tutto corretto.
+
+Un beat non è "un punto di valore" — è una battuta di una storia che si
+costruisce. Struttura tipo (adattare al post, non seguire meccanicamente):
 
 ```
-HOOK       → prima riga, ferma lo scroll (tesi, non argomento)
-CONTESTO   → 1-2 frasi sul perché conta ora
-VALORE     → il contenuto vero, concreto
-TRANSFER   → la tesi resa esplicita
-CTA        → un'unica azione chiara
+BEAT 1 (hook)  → la tesi che ferma lo scroll
+BEAT 2-3       → la scena concreta e riconoscibile (cosa hai già provato,
+                 cosa hai già vissuto) — dettaglio vero, non generico
+BEAT 4         → l'aggravarsi — il momento in cui la cosa si rompe
+BEAT 5         → il pensiero silenzioso che segue ("sono io il problema")
+BEAT 6         → la smentita — il giro della storia
+BEAT 7         → il perché reale (non disciplina/motivazione — struttura,
+                 o qualunque sia il vero meccanismo di questo post)
+CHIUSURA       → la riga-manifesto a cui tutto il beat precedente porta
+CTA            → parola-chiave nei commenti (slide separata)
 ```
 
-### Carousel (slide-by-slide copy — the visual template itself is a
-separate, not-yet-built Canva brand template, see repo plan)
+Ogni beat è corto — spesso una frase sola, a volte anche solo 4-5 parole.
+Il ritmo (una frase, poi il "vuoto" della slide successiva, poi la
+prossima) è quello che crea la tensione: **non riempire un beat con più di
+un'idea**, e non aggiungerne uno che non fa avanzare la storia solo per
+allungare il carosello. Meglio 7 beat che contano tutti di 9 con due
+filler — la lunghezza non è l'obiettivo, il build-up sì.
+
+### Caption — stessa cadenza, non lo stesso contenuto compresso in un
+paragrafo
+
+Lo scheletro resta HOOK → CONTESTO → VALORE → TRANSFER → CTA, ma va scritto
+**riga per riga, come si scrive una storia**, non come un paragrafo denso
+che dice tutto in una volta. Interruzioni di riga frequenti (anche una
+frase per blocco) fanno lo stesso lavoro dei beat del carosello: danno
+spazio a ogni passaggio prima del successivo, invece di farli scorrere via
+tutti insieme.
+
+Stesso contenuto, due rese — la prima fa il lavoro, la seconda lo comprime
+e perde la tensione che dovrebbe costruire:
 
 ```
-SLIDE 1        = HOOK — deve reggersi da sola. Niente stakkato da coaching.
-SLIDE 2..N-2   = VALORE — ogni slide dà qualcosa di concreto (l'esercizio,
-                 l'insight del podcast). Nessuna slide-filler.
-SLIDE N-1      = CTA verso il podcast (ascolta l'episodio) — link.
-SLIDE N        = CTA verso la masterclass gratuita + tag del mese corrente,
-                 generato dinamicamente dalla data del run (es. "Settembre
-                 2026"), mai hardcoded.
+✅ Cadenzata                              ❌ Compressa
+"Ha funzionato... ma non sono            "Molte di voi mi hanno scritto che
+riuscita a essere costante."              qualcosa ha funzionato ma poi non
+                                           sono riuscite a essere costanti,
+Molte di voi mi hanno scritto             e il pensiero silenzioso che segue
+qualcosa di simile.                       di solito è che il problema siano
+                                           loro, ma non è così: quello che
+E il pensiero silenzioso che segue        manca è una struttura."
+di solito è questo: "il problema
+sono io."
+
+Non è così.
 ```
+
+Vale soprattutto per Instagram e Facebook profilo, dove l'a-capo è
+visibile. Su Telegram e i community post più brevi la cadenza si ottiene
+comunque con frasi corte, anche senza tanti a-capo — l'obiettivo è il
+ritmo, non il formato riga-per-riga in sé.
 
 ### Budget di lunghezza
 
 Il template Canva rimpicciolisce automaticamente il testo che non entra
 (stesso bug visto in `generate-workbook`), quindi le slide hanno un tetto
-reale, non indicativo:
+reale, non indicativo. Con più beat, ognuno è **più corto** di quanto
+fossero i vecchi 3 slide "valore", non più lungo:
 
 | Campo | Tetto |
 |---|---|
 | `hook_testo` | ~90 caratteri, max 2 righe |
-| `valore1..3_testo` | ~180 caratteri ciascuno |
+| `valoreN_testo` (ogni beat) | ~40-90 caratteri — spesso una frase sola, a volte una frase spezzata in due beat |
 | `chiusura_testo` | ~120 caratteri, max 2 righe |
 | `cta_podcast_titolo` | ~60 caratteri (titolo reale dell'episodio) |
 | `cta_podcast_azione` / `cta_masterclass_azione` | ~70 caratteri |
