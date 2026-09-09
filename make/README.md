@@ -1,11 +1,15 @@
 # Make — HDH social hand-off (v2: one scenario, router per platform)
 
-Status (2026-09-04): **built directly in Make, not just a blueprint file.**
+Status (2026-09-09): **built directly in Make and verified working.**
 Scenario **`HDH Social — Canva → FB / IG / Telegram`** (id `9724996`, team
 `11942`) — this reuses the scenario Giusi had already started as "Publish
 Done Canva Designs": same Canva connection (id `14550076`), renamed and
-restructured. It's currently **off**, with Facebook/Instagram/Telegram
-connections unset — Giusi connects those by hand before anything can run.
+restructured. Facebook/Instagram/Telegram are all connected, and multiple
+happy-path test runs confirm real execution data: Facebook gets the full
+5-page album, Instagram gets page 1, Telegram gets the full album with the
+caption correctly on page 1 only. It's still **off** — every branch also
+carries a hardcoded "always false" safety filter, so nothing has actually
+published anywhere yet.
 
 `hdh-canva-to-social-router.json` in this folder is kept as an importable
 blueprint of the same structure (useful for recreating the scenario, or
@@ -13,9 +17,9 @@ importing into a different team) — it mirrors what's live, not a separate
 design.
 
 ```
-                                    ┌─ Facebook Page: create post (unpublished draft)
-webhook → filter → Canva: export ──┼─ [if "instagram" confirmed] → Instagram: create post  (LIVE — no draft)
-                                    └─ [if "telegram" confirmed]  → Telegram bot: send photo (LIVE — no draft)
+                                                        ┌─ Facebook Page: full album, all pages (unpublished draft)
+webhook → filter → Canva: export (5 pages) → Aggregator ┼─ [if "instagram" confirmed] → Instagram: page 1 only (LIVE — no draft)
+                                                        └─ [if "telegram" confirmed]  → Feeder → Aggregator → Telegram: full album (LIVE — no draft)
 ```
 
 Full contract and reasoning: `.claude/skills/schedule-social-post/references/make_handoff.md`.
@@ -54,27 +58,18 @@ it.
 So Facebook profile, the Podcast Group, and YouTube community posts all stay
 copy-paste from the review package. Permanently, not "until we find a way."
 
-## Setup Giusi still needs to do (Claude holds no platform credentials)
+## What's left before going live
 
-1. Open scenario `HDH Social — Canva → FB / IG / Telegram` in Make.
-2. **Facebook Pages module** → add your connection → pick the Page → map the
-   exported Canva images into the photos field → check whether the module
-   exposes unpublished/scheduled (see the caveat below).
-3. **Instagram Business module** → add your connection → map the exported
-   image into the photo field. **The caption field mapping
-   (`{{1.captions.instagram.testo}}`) is Claude's best guess** — this
-   session had no schema-read access to Make's app definitions to confirm
-   it against the actual module fields, so check it lands in the right
-   place once connected.
-4. **Telegram module** (`SendMediaGroup` — sends the full carousel, not just
-   the cover image) → create a bot via @BotFather if you haven't, add the
-   connection, set the target `chat_id` (your channel), map **all** exported
-   Canva pages into the media array with the caption
-   (`{{1.captions.telegram.testo}}` — best-guess field name, unverified) on
-   the first item only — Telegram's own API only shows one caption per
-   media group, on the first item.
-5. **Leave the scenario off** until you've tested per `make/TESTING.md`.
-6. Once you're happy, tell me and I'll set `MAKE_WEBHOOK_URL` and
+Connections, image mapping, and the Telegram carousel logic are all done
+and verified (see status above). What remains:
+
+1. **Remove the "always false" safety filter** on each of the three
+   platform branches — added deliberately during testing, needs taking out
+   before any real send.
+2. **Facebook: check whether the module exposes unpublished/scheduled**
+   (see the caveat below) — hasn't come up yet since the branch stayed
+   disabled throughout testing.
+3. Once you're happy, tell me and I'll set `MAKE_WEBHOOK_URL` and
    `MAKE_WEBHOOK_API_KEY` in the environment where `generate-social-post`/
    `schedule-social-post` run. **Never commit either to the repo** — anyone
    holding both could push a post into your pipeline.
@@ -100,10 +95,18 @@ Your Facebook **personal profile**, the **Podcast Group** and **YouTube**
 can't be automated at all (no API for any of them), so those captions stay
 copy-paste from the review package.
 
-## Not yet validated
+## Architecture note: why there's an Aggregator (and a Feeder+Aggregator for Telegram)
 
-Module-level field names for Instagram and Telegram — see point 3 and 4
-above. Facebook's `message` field is confirmed (it's what was already in
-Giusi's original Facebook module, untouched). The team ID (`11942`) that the
-old version of this doc needed is no longer a blocker — resolved this
-session via `environment_get`.
+Canva's `exportDesign` with `as_single_image: false` returns **multiple
+bundles** (one per page), not one bundle with an array field — every
+downstream module would otherwise re-run once per page instead of once per
+post. A `builtin:BasicAggregator` right after it collects all pages into
+one bundle holding a real array, which Facebook (full album) and Instagram
+(indexed to page 1) consume directly. Telegram needs its own
+Feeder→Aggregator pair on top of that, because each item in its media
+group needs per-item shaping (`type`, `httpUrl`, `sendType`) with the
+caption applied to page 1 only — `if(9.__IMTINDEX__ = 1; ...)`. Make's
+bundle/feeder indices are 1-based (confirmed against the scenario's own
+cached sample data) — an earlier `= 0` version of this condition was a
+real bug that shipped once and was caught by inspecting real execution
+output, not by guessing.

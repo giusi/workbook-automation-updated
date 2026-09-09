@@ -97,10 +97,23 @@ Rules for the payload:
 ## Scenario spec — as actually built (2026-09-04)
 
 ```
-                                    ┌─ Facebook Page: create post (unpublished draft)
-webhook → filter → Canva: export ──┼─ [if "instagram" in canali_live_confermati] → Instagram: create post        (LIVE, no draft)
-                                    └─ [if "telegram" in canali_live_confermati]  → Telegram bot: send media group — full carousel (LIVE, no draft)
+                                                        ┌─ Facebook Page: create post, full album, all pages (unpublished draft)
+webhook → filter → Canva: export (5 pages) → Aggregator ┼─ [if "instagram" confirmed] → Instagram: create post, page 1 only (LIVE, no draft)
+                                                        └─ [if "telegram" confirmed]  → Feeder → per-item caption (page 1 only) → Aggregator → Telegram: send media group, full album (LIVE, no draft)
 ```
+
+The Aggregator after Canva's export exists because `exportDesign` with
+`as_single_image: false` returns **multiple bundles** (one per page), not
+one bundle with an array field — every downstream module would otherwise
+re-run once per page. The Aggregator collects them into one bundle holding
+a real array (`{{7.array}}`), which Facebook and Instagram consume
+directly/indexed. Telegram needs a second Feeder→Aggregator pair because
+its media-group items each need per-item shaping (`type`, `httpUrl`,
+`sendType`) with the caption applied to page 1 only — done via
+`if(9.__IMTINDEX__ = 1; ...)` (Make's bundle/feeder indices are 1-based,
+confirmed against the scenario's own cached sample data, not assumed —
+an earlier `= 0` version of this condition was a real bug, since fixed and
+verified both by execution output and independent blueprint read-back).
 
 One scenario (not one per platform) — reasoning: a single execution log per
 post lets you see every platform's outcome together when debugging "did
@@ -119,39 +132,32 @@ locked down third-party publishing to Groups in 2018 and only grants that
 API to a small number of specially-reviewed apps. All three stay copy-paste
 from the review package, permanently, not "until automated."
 
-### What's wired vs. what's still open (status 2026-09-08)
+### What's wired vs. what's still open (status 2026-09-09)
 
-Wired and confirmed working (guard-filter and happy-path tests both
-passed):
-- Webhook trigger (with `x-make-apikey` auth), the "Solo payload completi"
-  guard filter, Canva export by `canva_design_id` — now exporting **one
-  image per page** (`format: {type: png, as_single_image: false}`; this
-  was the fix for a real `pagesToArray` error hit during testing, not a
-  preemptive guess).
-- Router with 3 branches, each independently filtered — all three
-  currently carry an extra hardcoded "always false" condition (added by
-  Giusi/Thais in the Make UI) as a harder safety block than just disabling
-  the module, on top of the `canali_live_confermati` gate on
-  Instagram/Telegram.
+**Fully wired, verified working end to end** (guard-filter and multiple
+happy-path tests, real execution output inspected — Facebook full album,
+Instagram page-1, Telegram media group with correct per-item captions all
+confirmed against actual bundle data, not assumed):
+- Webhook trigger (`x-make-apikey` auth), guard filter, Canva export
+  (5 pages, jpg) → Aggregator → Router with 3 branches.
 - **Facebook Pages, Instagram Business, and Telegram Bot connections are
-  all made** — real Page/account/chat IDs wired in (this happened in the
-  Make UI, not via Claude, which never holds these credentials).
-- Facebook and Instagram captions, plus their single cover image
-  (`{{2.url[1]}}`, pinned to page 1 to preserve their working single-image
-  behavior after the Canva export started returning an array).
+  all made** — real Page/account/chat IDs wired in (Make UI, not Claude,
+  which never holds these credentials).
+- Facebook: full album (`{{7.array}}`). Instagram: page 1 only
+  (`{{7.array[1].url}}`). Telegram: full media group via a second
+  Feeder→Aggregator pair, caption correctly on page 1 only.
 
-Still open, in the Make UI:
-1. **Telegram's `media` array** — needs all of Canva's exported pages
-   mapped in (`{{2.url}}`, now a collection), not just one. This is the
-   one field Claude didn't hand-author blind: no `apps:read` scope to see
-   `SendMediaGroup`'s real shape, and an earlier guess on a different
-   module already caused a live error once — safer as a UI drag where the
-   real field structure is visible.
-2. **Remove the "always false" safety filters** on all three branches
-   before any real send — they currently block every branch unconditionally,
-   which is correct for testing, wrong for going live.
-3. **Facebook: confirm unpublished/scheduled is actually set** — same open
-   question as before on whether Make's module exposes it.
+Still open, in the Make UI, before any real send:
+1. **Remove the "always false" safety filters** on all three branches —
+   they currently block every branch unconditionally (correct for
+   testing, wrong for going live).
+2. **Facebook: confirm unpublished/scheduled is actually set** — open
+   question on whether Make's module exposes it; hasn't been checked yet
+   since the branch has stayed disabled throughout testing.
+3. **Telegram's `SendMediaGroup` requires `minItems: 2`** (a real Make
+   constraint, confirmed in its schema) — fine for every current post
+   (5 pages), but would break on a hypothetical 1-page design. Not an
+   issue now, worth remembering later.
 
 ## The caveat that decides whether this is really a "draft"
 

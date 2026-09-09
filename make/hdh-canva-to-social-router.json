@@ -13,7 +13,7 @@
       "metadata": {
         "designer": {
           "x": 0,
-          "y": 0,
+          "y": 300,
           "name": "hdh-social-draft"
         }
       }
@@ -43,17 +43,42 @@
         ]
       },
       "mapper": {
-        "designId": "{{1.canva_design_id}}",
+        "design_id": "{{1.canva_design_id}}",
+        "folderId": "FAHUIdsKNnM",
         "format": {
-          "type": "png",
-          "as_single_image": false
+          "type": "jpg",
+          "quality": 100
         }
       },
       "metadata": {
         "designer": {
           "x": 300,
-          "y": 0,
-          "name": "Esporta il carosello (tutte le pagine)"
+          "y": 300,
+          "name": "Esporta il carosello"
+        }
+      }
+    },
+    {
+      "id": 7,
+      "module": "builtin:BasicAggregator",
+      "version": 1,
+      "parameters": {
+        "feeder": 2,
+        "target": "4.photos"
+      },
+      "filter": null,
+      "flags": {
+        "stopIfEmpty": true
+      },
+      "mapper": {
+        "url": "{{2.url}}",
+        "type": "url"
+      },
+      "metadata": {
+        "designer": {
+          "x": 600,
+          "y": 300,
+          "name": "Collect Canva pages"
         }
       }
     },
@@ -64,8 +89,8 @@
       "mapper": null,
       "metadata": {
         "designer": {
-          "x": 600,
-          "y": 0,
+          "x": 900,
+          "y": 300,
           "name": "Instrada per canale"
         }
       },
@@ -92,19 +117,14 @@
                 ]
               },
               "mapper": {
-                "photos": [
-                  {
-                    "url": "{{2.url[1]}}",
-                    "type": "url"
-                  }
-                ],
+                "photos": "{{7.array}}",
                 "message": "{{1.captions.facebook_profilo.testo}}",
                 "page_id": "357657111390116"
               },
               "metadata": {
                 "designer": {
-                  "x": 900,
-                  "y": -120,
+                  "x": 1200,
+                  "y": 0,
                   "name": "Bozza su Facebook"
                 }
               }
@@ -140,12 +160,12 @@
               "mapper": {
                 "caption": "{{1.captions.instagram.testo}}",
                 "accountId": "17841400594570745",
-                "image_url": "{{2.url[1]}}"
+                "image_url": "{{7.array[1].url}}"
               },
               "metadata": {
                 "designer": {
-                  "x": 900,
-                  "y": 0,
+                  "x": 1200,
+                  "y": 300,
                   "name": "Instagram (live!)"
                 }
               }
@@ -155,7 +175,51 @@
         {
           "flow": [
             {
-              "id": 6,
+              "id": 9,
+              "module": "builtin:BasicFeeder",
+              "version": 1,
+              "parameters": {},
+              "filter": null,
+              "mapper": {
+                "array": "{{7.array}}"
+              },
+              "metadata": {
+                "designer": {
+                  "x": 1200,
+                  "y": 600,
+                  "name": "Split Telegram pages"
+                }
+              }
+            },
+            {
+              "id": 10,
+              "module": "builtin:BasicAggregator",
+              "version": 1,
+              "parameters": {
+                "feeder": 9
+              },
+              "filter": null,
+              "flags": {
+                "stopIfEmpty": true
+              },
+              "mapper": {
+                "__IMTTARGET__": {
+                  "type": "photo",
+                  "caption": "{{if(9.__IMTINDEX__ = 1; 1.captions.telegram.testo; emptystring)}}",
+                  "httpUrl": "{{9.url}}",
+                  "sendType": "send_byurl"
+                }
+              },
+              "metadata": {
+                "designer": {
+                  "x": 1500,
+                  "y": 600,
+                  "name": "Build Telegram media"
+                }
+              }
+            },
+            {
+              "id": 8,
               "module": "telegram:SendMediaGroup",
               "version": 1,
               "parameters": {
@@ -179,13 +243,14 @@
                 ]
               },
               "mapper": {
+                "media": "{{10.array}}",
                 "chatId": "@giusihappydaily"
               },
               "metadata": {
                 "designer": {
-                  "x": 900,
-                  "y": 120,
-                  "name": "Telegram — carosello completo (live!)"
+                  "x": 1800,
+                  "y": 600,
+                  "name": "Telegram album"
                 }
               }
             }

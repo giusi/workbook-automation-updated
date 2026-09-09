@@ -156,24 +156,19 @@ draft is good. Instagram and Telegram have no such step — the
 `canali_live_confermati` confirmation is the only gate they get, which is
 why it's asked fresh every time, never inferred.
 
-## Still open
+## Still open (status 2026-09-09)
 
-- **Does Make's Facebook module expose "unpublished"?** If it only posts
-  live, scheduling is the workaround. Tell me what you find and I'll adjust
-  the blueprint.
-- **Telegram's `media` field is still unmapped.** The Canva export now
-  produces one image per page (`format: {type: png, as_single_image:
-  false}`, fixed 2026-09-08 — this is what caused the earlier
-  `pagesToArray` error, and confirmed real via Make's own stored module
-  schema, not a guess). Facebook and Instagram were re-pinned to page 1
-  (`{{2.url[1]}}`) to keep their already-working single-image behavior
-  unchanged. Telegram's `SendMediaGroup.media` array — which needs **all**
-  pages, not just one — is the one piece Claude can't safely hand-author
-  blind (no `apps:read` scope to see its real field shape, and one earlier
-  guess already caused a live scenario error). Map `{{2.url}}` (now an
-  array) into the `media` field in the Make UI once you're in there — it
-  should be a straightforward collection-to-collection drag since both
-  sides are arrays.
+The full carousel pipeline (Aggregator → Router → Facebook full album /
+Instagram page-1 / Telegram Feeder+Aggregator media group) is built and
+verified against real execution output — see `make_handoff.md` for the
+architecture. What's left before a real send:
+
+- **Remove the "always false" safety filters** on all three branches —
+  they've blocked every test run so far on purpose; going live means
+  taking them out.
+- **Does Make's Facebook module expose "unpublished"?** Still unchecked —
+  the branch has stayed disabled throughout testing, so this hasn't come
+  up yet. If it only posts live, scheduling is the workaround.
 - **The other channels** — Facebook profile, the Podcast Group, and YouTube
   community posts have no API at all (confirmed against Make's own module
   lists — Facebook Groups specifically has no app in Make's catalog, public
