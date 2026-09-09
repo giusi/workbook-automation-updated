@@ -200,6 +200,19 @@ does anyone invoke `schedule-social-post`, which is what talks to Make.
    finished — never hand Giusi an edit URL with the old title still
    showing.
 
+   **File it into the correct monthly folder.** Canva's `Social Media
+   Automation` folder (id `FAHUIdsKNnM`) is organized into one subfolder per
+   month, named `<MESE>-<ANNO>` in uppercase Italian (e.g. `SETTEMBRE-2026`,
+   `OTTOBRE-2026`) — derived from the target post date, not from today. Use
+   `search-folders` (or `list-folder-items` on `FAHUIdsKNnM`) to find the
+   subfolder for the target month; if it doesn't exist yet, create it with
+   `create-folder` (`parent_folder_id: FAHUIdsKNnM`). Then
+   `move-item-to-folder` the newly created design into that subfolder. Never
+   leave a new design sitting at the root of `Social Media Automation` —
+   that's exactly what this convention exists to prevent, and it's cheap to
+   do right after the rename, before the design gets buried under later
+   generations.
+
 8. **Write the review package** to `out/social/<date>-<slug>.json`: the
    Canva edit URL, every caption variant, `fonte`/`stile` used, the CTA
    keyword(s), and every drafted field's exact text (hook, valore1-3,
