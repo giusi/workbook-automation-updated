@@ -232,7 +232,8 @@ entries to avoid reel-ifying the same episode twice.
 - hook_testo: "Perché non ti serve più forza di volontà" (senza il prefisso data "26.9" — tolto su richiesta esplicita di Giusi il 2026-09-22)
 - quote_testo: "Per anni, quando qualcosa non funzionava, la risposta era sempre la stessa: devo fare di più. Più disciplina. Più organizzazione. Più forza di volontà. A un certo punto mi sono chiesta: 'E se invece rendessi più facile prendermi cura di me?'" — versione accorciata (font 48px) di un testo più lungo dettato da Giusi, per farlo entrare nel frame della quote card senza sovrapporsi alla foto
 - cta_azione: Rispondi "PODCAST" per ricevere il link in DM (fissa per questo formato)
-- Foto: Giusi_Journalsorriso_41.jpg (sfondo_hook + sfondo_cta), MediGiusi_54.jpg (sfondo_quote) — entrambe da "Giusi - Casual Dez20 e Journal"
+- Foto: Giusi_Journalsorriso_41.jpg (sfondo_hook + sfondo_cta, da "Giusi - Casual Dez20 e Journal"); sfondo_quote riportato alla foto originale del template (MAFD12wZMVQ) su richiesta di Giusi il 2026-09-22
+- Fix 2026-09-22: pagina 1 aveva due crop diversi della stessa foto (sfondo principale + fascia info in basso), che sembravano due immagini scucite — corretto allineando il crop della fascia in basso alla stessa scala/posizione del fondo principale, così ora è una foto continua
 - Caption reale allegata come commento Canva sul design (thread KAHV8QfYOsI + KAHV8UcV094)
 - Nota: il gate automatico `social-critic` è stato rimosso da questa skill il 2026-09-22 (su richiesta di Giusi) perché applicava la rubrica del carosello a campi fissi per design (titolo verbatim, CTA fissa, niente hashtag) — vedi `.claude/skills/generate-social-reel/SKILL.md`. Revisione fatta da Giusi direttamente in chat.
 - Make webhook: non ancora inviato (nessuno scenario reel costruito)
