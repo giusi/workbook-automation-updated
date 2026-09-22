@@ -242,4 +242,5 @@ entries to avoid reel-ifying the same episode twice.
 - Nota: il gate automatico `social-critic` è stato rimosso da questa skill il 2026-09-22 (su richiesta di Giusi) perché applicava la rubrica del carosello a campi fissi per design (titolo verbatim, CTA fissa, niente hashtag) — vedi `.claude/skills/generate-social-reel/SKILL.md`. Revisione fatta da Giusi direttamente in chat.
 - Make webhook: non ancora inviato (nessuno scenario reel costruito)
 - Stato: draft — in attesa di revisione di Giusi su Canva e di impostare a mano timing/transizioni prima dell'export
+- Nota infra 2026-09-22 (dopo la creazione di questo draft): il template del reel è stato sostituito — nuovo `EAHV8s0ovFs`, pubblicato da Giusi stessa in Canva (questo connector non ha permesso di pubblicare brand template). Il campo `sfondo_quote` non esiste più: la foto di pagina 2 è ora fissa nel template, mai più richiesta a runtime. Questo draft (creato dal vecchio `EAHV8Iu7jbk`, ora eliminato) non è affetto — resta valido così com'è. Vedi `reel_template.md`'s "History" per i dettagli completi.
 ---

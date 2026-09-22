@@ -11,7 +11,7 @@ Instagram caption — promoting one specific HDH podcast episode, in Giusi's
 voice. Sibling skill to `generate-social-post`, same spirit (a **Claude
 Code + MCP workflow**, no server, no API key), but a distinct, narrower
 format: no story-arc of beats, no CTA-type choice, no photo-pattern
-decision. Fills the reel brand template (`EAHV8Iu7jbk`, see
+decision. Fills the reel brand template (`EAHV8s0ovFs`, see
 [`references/reel_template.md`](references/reel_template.md)) directly via
 the Canva MCP connector.
 
@@ -116,20 +116,23 @@ Two things `generate-social-post` always asks about, this skill never does
    a go-ahead.** Revise per her notes and re-present the draft rather than
    moving on with an unconfirmed one.
 
-8. **Pick the photo(s).** Per `reel_template.md`'s "Photo sourcing": browse
+8. **Pick the photo.** Per `reel_template.md`'s "Photo sourcing": browse
    `generate-workbook/references/media_library.md`'s subfolders for the one
-   whose mood fits this episode, pick one photo for `sfondo_hook` +
-   `sfondo_cta` (same asset, bookend consistency) and one for
-   `sfondo_quote` (same photo or a different shot from the same
-   session/subfolder — judgment call). Never generate or use a landscape/
-   stock background for this format.
+   whose mood fits this episode, and pick one photo for `sfondo_hook` +
+   `sfondo_cta` (same asset, bookend consistency — the second `sfondo_hook`
+   element additionally needs the blur-crop treatment, see `reel_template.md`'s
+   "Faking a blur"). Never generate or use a landscape/stock background for
+   this format. **Page 2's photo is fixed in the template — there is
+   nothing to pick or fill for it**, see `reel_template.md`'s "Fields" note.
 
 9. **Fill the Canva template.** `create-design-from-brand-template` with
-   `EAHV8Iu7jbk` → `read-design` (open transaction) to get locator_ids →
-   `edit-design` with `replace_text` for the two text fields and
-   `update_fill` for the three image fields → commit. Verify each page's
-   after-thumbnail against intent before moving to the next, same
-   discipline as the carousel skill.
+   `EAHV8s0ovFs` → `read-design` (open transaction) to get locator_ids →
+   `edit-design` with `replace_text` for the text fields and `update_fill`
+   for the image fields (`hook_testo`, `sfondo_hook` ×2, `quote_testo`,
+   `cta_azione`, `sfondo_cta` — five fields total, page 2's photo is not
+   one of them) → commit. Verify each page's after-thumbnail against
+   intent before moving to the next, same discipline as the carousel
+   skill.
 
    Then `update_title` to `HDH Reel — <episode title>` and file the design
    into the correct monthly subfolder of Canva's `Social Media Automation`
