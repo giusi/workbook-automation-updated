@@ -207,6 +207,23 @@ entries to avoid reel-ifying the same episode twice.
 - Stato: **pubblicato** — confermato da Giusi il 2026-09-22 come design e caption finali realmente usciti il 19 settembre (Reel, https://www.instagram.com/reel/Ddbp69NEjff/)
 ---
 
+### DATA DA ASSEGNARE (Settembre 2026) | Non ti manca la disciplina. Ti manca una struttura che non devi reinventare ogni giorno da zero.
+- Fonte: podcast — episodio nuovo, non ancora su Castmagic; titolo di lavoro "26.9 post-masterclass" fornito da Giusi, provvisorio, da confermare prima della pubblicazione
+- Stile: unpopular_opinion
+- Terza variante nel mese della tesi "Non ti manca la disciplina..." (dopo Post 6, non datato, e Post 7 del 2026-09-15) — segnalato e confermato con Giusi il 2026-09-22: procede comunque, copy testuale fornito da lei
+- Titolo design Canva: "HDH Settembre — Post 9 — Non ti manca la disciplina"
+- Canva design ID: DAHV87j8vtQ
+- Canva design URL: https://www.canva.com/d/zzrsjo4Fy97aKQM
+- Cartella Canva: Social Media Automation / SETTEMBRE-2026 (FAHUsRMvNqA)
+- Formato: carosello statico a 6 pagine utili (hook + 3 valore + chiusura + CTA podcast, niente CTA masterclass) — testo consegnato già scritto da Giusi, non generato da questa skill
+- Sfondo: Background A (campi verdi/lago, MAEH0gshJfI) pure landscape su tutte le pagine, nessuna foto di Giusi — scelto per bilanciare il rapporto foto/landscape del mese
+- CTA podcast: parola-chiave **PODCAST** — "Scrivi «PODCAST» nei commenti e ricevi il link"
+- Nota tecnica: la pagina 7 ereditata dal template (ex CTA masterclass) non è stata rimossa dal commit automatico come atteso — l'API Canva MCP non espone un'operazione di eliminazione pagina. Il testo placeholder è stato svuotato (spazio singolo su ogni campo) ma la pagina resta fisicamente nel design: da cancellare manualmente in Canva prima della pubblicazione.
+- Review package: out/social/settembre-post9-non-ti-manca-la-disciplina.json
+- Make webhook: not yet sent (no scenario built for this design)
+- Stato: draft — testo e design completi (6 pagine utili), in attesa di: (1) conferma titolo reale dell'episodio, (2) link episodio per YouTube, (3) cancellazione manuale della pagina 7 residua, (4) data di pubblicazione, (5) revisione di Giusi
+---
+
 ### 2026-09-20 | Per molto tempo ho pensato che... non mi sarei più persa
 - Fonte: podcast ("Settembre - riparti con costanza")
 - Stile: n/d — non registrato in questa pipeline prima d'ora; identificato e collegato il 2026-09-22 a partire dalla caption reale fornita da Giusi
