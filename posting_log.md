@@ -244,3 +244,20 @@ entries to avoid reel-ifying the same episode twice.
 - Stato: draft — in attesa di revisione di Giusi su Canva e di impostare a mano timing/transizioni prima dell'export
 - Nota infra 2026-09-22 (dopo la creazione di questo draft): il template del reel è stato sostituito — nuovo `EAHV8s0ovFs`, pubblicato da Giusi stessa in Canva (questo connector non ha permesso di pubblicare brand template). Il campo `sfondo_quote` non esiste più: la foto di pagina 2 è ora fissa nel template, mai più richiesta a runtime. Questo draft (creato dal vecchio `EAHV8Iu7jbk`, ora eliminato) non è affetto — resta valido così com'è. Vedi `reel_template.md`'s "History" per i dettagli completi.
 ---
+
+### 2026-09-26 | Non ti manca la disciplina. Ti manca una struttura che non devi reinventare ogni giorno.
+- Fonte: podcast, episodio "Perché non ti serve più forza di volontà" (stesso episodio del reel del 2026-09-22, angle diverso — 1 di 3 carousel richiesti insieme da questo episodio)
+- Stile: pain_point — Avatar: Giulia
+- Titolo design Canva: "HDH Settembre — Post 9 — Non ti manca la disciplina"
+- Canva design ID: DAHV8pZYNaE
+- Canva design URL: https://www.canva.com/d/9DSkI_icIUTNLEP
+- Cartella Canva: Social Media Automation / SETTEMBRE-2026 (FAHUsRMvNqA)
+- Formato: carosello statico a 10 pagine (hook + 7 beat + chiusura + CTA podcast; niente CTA masterclass — la pagina masterclass non si è auto-prunata al commit come da documentazione, cancellata esplicitamente con conferma di Giusi "I approve the deletion")
+- Sfondo: pattern foto-solo-su-hook-e-CTA — hook e CTA podcast: Giusi con una candela (MAFU6zUflAE, "giusi-candela.jpg", cartella "Casual Dez20 e Journal"); pagine centrali (beat 1-7 + chiusura): Background A (campi verdi, cielo velato, MAEH0gshJfI)
+- CTA podcast: "Perché non ti serve più forza di volontà" — parola-chiave **PODCAST** ("Scrivi «PODCAST» nei commenti e ascolta l'ultimo episodio") — confermata da Giusi il 2026-09-22
+- Caption Instagram: prima persona/storytelling (riscritta su richiesta esplicita di Giusi per allinearsi al tono degli esempi approvati) — aggiunta come commento nativo sul design Canva (thread KAHV8rSdFM4)
+- Facebook profilo / Facebook Gruppo Podcast / YouTube (link episodio: placeholder `<LINK EPISODIO>`, non ancora fornito) / Telegram: non ancora scritte separatamente per questo post — restano da consegnare
+- Nota generator-critic: bozza testo passata dal critic automatico dopo 3 tentativi (vedi fix applicati: hashtag differenziati, hook Post 3 riscritto — non riguardava Post 1 nello specifico)
+- Make webhook: not yet sent (no scenario built)
+- Stato: draft — testo e design completi, in attesa di revisione di Giusi
+---
