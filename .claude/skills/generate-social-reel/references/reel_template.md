@@ -54,13 +54,19 @@ the episode. Default pattern, matching the real example:
   needs a blurred treatment; see "Faking a blur" below.
 - `sfondo_quote` — can be the same photo as the hook/CTA or a different
   shot from the same session/subfolder for a little variety; judgment
-  call, no fixed rule. **Use a plain `update_fill` with no follow-up
-  `crop_media`** — the real founding example's (`DAHVpz0P6HM`) crop is a
-  clean, uncropped 1:1 fill (`imageBox: {top:0, left:0, width:<box
-  width>, height:<box height>}`); Canva's auto-fit crop from a bare
-  `update_fill` call can land slightly off that (a different zoom/
-  centering), so verify the after-thumbnail against the real example
-  rather than assuming auto-fit matches it.
+  call, no fixed rule. The real founding example's (`DAHVpz0P6HM`) crop is
+  a clean, uncropped 1:1 fill (`imageBox: {top:0, left:0, width:<box
+  width>, height:<box height>}`) that shows the full photo including
+  background — Canva's auto-fit crop from a bare `update_fill` call can
+  land slightly off that, so if matching the real example is the goal,
+  set this explicitly via `crop_media` rather than trusting auto-fit.
+  **However**, Giusi asked (2026-09-22) for a tighter crop on this field
+  showing mostly her face/body and cropping out the background — the
+  founding example's full-scene crop is a starting point, not a fixed
+  rule to preserve. Default to a moderate zoom (crop_media, ~2-2.3x,
+  centered on her face/torso, iterating against the after-thumbnail) when
+  filling this field, and confirm with the after-thumbnail that background
+  elements (walls, art, furniture) are mostly cropped out.
 
 Never fall back to a generated/stock landscape for this format.
 
