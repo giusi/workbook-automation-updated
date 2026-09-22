@@ -102,30 +102,19 @@ Two things `generate-social-post` always asks about, this skill never does
    caption text, fix anything High/Medium yourself, same discipline as
    `generate-social-post` step 6.
 
-7. **Print the draft inline, then the ready marker — before any Canva work
-   starts.** Paste the actual text into the chat message itself, not a file
-   path: the episode title, the chosen quote, and the caption in full. Same
-   reasoning as `generate-social-post` step 7: a problem caught here costs a
-   rewrite; caught after the Canva fill it costs a filled design thrown
-   away. The **caption is what `social-critic` scores** (it's the
-   post-shaped text — hook_strength, narrative_arc, and the rest apply to
-   it the same way they apply to the reference organic posts in its rubric,
-   not to the on-screen episode title or quote).
+7. **Print the draft inline, before any Canva work starts.** Paste the
+   actual text into the chat message itself, not a file path: the episode
+   title, the chosen quote, and the caption in full. Same reasoning as
+   `generate-social-post` step 7: a problem caught here costs a rewrite;
+   caught after the Canva fill it costs a filled design thrown away.
 
-   Then end your message with this exact line, alone, as the very last line:
+   **Do not print the `---DRAFT READY---` marker for this skill** — see
+   "No automated critic gate for this format" below. This draft is
+   reviewed by Giusi directly, in chat.
 
-   ```
-   ---DRAFT READY---
-   ```
-
-   Never print this marker on a turn that isn't a finished, self-reviewed
-   draft — see the "Generator–critic loop" section below.
-
-   **Don't start step 8 until the draft is confirmed** — either
-   `social-critic` returns `overall_pass: true`, or (if the Stop hook isn't
-   registered) Giusi reviews the text herself and gives a go-ahead. Revise
-   per the critic's `specific_fixes` or Giusi's notes and re-print the
-   marker rather than moving on with an unconfirmed draft.
+   **Don't start step 8 until Giusi has reviewed the text herself and given
+   a go-ahead.** Revise per her notes and re-present the draft rather than
+   moving on with an unconfirmed one.
 
 8. **Pick the photo(s).** Per `reel_template.md`'s "Photo sourcing": browse
    `generate-workbook/references/media_library.md`'s subfolders for the one
@@ -171,30 +160,23 @@ Two things `generate-social-post` always asks about, this skill never does
     and post. Never call `export-design`, never touch Make, never publish
     from this skill.
 
-## Generator–critic loop (active — shares `generate-social-post`'s wiring,
-extended to this skill 2026-09-22)
+## No automated critic gate for this format (decided 2026-09-22, reversing
+the 2026-09-22 extension noted below)
 
-`.claude/hooks/run-critic.sh` is registered as a `Stop` hook in
-`.claude/settings.json` and triggers on the `---DRAFT READY---` marker in
-the last assistant message — it doesn't care which skill produced that
-turn, so no separate wiring was needed for this skill beyond step 7 above
-emitting the marker. If `.claude/settings.json`'s hook entry is ever
-missing, this loop is silent and inactive for both skills — check there
-first if a draft that should have been blocked went through unblocked.
+This skill was briefly wired into the same `social-critic` Stop-hook loop
+`generate-social-post` uses (triggered by the `---DRAFT READY---` marker in
+`.claude/hooks/run-critic.sh`). In practice, run against a real draft, the
+critic repeatedly scored `hook_testo`, `quote_testo`, and `cta_azione` as if
+they were carousel fields — demanding a crafted/invented hook instead of
+the episode's real title, and a hashtag block this format explicitly omits
+(see step 5) — even though only the caption was meant to be in its scope.
+Giusi confirmed (2026-09-22) this format doesn't play by the same rules as
+a normal post and asked for the automated gate removed here.
 
-As long as it's registered, every reel draft ending in the marker from
-step 7 is automatically scored by the `social-critic` subagent against the
-**same rubric and reference set** the carousel skill uses — no rubric
-changes were needed: `social-critic.md`'s reference set already includes
-organic podcast-promo posts (Esempio 3 and 4) in exactly this shape (a
-single caption, "Scrivi 'PODCAST' nei commenti" CTA, no hashtags), so
-`narrative_arc`/`hook_strength`/`platform_fit` calibrate against genuinely
-comparable posts, not carousel-shaped ones. This runs deliberately before
-step 8's photo sourcing and step 9's Canva fill, so a failing score costs a
-caption rewrite, not a discarded design. A failing score (any criterion
-below 4/5) blocks the turn and hands back specific fixes, up to 3 automatic
-revision attempts — after that it stands down and asks for human review
-instead of looping forever. Revise per the critic's `specific_fixes` —
-don't just re-print the same draft hoping for a different score. Only once
-the draft clears this gate does the skill move on to photo sourcing and the
-actual Canva fill.
+Concretely: **this skill's step 7 never prints `---DRAFT READY---`**, so
+`run-critic.sh`'s exact-last-line check never matches and the hook is a
+silent no-op for every reel draft — `generate-social-post`'s carousel
+workflow is unaffected and still goes through the critic normally. Review
+for this format is Giusi reading the draft in chat and giving a go-ahead,
+per step 7 above — don't reintroduce the marker here without discussing a
+reel-appropriate rubric with her first.

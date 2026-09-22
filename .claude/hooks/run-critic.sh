@@ -2,12 +2,18 @@
 # Runs after the generator's turn ends (Stop hook). Only acts when the last
 # assistant message ENDS ON the "---DRAFT READY---" marker (as its own last
 # non-blank line, ignoring an optional wrapping ``` fence) — the marker that
-# generate-social-post and generate-social-reel print once a full social
-# post draft (captions inline, not just a file path) has been presented.
-# This is deliberately a last-line check, not a substring search: everything
-# else (mid-conversation chatter, questions to Giusi, non-post turns, and a
-# status message that merely *mentions* the marker while describing this
-# mechanism) is a no-op.
+# generate-social-post prints once a full social post draft (captions
+# inline, not just a file path) has been presented. This is deliberately a
+# last-line check, not a substring search: everything else (mid-conversation
+# chatter, questions to Giusi, non-post turns, and a status message that
+# merely *mentions* the marker while describing this mechanism) is a no-op.
+#
+# generate-social-reel deliberately does NOT print this marker (removed
+# 2026-09-22, per Giusi) — the social-critic rubric kept scoring that
+# format's fixed fields (verbatim episode title, fixed CTA, no hashtags) as
+# if they were carousel fields and rejecting drafts that were correct by
+# that skill's own rules. Reel drafts are reviewed by Giusi directly in
+# chat instead; this hook stays a no-op for them.
 #
 # When the marker is present: calls the social-critic subagent, parses its
 # JSON verdict, and blocks the Stop event (forcing a revision turn) if the
