@@ -4,7 +4,8 @@
 - **URL:** https://www.instagram.com/reel/Ddbp69NEjff/
 - **Tipo:** reel
 - **CTA keyword:** Settembre
-- **Stato:** pubblicato — riferimento di voce/stile, non fa parte del ciclo di bozze di questo repo.
+- **Canva design:** DAHVLbIEegY — https://www.canva.com/d/0NEdTcxstZ4Wz_a ("La costanza - settembre 2026" — non registrato altrove in questo repo)
+- **Stato:** pubblicato — confermato da Giusi il 2026-09-22 come design e caption finali realmente usciti.
 
 ## Instagram
 

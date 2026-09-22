@@ -4,7 +4,8 @@
 - **URL:** https://www.instagram.com/p/DdebHNrgNl4/
 - **Tipo:** post
 - **CTA keyword:** settembre
-- **Stato:** pubblicato — riferimento di voce/stile, non fa parte del ciclo di bozze di questo repo.
+- **Canva design:** DAHVpwIbePY — https://www.canva.com/d/xuQuInoBYkZVA3I ("Come non perderti di nuovo - carosello" — non registrato altrove in questo repo)
+- **Stato:** pubblicato — confermato da Giusi il 2026-09-22 come design e caption finali realmente usciti.
 
 ## Instagram
 

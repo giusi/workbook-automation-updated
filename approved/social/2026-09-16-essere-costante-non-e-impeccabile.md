@@ -4,7 +4,8 @@
 - **URL:** https://www.instagram.com/p/DdV6jVVjR3P/
 - **Tipo:** post
 - **CTA keyword:** SETTEMBRE
-- **Stato:** pubblicato — riferimento di voce/stile, non fa parte del ciclo di bozze di questo repo.
+- **Canva design:** DAHUItopUiI — https://www.canva.com/d/T_X2Dq_5EHpYJ26 (stesso design della bozza superata `approved/social/2026-09-12-il-30-percento-costanza-vera.md` — questa è la caption effettivamente andata online con quel design)
+- **Stato:** pubblicato — confermato da Giusi il 2026-09-22 come versione finale realmente uscita.
 
 ## Instagram
 
