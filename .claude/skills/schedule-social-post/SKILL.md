@@ -41,14 +41,28 @@ approved — stop and ask. "The draft looks finished" is not approval. Neither i
    plausible value, do not ask Make to sort it out. Make's own filter blocks
    these too; this is the first of the two checks, not a replacement for it.
 
-4. **Write the approved record** to `approved/social/<date>-<slug>.md` and
+4. **Final Meta compliance scan.** This is the last gate before anything
+   goes live, and the only one guaranteed to run — a post finalized by
+   Giusi editing Canva directly (see `hdh-social-copy`'s "un caveat
+   specifico a questa pipeline") never went through `social-critic`'s
+   `meta_compliance` score at all. Check every caption against
+   `brand_voice/meta_compliance.md`'s RED list (guaranteed outcomes, fake
+   urgency, deceptive claims) and its GREEN/YELLOW table for direct
+   assignment of a sensitive condition to "tu". Don't rewrite anything
+   yourself here — that's `generate-social-post`'s job — but if you find a
+   RED-table pattern or a clear direct-assignment phrase, **stop and flag
+   it to Giusi** before sending, exactly as you would a placeholder. A
+   YELLOW-table phrase she deliberately kept after seeing this flag is her
+   call to make, not yours to block silently.
+
+5. **Write the approved record** to `approved/social/<date>-<slug>.md` and
    `.json`. Unlike `out/`, this directory is **committed** — it is the durable
    answer to "what did we actually approve and send?", and it survives the
    container that `out/` does not. Include: date, fonte, stile, thesis, avatar,
    the Canva design URL and id, every platform caption verbatim, the CTA
    keyword as sent, and the approval timestamp.
 
-5. **POST to Make.** Send the payload described in
+6. **POST to Make.** Send the payload described in
    [`references/make_handoff.md`](references/make_handoff.md) to the URL in
    `MAKE_WEBHOOK_URL`, with an `x-make-apikey: $MAKE_WEBHOOK_API_KEY` header
    (added 2026-09-04 — the webhook rejects requests missing it). If either
@@ -63,15 +77,15 @@ approved — stop and ask. "The draft looks finished" is not approval. Neither i
    a channel she said yes to *for this send*. Facebook needs no such flag; its
    draft/unpublished state is the review step.
 
-6. **Update `posting_log.md`**: set `Make webhook: sent <timestamp>`, point
+7. **Update `posting_log.md`**: set `Make webhook: sent <timestamp>`, point
    `Review package` at the `approved/social/` path, and set `Stato: inviato a
    Make`. Never mark a post `pubblicato` — Claude doesn't know whether it went
    out, and shouldn't claim to.
 
-7. **Commit** the `approved/social/` files and the log entry, so the record of
+8. **Commit** the `approved/social/` files and the log entry, so the record of
    what was sent is in git rather than in a container that will be reclaimed.
 
-8. **Report back**: what was sent, where the approved record lives, and that
+9. **Report back**: what was sent, where the approved record lives, and that
    scheduling/publishing now happens in Make with a human still deciding the
    final publish.
 

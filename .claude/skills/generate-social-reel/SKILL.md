@@ -98,7 +98,9 @@ Two things `generate-social-post` always asks about, this skill never does
    precedent rather than the general rule.
 
 6. **Self-review before Giusi sees it.** Run a `brand-review`-style pass
-   against `brand_voice/tone_guide.md` and the forbidden-phrase list on the
+   against `brand_voice/tone_guide.md`, the forbidden-phrase list, and
+   `brand_voice/meta_compliance.md` (personal attributes, guaranteed
+   outcomes, fake urgency — see that file's GREEN/YELLOW/RED table) on the
    caption text, fix anything High/Medium yourself, same discipline as
    `generate-social-post` step 6.
 

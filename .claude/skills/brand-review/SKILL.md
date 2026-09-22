@@ -85,6 +85,15 @@ Regardless of whether brand guidelines are configured, flag:
 - **Testimonial issues** — quotes or endorsements without attribution or disclosure
 - **Copyright concerns** — content that appears to be closely paraphrased from other sources
 
+For any content headed to Meta (Instagram/Facebook) — ads or organic posts
+that might later be boosted — also check against
+`brand_voice/meta_compliance.md` if this repo has one: direct assignment of
+a sensitive personal condition to the reader, guaranteed/absolute outcomes,
+fake urgency or scarcity, and unverifiable measurable claims. These are
+Meta ad-policy red flags, not general brand-voice issues, and violating
+them risks account-level suspension rather than just weak copy — flag them
+under this section, not under Voice and Tone.
+
 ## Brand Voice Reference
 
 Use these frameworks to evaluate content against brand standards or to help the user document their brand voice.

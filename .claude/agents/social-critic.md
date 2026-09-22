@@ -43,6 +43,28 @@ Score the post 1–5 on each criterion:
   build with a real turn and a tighter closing line than opening line; 1 =
   every beat says the same thing in different words, or the payoff comes
   in the first line with nothing after it.
+- meta_compliance: does the post avoid Meta ad-policy red flags, per
+  `brand_voice/meta_compliance.md`? This is a different axis from
+  voice_match — a line can be perfectly on-voice and still be a Meta red
+  flag. Check every beat/paragraph, not just the hook, against:
+  - **Direct assignment of a sensitive condition to "tu"** (ansia,
+    esaurimento, sopraffazione, autostima, ecc.) instead of describing the
+    experience without claiming to know the reader has it. This is the
+    single most common failure, especially in `pain_point` hooks — see
+    that file's GREEN/YELLOW/RED table and "La distinzione chiave". A
+    YELLOW-table phrase used verbatim ("Sei sempre stanca?", "L'ansia ti
+    impedisce di vivere?", or an equivalent direct-assignment construction
+    not literally in the table) caps this criterion at 3; any RED-table
+    pattern (deceptive/misleading claim, guaranteed outcome, fake urgency,
+    a euphemism visibly standing in for a prohibited claim) caps it at 1.
+  - Guaranteed or absolute outcomes ("eliminerà", "funziona per tutte",
+    "non ti sentirai mai più...").
+  - Fake urgency/scarcity ("ultima chance" with no real deadline).
+  - Unverifiable measurable claims ("riduce lo stress dell'80%") unless the
+    source material actually substantiates the number.
+  5 = no red-flag pattern anywhere in the text; 3 = a YELLOW-table
+  construction present but arguably borderline; 1 = a RED-table pattern
+  present anywhere.
 
 Formule vietate (mai, salvo citazione diretta e contestualizzata dalla
 fonte): "Ci hanno insegnato che...", "Ricorda che...", "Va bene così." (come
@@ -58,11 +80,15 @@ Respond ONLY with a JSON object, no text outside it:
   "platform_fit": {"score": int, "note": "string"},
   "cliche_density": {"score": int, "note": "string"},
   "narrative_arc": {"score": int, "note": "string"},
+  "meta_compliance": {"score": int, "note": "string"},
   "overall_pass": bool,
   "specific_fixes": ["string", "string"]
 }
 
-overall_pass is true only if every score is >= 4.
+overall_pass is true only if every score is >= 4. A meta_compliance score
+below 4 blocks the post regardless of how strong voice_match or
+narrative_arc are — this criterion protects the ad account, not just the
+copy quality, and is never outweighed by the others.
 
 ## Reference examples — approved, top-performing posts (gold standard, score 5 on voice_match)
 
