@@ -1,6 +1,7 @@
 # Posting log — HDH social content
 
-Append-only record of what `generate-social-post` has drafted. Prevents
+Append-only record of what `generate-social-post` (carousels) and
+`generate-social-reel` (podcast-episode reels) have drafted. Prevents
 duplicate posts and gives a durable, diffable audit trail of what went out
 (or is still pending) — same spirit as `content_plan.toml`'s role for the
 workbook pipeline.
@@ -23,6 +24,12 @@ One entry per post:
 `generate-social-post` appends an entry (status `draft`) at the end of each
 run. Update `Stato` by hand as a post moves through review/publishing until
 the Make hand-off exists to do this automatically.
+
+`generate-social-reel` entries add `Formato: reel` plus the episode title
+and chosen quote in place of the carousel's beat structure — see
+`.claude/skills/generate-social-reel/references/reel_template.md`. Before
+picking an episode, that skill greps this file for existing `Formato: reel`
+entries to avoid reel-ifying the same episode twice.
 
 ## Entries
 
