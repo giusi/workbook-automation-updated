@@ -1,6 +1,7 @@
 # Posting log — HDH social content
 
-Append-only record of what `generate-social-post` has drafted. Prevents
+Append-only record of what `generate-social-post` (carousels) and
+`generate-social-reel` (podcast-episode reels) have drafted. Prevents
 duplicate posts and gives a durable, diffable audit trail of what went out
 (or is still pending) — same spirit as `content_plan.toml`'s role for the
 workbook pipeline.
@@ -23,6 +24,12 @@ One entry per post:
 `generate-social-post` appends an entry (status `draft`) at the end of each
 run. Update `Stato` by hand as a post moves through review/publishing until
 the Make hand-off exists to do this automatically.
+
+`generate-social-reel` entries add `Formato: reel` plus the episode title
+and chosen quote in place of the carousel's beat structure — see
+`.claude/skills/generate-social-reel/references/reel_template.md`. Before
+picking an episode, that skill greps this file for existing `Formato: reel`
+entries to avoid reel-ifying the same episode twice.
 
 ## Entries
 
@@ -122,9 +129,9 @@ the Make hand-off exists to do this automatically.
 - Sfondo: pattern foto-solo-su-hook-e-CTA — hook e CTA masterclass: Giusi seduta in città, ritratto lifestyle (MAGoD4-QrOk); pagine centrali: Background B (chioma di foresta nella nebbia)
 - Design accorciato in revisione da 7 a 6 pagine: la CTA podcast è stata rimossa, resta solo la CTA masterclass. Hook leggermente riformulato ("non è dare il 100%" invece di "non significa dare il 100%").
 - CTA masterclass: parola-chiave **SETTEMBRE** — "Commenta 'SETTEMBRE' e ricevi il link in DM" — 24 settembre **ore 21**
-- Approved record: approved/social/2026-09-12-il-30-percento-costanza-vera.md (.json) — backfilled 2026-09-04 so the approved copy survives even though out/ is ephemeral; not a send record, nothing has gone to Make.
+- Approved record: approved/social/2026-09-12-il-30-percento-costanza-vera.md (.json) — this was the pipeline's approved DRAFT caption, backfilled 2026-09-04 (out/ is ephemeral); superseded, see below.
 - Make webhook: not yet sent (scenario built — id 9724996, "HDH Social — Canva → FB / IG / Telegram" — but Facebook/Instagram/Telegram connections not yet made; MAKE_WEBHOOK_URL not set)
-- Stato: approvato — programmato per il 12 settembre alle 10:00. Caption multi-canale aggiornate: rimosso ogni riferimento alla CTA podcast, CTA masterclass ora dice esplicitamente "in DM".
+- Stato: **pubblicato** — questo design è effettivamente uscito su Instagram il 16 settembre 2026 (https://www.instagram.com/p/DdV6jVVjR3P/), non il 12 come programmato, e con la caption riscritta in prima persona rispetto alla bozza approvata l'8.4. Il testo realmente pubblicato è archiviato in approved/social/2026-09-16-essere-costante-non-e-impeccabile.md (.json) — confermato da Giusi il 2026-09-22 come versione finale. Il record del 12.9 resta come storico della bozza pipeline, ma non riflette più la caption reale: usare il record del 16.9 come riferimento di voce/stile per questo design.
 ---
 
 ### 2026-09-08 13:00 | Smetti di ricominciare sempre da capo.
@@ -153,4 +160,63 @@ the Make hand-off exists to do this automatically.
 - Data diretta masterclass: 24 settembre (aggiunta sull'ultima slide del carosello)
 - Make webhook: not yet sent (no scenario built)
 - Stato: draft — testo e design completi (tutte le pagine, CTA con parola-chiave reale e data della diretta), in attesa solo della data di pubblicazione
+---
+
+### 2026-09-15 | Non ti manca la disciplina. Ti manca un posto dove tornare.
+- Fonte: podcast ("19.9 pre-masterclass" episode script)
+- Stile: unpopular_opinion
+- Titolo design Canva: "HDH Settembre — Post 7 — Un posto dove tornare"
+- Canva design ID: DAHUtRPmpG4
+- Canva design URL: https://www.canva.com/d/_tZRBPPOq_qv1e0
+- Cartella Canva: Social Media Automation / SETTEMBRE-2026 (FAHUsRMvNqA)
+- Formato: carosello statico a 5 pagine (hook + 2 valore + chiusura + CTA masterclass; niente CTA podcast) — testo consegnato già scritto da Giusi, non generato da questa skill
+- Sfondo: Background B (chioma di foresta nella nebbia, MAHUIYnuU7Y) su tutte le pagine, nessuna foto di Giusi (pattern landscape puro)
+- CTA masterclass: header "MASTERCLASS LIVE / 24 SETTEMBRE" + parola-chiave **SETTEMBRE** ("Scrivi «SETTEMBRE» nei commenti e ricevi il link gratis") — la frase estesa della slide 5 originale ("Non un'altra lista. Non un altro metodo da provare e poi abbandonare...") non entra nel campo header/azione del template ed è stata condensata: Giusi può rivedere il wording direttamente in Canva
+- Caption Instagram: aggiunta come commento nativo sul design Canva (thread KAHUtgraZ5s)
+- Make webhook: not yet sent (no scenario built for this design)
+- Stato: draft — testo e design completi, in attesa di revisione di Giusi
+---
+
+### 2026-09-17 | Non ti manca l'informazione. Ti manca una guida.
+- Fonte: podcast ("26.9 post-masterclass" episode script)
+- Stile: educational
+- Titolo design Canva: "HDH Settembre — Post 8 — Non ti manca l'informazione"
+- Canva design ID: DAHUtR4bWkM
+- Canva design URL: https://www.canva.com/d/_ltk2MHid6JkTtc
+- Cartella Canva: Social Media Automation / SETTEMBRE-2026 (FAHUsRMvNqA)
+- Formato: carosello statico a 5 pagine (hook + 2 valore + chiusura + CTA masterclass; niente CTA podcast) — testo consegnato già scritto da Giusi, non generato da questa skill
+- Sfondo: pattern foto-solo-su-hook-e-CTA — hook e CTA masterclass: Giusi che sorride mentre scrive sul suo journal (MAEUagStiCE, cartella "Casual Dez20 e Journal"); pagine centrali: Background A (campi verdi, cielo velato, MAEH0gshJfI)
+- CTA masterclass: header "MASTERCLASS LIVE / 24 SETTEMBRE" + parola-chiave **SETTEMBRE** ("Scrivi «SETTEMBRE» nei commenti e ricevi il link gratis") — stessa nota di condensazione della slide 5 del Post 7
+- Caption Instagram: aggiunta come commento nativo sul design Canva (thread KAHUtiwwBxQ)
+- Facebook profilo / Facebook Gruppo Podcast / YouTube / Telegram: varianti già scritte da Giusi nel brief, non ancora caricate da nessuna parte (nessun campo dedicato sul design carosello) — restano da consegnare separatamente quando si programma il post
+- Make webhook: not yet sent (no scenario built for this design)
+- Stato: draft — testo e design completi, in attesa di revisione di Giusi
+---
+
+### 2026-09-19 | Quando decidiamo di prenderci più cura di noi... (Reel)
+- Fonte: podcast ("Settembre - riparti con costanza") — plan tied this date's slot to the "19.9 pre-masterclass" episode subtitle "Come non perderti di nuovo" (see social_content_plan.toml), though the design that actually shipped this date carries a different subtitle/CTA (masterclass SETTEMBRE, not PODCAST as originally proposed there)
+- Stile: n/d — non registrato in questa pipeline prima d'ora; identificato e collegato il 2026-09-22 a partire dalla caption reale fornita da Giusi
+- Titolo design Canva: "La costanza - settembre 2026"
+- Canva design ID: DAHVLbIEegY
+- Canva design URL: https://www.canva.com/d/0NEdTcxstZ4Wz_a
+- Cartella Canva: Social Media Automation (non verificata in questa sessione — design trovato via URL diretto, non tramite scansione cartella)
+- Formato: carosello statico a 7 pagine
+- CTA masterclass: parola-chiave **SETTEMBRE** — "Scrivi «SETTEMBRE» nei commenti e ricevi il link" — 24 settembre ore 21
+- Approved record: approved/social/2026-09-19-la-giornata-ideale-non-esiste.md (.json) — caption reale allegata anche come commento Canva sul design (thread KAHV7eXh-Gw + KAHV7aHu29o)
+- Make webhook: n/d — questo post è uscito su Instagram senza passare (per quanto risulta a questo repo) dal flusso schedule-social-post di qui
+- Stato: **pubblicato** — confermato da Giusi il 2026-09-22 come design e caption finali realmente usciti il 19 settembre (Reel, https://www.instagram.com/reel/Ddbp69NEjff/)
+---
+
+### 2026-09-20 | Per molto tempo ho pensato che... non mi sarei più persa
+- Fonte: podcast ("Settembre - riparti con costanza")
+- Stile: n/d — non registrato in questa pipeline prima d'ora; identificato e collegato il 2026-09-22 a partire dalla caption reale fornita da Giusi
+- Titolo design Canva: "Come non perderti di nuovo - carosello"
+- Canva design ID: DAHVpwIbePY
+- Canva design URL: https://www.canva.com/d/xuQuInoBYkZVA3I
+- Cartella Canva: Social Media Automation (non verificata in questa sessione — design trovato via URL diretto, non tramite scansione cartella)
+- Formato: carosello statico a 7 pagine
+- CTA masterclass: parola-chiave **SETTEMBRE** — "Scrivi «SETTEMBRE» nei commenti e ricevi il link" — 24 settembre ore 21
+- Approved record: approved/social/2026-09-20-non-mi-sarei-piu-persa.md (.json) — caption reale allegata anche come commento Canva sul design (thread KAHV7YIzBWI + KAHV7YvJofY)
+- Make webhook: n/d — questo post è uscito su Instagram senza passare (per quanto risulta a questo repo) dal flusso schedule-social-post di qui
+- Stato: **pubblicato** — confermato da Giusi il 2026-09-22 come design e caption finali realmente usciti il 20 settembre (post statico, https://www.instagram.com/p/DdebHNrgNl4/)
 ---

@@ -1,9 +1,13 @@
 #!/bin/bash
 # Runs after the generator's turn ends (Stop hook). Only acts when the last
-# assistant message carries the "---DRAFT READY---" marker that
-# generate-social-post prints once a full social post draft (captions
-# inline, not just a file path) has been presented — everything else (mid-
-# conversation chatter, questions to Giusi, non-post turns) is a no-op.
+# assistant message ENDS ON the "---DRAFT READY---" marker (as its own last
+# non-blank line, ignoring an optional wrapping ``` fence) — the marker that
+# generate-social-post and generate-social-reel print once a full social
+# post draft (captions inline, not just a file path) has been presented.
+# This is deliberately a last-line check, not a substring search: everything
+# else (mid-conversation chatter, questions to Giusi, non-post turns, and a
+# status message that merely *mentions* the marker while describing this
+# mechanism) is a no-op.
 #
 # When the marker is present: calls the social-critic subagent, parses its
 # JSON verdict, and blocks the Stop event (forcing a revision turn) if the
@@ -82,8 +86,21 @@ draft=$(jq -c 'select(.message.role? == "assistant")' "$transcript_path" 2>/dev/
   | jq -r '.message.content[]? | select(.type=="text") | .text' 2>/dev/null \
   | paste -sd '\n' -)
 
-if [[ -z "$draft" ]] || [[ "$draft" != *"---DRAFT READY---"* ]]; then
-  # Not a finished post draft (mid-chat, a question, a non-post turn) —
+# The marker must be the literal LAST line of the message (ignoring trailing
+# blank lines and a bare ``` fence, in case the model wraps it), never just a
+# substring anywhere in the text. A plain substring check false-triggered on
+# a status message that merely *mentioned* the marker in prose (e.g. "ends
+# with the `---DRAFT READY---` marker") mid-paragraph while describing this
+# very mechanism — the critic then correctly rejected that status text as
+# not-a-post, which is a confusing false alarm, not a real content failure.
+last_line=$(printf '%s\n' "$draft" \
+  | sed -e '/^[[:space:]]*```[[:space:]]*$/d' -e '/^[[:space:]]*$/d' \
+  | tail -n1 \
+  | sed -e 's/^[[:space:]]*//' -e 's/[[:space:]]*$//')
+
+if [[ -z "$draft" ]] || [[ "$last_line" != "---DRAFT READY---" ]]; then
+  # Not a finished post draft (mid-chat, a question, a non-post turn, or a
+  # turn that only mentions the marker without actually ending on it) —
   # never run the critic or block on these.
   exit 0
 fi

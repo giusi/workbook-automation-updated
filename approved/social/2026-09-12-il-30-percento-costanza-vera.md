@@ -1,5 +1,12 @@
 # 2026-09-12 10:00 | Essere costante non è dare il 100%.
 
+> **SUPERSEDED.** This was the pipeline's approved draft caption for Canva
+> design `DAHUItopUiI`. The post actually went out on **2026-09-16** with a
+> rewritten, first-person caption — confirmed by Giusi 2026-09-22. For voice
+> and style reference, use the real published version instead:
+> [`approved/social/2026-09-16-essere-costante-non-e-impeccabile.md`](2026-09-16-essere-costante-non-e-impeccabile.md).
+> Kept here only as a historical record of what the pipeline drafted.
+
 - **Fonte:** podcast ("Settembre - riparti con costanza")
 - **Stile:** educational
 - **Avatar:** Giulia e Rossella
