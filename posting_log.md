@@ -220,3 +220,44 @@ entries to avoid reel-ifying the same episode twice.
 - Make webhook: n/d — questo post è uscito su Instagram senza passare (per quanto risulta a questo repo) dal flusso schedule-social-post di qui
 - Stato: **pubblicato** — confermato da Giusi il 2026-09-22 come design e caption finali realmente usciti il 20 settembre (post statico, https://www.instagram.com/p/DdebHNrgNl4/)
 ---
+
+### 2026-09-22 | Perché non ti serve più forza di volontà
+- Fonte: podcast, episodio "26.9 Perché non ti serve più forza di volontà" (in uscita 2026-09-26) — script completo letto da Google Drive (episodio non ancora ingerito da Castmagic al momento del run)
+- Stile: personal_experience
+- Titolo design Canva: "HDH Reel — Perché non ti serve più forza di volontà"
+- Canva design ID: DAHV8RflVeA
+- Canva design URL: https://www.canva.com/d/Td7vhIj0Y_2eV7F
+- Cartella Canva: Social Media Automation / SETTEMBRE-2026 (FAHUsRMvNqA)
+- Formato: reel
+- hook_testo: "Perché non ti serve più forza di volontà" (senza il prefisso data "26.9" — tolto su richiesta esplicita di Giusi il 2026-09-22)
+- quote_testo: "Per anni, quando qualcosa non funzionava, la risposta era sempre la stessa: devo fare di più. Più disciplina. Più organizzazione. Più forza di volontà. A un certo punto mi sono chiesta: 'E se invece rendessi più facile prendermi cura di me?'" — versione accorciata (font 48px) di un testo più lungo dettato da Giusi, per farlo entrare nel frame della quote card senza sovrapporsi alla foto
+- cta_azione: Rispondi "PODCAST" per ricevere il link in DM (fissa per questo formato)
+- Foto: Giusi_Journalsorriso_41.jpg su tutti e tre i campi sfondo_hook/sfondo_cta (da "Giusi - Casual Dez20 e Journal"); sfondo_quote = foto originale del template (MAFD12wZMVQ), crop stretto sul volto/busto/microfono
+- Fix 2026-09-22 (quattro passaggi):
+  1. Primo tentativo: fascia info di pagina 1 resa "continua" con lo stesso sfondo principale (crop allineato) + foto diversa (meditazione) su sfondo_quote — sbagliato su entrambi i punti secondo Giusi
+  2. Secondo tentativo: confrontato l'esempio reale non toccato (DAHVpz0P6HM) e scoperto che la sua fascia info usa una foto diversa (giusi surf.jpg); replicato asset/crop esatti — Giusi ha chiesto di tornare alla stessa foto hero invece
+  3. Terzo: fascia info di pagina 1 = stessa foto hero (Journalsorriso), ma con crop estremo (zoom ~5x su una patch di sfondo) per simulare una sfocatura — l'API Canva MCP non espone un'operazione di blur/filtro vera, solo crop_media; vedi `reel_template.md`'s "Faking a blur" per il metodo
+  4. Finale: sfondo_quote zoomato (~2.3x, iterato in 3 passate) per mostrare quasi solo volto/spalle/microfono di Giusi, tagliando fuori la parete con il quadro colorato visibile nell'esempio reale — richiesto esplicitamente da Giusi, diverso dal crop 1:1 dell'esempio
+- Caption reale allegata come commento Canva sul design (thread KAHV8QfYOsI + KAHV8UcV094)
+- Nota: il gate automatico `social-critic` è stato rimosso da questa skill il 2026-09-22 (su richiesta di Giusi) perché applicava la rubrica del carosello a campi fissi per design (titolo verbatim, CTA fissa, niente hashtag) — vedi `.claude/skills/generate-social-reel/SKILL.md`. Revisione fatta da Giusi direttamente in chat.
+- Make webhook: non ancora inviato (nessuno scenario reel costruito)
+- Stato: draft — in attesa di revisione di Giusi su Canva e di impostare a mano timing/transizioni prima dell'export
+- Nota infra 2026-09-22 (dopo la creazione di questo draft): il template del reel è stato sostituito — nuovo `EAHV8s0ovFs`, pubblicato da Giusi stessa in Canva (questo connector non ha permesso di pubblicare brand template). Il campo `sfondo_quote` non esiste più: la foto di pagina 2 è ora fissa nel template, mai più richiesta a runtime. Questo draft (creato dal vecchio `EAHV8Iu7jbk`, ora eliminato) non è affetto — resta valido così com'è. Vedi `reel_template.md`'s "History" per i dettagli completi.
+---
+
+### 2026-09-26 | Non ti manca la disciplina. Ti manca una struttura che non devi reinventare ogni giorno.
+- Fonte: podcast, episodio "Perché non ti serve più forza di volontà" (stesso episodio del reel del 2026-09-22, angle diverso — 1 di 3 carousel richiesti insieme da questo episodio)
+- Stile: pain_point — Avatar: Giulia
+- Titolo design Canva: "HDH Settembre — Post 9 — Non ti manca la disciplina"
+- Canva design ID: DAHV8pZYNaE
+- Canva design URL: https://www.canva.com/d/9DSkI_icIUTNLEP
+- Cartella Canva: Social Media Automation / SETTEMBRE-2026 (FAHUsRMvNqA)
+- Formato: carosello statico a 10 pagine (hook + 7 beat + chiusura + CTA podcast; niente CTA masterclass — la pagina masterclass non si è auto-prunata al commit come da documentazione, cancellata esplicitamente con conferma di Giusi "I approve the deletion")
+- Sfondo: pattern foto-solo-su-hook-e-CTA — hook e CTA podcast: Giusi con una candela (MAFU6zUflAE, "giusi-candela.jpg", cartella "Casual Dez20 e Journal"); pagine centrali (beat 1-7 + chiusura): Background A (campi verdi, cielo velato, MAEH0gshJfI)
+- CTA podcast: "Perché non ti serve più forza di volontà" — parola-chiave **PODCAST** ("Scrivi «PODCAST» nei commenti e ascolta l'ultimo episodio") — confermata da Giusi il 2026-09-22
+- Caption Instagram: prima persona/storytelling (riscritta su richiesta esplicita di Giusi per allinearsi al tono degli esempi approvati) — aggiunta come commento nativo sul design Canva (thread KAHV8rSdFM4)
+- Facebook profilo / Facebook Gruppo Podcast / YouTube (link episodio: placeholder `<LINK EPISODIO>`, non ancora fornito) / Telegram: non ancora scritte separatamente per questo post — restano da consegnare
+- Nota generator-critic: bozza testo passata dal critic automatico dopo 3 tentativi (vedi fix applicati: hashtag differenziati, hook Post 3 riscritto — non riguardava Post 1 nello specifico)
+- Make webhook: not yet sent (no scenario built)
+- Stato: draft — testo e design completi, in attesa di revisione di Giusi
+---

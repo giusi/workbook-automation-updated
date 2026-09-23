@@ -48,3 +48,30 @@ stile = "pain_point"
 # public episode title still needs confirming (doc only gives working
 # subtitles: "Come non perderti di nuovo" / "Come non ricominciare sempre da
 # capo"). Avatar: Giulia.
+
+["2026-09-26"]
+fonte = "podcast"
+stile = "pain_point"
+# Sourced from episode "26.9 Perché non ti serve più forza di volontà"
+# (script read from Drive; same episode as the 2026-09-22 reel, which used a
+# different thesis — the open-question "e se rendessi più facile prendermi
+# cura di me?" beat). This post's angle: the self-blame/colpa spiral ("il
+# problema sono io") that follows every failed attempt at discipline. CTA:
+# podcast, keyword PODCAST (confirmed by Giusi 2026-09-22 — masterclass CTA
+# would be stale, since the 24/9 live class is over by this post date).
+# Avatar: Giulia. One of 3 carousels requested together from this episode.
+
+["2026-09-27"]
+fonte = "podcast"
+stile = "unpopular_opinion"
+# Same episode as above. This post's angle: struttura ≠ rigidità — "avere
+# una struttura" reframed as freedom from re-deciding everything every day,
+# not a cage. CTA: podcast, keyword PODCAST. Avatar: Rossella. 2 of 3.
+
+["2026-09-29"]
+fonte = "podcast"
+stile = "educational"
+# Same episode as above. This post's angle: why "basta volerlo di più"
+# doesn't work — decision fatigue as the real mechanism (every small
+# undecided choice costs energy you don't have). CTA: podcast, keyword
+# PODCAST. Avatar: Giulia. 3 of 3.
