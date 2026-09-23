@@ -38,6 +38,13 @@ Load, in this order:
    If the directory is empty (no post has been through `schedule-social-post`
    yet), say so and fall back to the docs above — don't skip the check
    silently.
+5. `brand_voice/meta_compliance.md` — Meta ads/organic red-flag rules
+   (personal attributes, guaranteed outcomes, fake urgency, and the
+   GREEN/YELLOW/RED classification). This is a **different axis from
+   voice**: a line can be perfectly on-voice and still be a Meta red flag
+   (e.g. a `pain_point` hook that directly assigns a condition to "tu").
+   Load it before drafting anything with a `pain_point`, `awareness`, or
+   any avatar-facing hook — which in practice is every post.
 
 Never draft from a blank slate or from generic wellness/coaching instincts —
 these files are what make the output sound like Giusi instead of generic AI.
@@ -206,6 +213,27 @@ reale già esistente di Giusi, es. i 4 pilastri, scritto come pratica non come
 listicle) — vedi `brand_voice/tone_guide.md` per la lista completa e le
 eccezioni, e per cosa funziona bene.
 
+## Conformità Meta — non solo voce
+
+`brand_voice/meta_compliance.md` è una checklist separata dalla voce: una
+riga può suonare perfettamente come Giusi e comunque rischiare una
+sospensione dell'account. Il caso più comune in questa pipeline è lo stile
+`pain_point`, il cui primo istinto naturale ("Sei sempre stanca?", "L'ansia
+ti impedisce di vivere?") assegna direttamente al "tu" una condizione
+sensibile — YELLOW nella classificazione di quel file, da riformulare
+**prima** di mettere la bozza davanti a Giusi, non dopo.
+
+Le hook words del sondaggio audience in `tone_guide.md` (ansia, sopraffatta,
+stanca, scarica...) restano utili per capire chi è Giulia — non sono
+frasario da mettere direttamente addosso al lettore in un hook o in una CTA.
+Riformula sempre da "affermazione sul lettore" a "descrizione
+dell'esperienza": vedi la tabella e gli esempi in quel file.
+
+Nessuna promessa di risultato garantito ("eliminerà l'ansia", "funziona per
+tutte", "trasforma la tua vita in 7 giorni"), nessuna urgenza finta
+("ultima chance" quando non lo è), nessun claim misurabile non verificabile
+("riduce lo stress dell'80%").
+
 ## Format playbook
 
 ### Carousel — costruito come una storia, non come un elenco di punti
@@ -363,8 +391,11 @@ Prima di mostrare qualsiasi bozza a Giusi, esegui una passata di
 autoverifica in stile `brand-review` (skill separata, stesso repo) usando
 `brand_voice/tone_guide.md` come guideline:
 
-1. Controlla ogni campo/caption contro la checklist qui sotto e contro la
-   lista delle formule vietate (con le eccezioni annotate).
+1. Controlla ogni campo/caption contro la checklist qui sotto, contro la
+   lista delle formule vietate (con le eccezioni annotate), e contro
+   `brand_voice/meta_compliance.md` (assegnazione diretta di condizioni
+   sensibili, garanzie di risultato, urgenza finta, claim non verificabili
+   — vedi la checklist pre-pubblicazione in quel file).
 2. Per ogni problema trovato, classifica la severità (Alta/Media/Bassa) come
    fa `brand-review`, e **correggi direttamente High e Medium** — non
    mostrare a Giusi una bozza con problemi che puoi già risolvere da solo.
@@ -387,6 +418,10 @@ autoverifica in stile `brand-review` (skill separata, stesso repo) usando
 □ Hook senza rinforzo artificiale dietro?
 □ Valore concreto, non affermazione vaga?
 □ Nessuna promessa o garanzia inventata?
+□ Nessuna riga assegna direttamente al "tu" una condizione sensibile
+  (ansia, esaurimento, autostima...) invece di descrivere l'esperienza —
+  vedi `brand_voice/meta_compliance.md`?
+□ Nessuna urgenza finta, nessun claim misurabile non verificabile?
 □ La tesi centrale è visibile, implicita o esplicita?
 □ Suonerebbe vero se lo leggesse Giusi ad alta voce?
 □ Hashtag presenti solo dove previsto (IG/FB profilo), pertinenti non generici?

@@ -192,9 +192,12 @@ does anyone invoke `schedule-social-post`, which is what talks to Make.
 
 6. **Self-review before Giusi ever sees it.** Follow `hdh-social-copy`'s
    "Self-review prima di consegnare a Giusi" procedure: run a `brand-review`-
-   style pass against `brand_voice/tone_guide.md` and the forbidden-phrase
-   list (with its noted exceptions), fix anything High/Medium severity
-   yourself, and iterate until clean. Don't guess when something depends on
+   style pass against `brand_voice/tone_guide.md`, the forbidden-phrase
+   list (with its noted exceptions), and `brand_voice/meta_compliance.md`
+   (this catches a different failure than voice — a hook can be perfectly
+   on-voice and still directly assign a sensitive condition to the reader,
+   which is the most common Meta red flag in a `pain_point` post), fix
+   anything High/Medium severity yourself, and iterate until clean. Don't guess when something depends on
    an unconfirmed fact (an unshared value proposition, an unconfirmed style
    preference) — surface that as a real question instead. When you report
    back in step 7, include only a compact summary of what was caught and

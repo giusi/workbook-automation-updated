@@ -10,6 +10,7 @@ the workbook sounds like Giusi — not like generic AI. Add real material here.
 | `sources.md` | The two canonical Google Docs (brand + editorial voice) — edit these Docs, not the snapshots below |
 | `google_docs/` | **Generated.** Markdown snapshots of `sources.md`, refreshed and committed on every run. Don't hand-edit — edit the Google Doc instead |
 | `tone_guide.md` | Hand-curated supplement — signature phrases, do's/don'ts, what to avoid (see the template) |
+| `meta_compliance.md` | Meta ads/organic red-flag rules — personal attributes, guaranteed outcomes, fake urgency. A different axis from voice: a line can be on-voice and still risk an account suspension. Loaded by `hdh-social-copy` and scored by `social-critic`'s `meta_compliance` criterion |
 | `past-workbooks/` | Exported past workbooks (PDF/text) — structure, rhythm, exercise style |
 | `podcast-transcripts/` | Transcripts of recent episodes — her spoken voice and phrasing |
 | `social-captions.md` | A handful of strong, on-brand captions |
