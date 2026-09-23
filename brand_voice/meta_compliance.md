@@ -6,8 +6,11 @@
 > categorie note delle Meta Advertising Policies rilevanti per questo
 > settore (Personal Attributes, Unacceptable Business Practices, Misleading
 > and Deceptive Claims — vedi `transparency.meta.com/it-it/policies/ad-standards/`
-> per il testo aggiornato: le policy cambiano, questo file no si aggiorna da
-> solo).
+> per il testo aggiornato: le policy cambiano, questo file non si aggiorna
+> da solo — vedi "Come tenere questo file aggiornato" in fondo).
+>
+> **Ultima verifica contro le fonti ufficiali Meta:** 2026-09-23 (data di
+> creazione del file — non ancora seguita da una vera verifica trimestrale).
 >
 > **Perché vale per ogni post, non solo per gli ad veri e propri:** Meta
 > valuta significato e contesto (creatività, offerta, landing page,
@@ -155,6 +158,47 @@ Da eseguire su ogni bozza, prima di consegnarla a Giusi:
 Se anche una sola risposta desta dubbio, riformula prima di consegnare la
 bozza — non lasciare la decisione a Giusi su un punto che si può già
 correggere.
+
+## Come tenere questo file aggiornato
+
+Questo file è una **istantanea**, non un feed live — le policy Meta
+cambiano senza preavviso e nessuna skill di questo repo le controlla in
+automatico durante la stesura di un post. La verifica è un processo
+separato, a cadenza fissa:
+
+**Fonti ufficiali da controllare (non fonti terze, non riassunti di
+blog):**
+- Meta Advertising Standards — `transparency.meta.com/it-it/policies/ad-standards/`
+  (il testo integrale delle policy sugli ad, incluse Personal Attributes e
+  Unacceptable Business Practices).
+- Meta Business Help Center, sezione ads policy —
+  `www.facebook.com/business/help` (cambi pratici, esempi, FAQ di
+  applicazione).
+- Se disponibile nell'account pubblicitario di Giusi: lo storico dei
+  rifiuti/restrizioni in Meta Ads Manager — segnala pattern reali specifici
+  del suo account, non solo la policy generale.
+
+**Cadenza:** ogni trimestre (gennaio, aprile, luglio, ottobre), più
+un controllo ad-hoc ogni volta che un post/ad viene rifiutato o l'account
+riceve un avviso — un rifiuto reale è il segnale più affidabile che qualcosa
+in questo file è cambiato o mancava.
+
+**Processo per chi (o quale sessione Claude) fa la verifica:**
+1. Leggi le fonti ufficiali sopra — non basarti sulla memoria di modello,
+   le policy cambiano più spesso della finestra di training.
+2. Confronta ogni voce della tabella GREEN/YELLOW/RED e della sezione
+   "Altre categorie Meta rilevanti" con quanto trovato. Segna cosa è
+   confermato, cosa è cambiato, cosa manca.
+3. **Non modificare direttamente questo file nella sessione di
+   verifica stessa senza revisione umana** — proponi le modifiche (diff o
+   nuova sezione) in un branch/PR separato e chiama la lista dei cambiamenti
+   nel messaggio a Giusi, esattamente come per un post: proporre non
+   pubblicare. Un errore di lettura della policy qui si propaga a ogni post
+   futuro, quindi merita lo stesso gate umano di un contenuto pubblicato.
+4. Se non è cambiato nulla di sostanziale, aggiorna comunque la riga
+   "Ultima verifica contro le fonti ufficiali Meta" in cima al file con la
+   data del controllo — questo distingue "verificato e stabile" da
+   "nessuno l'ha mai riletto".
 
 ## Nota
 
